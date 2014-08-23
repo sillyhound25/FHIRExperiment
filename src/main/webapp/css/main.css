@@ -1,0 +1,35 @@
+
+.myHide {
+    display:none;
+}
+	
+.rounded-box {
+    border: 1px solid #b8b9b5;
+    padding : 5px;
+    margin: 1px;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+        
+.rounded-box-filled {
+    border : 1px solid #eeeeee;
+    padding : 5px;
+    margin: 1px;
+  	/*margin-left : 10px;*/
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#F6F6F6;
+}
+
+.rounded-box-element {
+    border : 1px solid #eeeeee;
+    padding : 5px;
+    margin: 1px;
+    /*margin-left : 10px;*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color:#d6e9c6;
+}
