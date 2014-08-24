@@ -4,6 +4,7 @@ package fhir;
 import ca.uhn.fhir.model.api.Bundle;
 import ca.uhn.fhir.model.api.IResource;
 import ca.uhn.fhir.model.dstu.composite.CodeableConceptDt;
+import ca.uhn.fhir.model.dstu.composite.IdentifierDt;
 import ca.uhn.fhir.model.dstu.composite.QuantityDt;
 import ca.uhn.fhir.model.dstu.resource.Observation;
 
@@ -17,12 +18,18 @@ import ca.uhn.fhir.rest.annotation.*;
 import ca.uhn.fhir.rest.param.TokenOrListParam;
 import ca.uhn.fhir.rest.server.IResourceProvider;
 import com.mongodb.MongoClient;
+import fhir.model.MyObservation;
 import fhir.model.MyPatient;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import util.MyMongo;
 import util.Utility;
 
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -35,6 +42,8 @@ import java.util.List;
 import javax.json.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 /**
@@ -43,15 +52,66 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ObservationResourceProvider implements IResourceProvider {
 
+    private MyMongo _myMongo;
+
+    //constructor to pass instance of MongoClient across - actually, could this be in the Context???
+    public ObservationResourceProvider(MyMongo myMongo){
+        _myMongo = myMongo;
+    }
 
 
+    @Override
+    public Class<Observation> getResourceType() {
+        return Observation.class;
+    }
+
+    // read a single resource by id
+    @Read()
+    public Observation getResourceById(@IdParam IdDt theId) {
+        Observation obs = new Observation();
+
+        obs.setName(new CodeableConceptDt("mysys","myVal"));
+        obs.setStatus(ObservationStatusEnum.FINAL);
+        obs.setReliability(ObservationReliabilityEnum.OK);
+        return obs;
+    }
+
+
+    // search that accesses the "xml" store, rather than a resource store...
+    //might want some more genric way of doing this...
     @Search()
     public List<IResource> getObservationBySubject(@RequiredParam(name = Observation.SP_SUBJECT) StringDt theSubject) {
-        List<Observation> lstObservations = new ArrayList<Observation>();
+        List<IResource> lstObservations = new ArrayList<IResource>();
 
-        System.out.println("getting observations: Subject:" + theSubject);
+        //IdentifierDt i = new IdentifierDt()
 
-        return _myMongo.findResource("Observation");
+        //get the XML representation of the resource...
+        List<String> lst = _myMongo.getSimpleXml(theSubject);
+
+        try {
+            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+
+            //iterate through the returned objects and create a new observation
+            for (String s : lst) {
+                InputSource is = new InputSource(new StringReader(s));
+                Document doc = docBuilder.parse(is);
+
+                MyObservation obs = new MyObservation();
+                obs.populateFromSimpleXml(docBuilder,doc);
+
+                lstObservations.add(obs);
+                    //System.out.println(tagName + " " + Value);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //System.out.println("getting observations: Subject:" + theSubject);
+
+
+        return lstObservations;
+        //return _myMongo.findResource("Observation");
     }
 
     /*
@@ -123,28 +183,7 @@ public class ObservationResourceProvider implements IResourceProvider {
     */
 
 
-    private MyMongo _myMongo;
 
-    //constructor to pass instance of MongoClient across - actually, could this be in the Context???
-    public ObservationResourceProvider(MyMongo myMongo){
-        _myMongo = myMongo;
-    }
-
-    @Override
-    public Class<Observation> getResourceType() {
-        return Observation.class;
-    }
-
-    // read a single resource by id
-    @Read()
-    public Observation getResourceById(@IdParam IdDt theId) {
-        Observation obs = new Observation();
-
-        obs.setName(new CodeableConceptDt("mysys","myVal"));
-        obs.setStatus(ObservationStatusEnum.FINAL);
-        obs.setReliability(ObservationReliabilityEnum.OK);
-        return obs;
-    }
 
 
 

@@ -25,6 +25,8 @@ import java.util.List;
 /**
  * Created by davidhay on 18/08/14.
  */
+
+/* no longer using a custom service...
 @WebServlet(urlPatterns= {"/fhir/service/glucoseprocessor"}, displayName="Process Glucose bundle")
 public class GlucoseResultServlet extends HttpServlet {
 
@@ -82,3 +84,5 @@ public class GlucoseResultServlet extends HttpServlet {
 
 
 }
+
+*/

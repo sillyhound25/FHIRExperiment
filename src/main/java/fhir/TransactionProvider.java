@@ -2,6 +2,7 @@ package fhir;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.*;
+import ca.uhn.fhir.model.dstu.composite.IdentifierDt;
 import ca.uhn.fhir.model.dstu.resource.OperationOutcome;
 import ca.uhn.fhir.model.dstu.resource.Profile;
 import ca.uhn.fhir.model.dstu.valueset.IssueSeverityEnum;
@@ -31,6 +32,7 @@ public class TransactionProvider {
     private FhirContext _ctx;
 
     //constructor to pass instance of MongoClient across - actually, could this be in the Context
+    //not used in this implementtaion...
     public TransactionProvider(MyMongo myMongo){
         _myMongo = myMongo;
     }
@@ -64,11 +66,12 @@ public class TransactionProvider {
         //some clever way of doing that that means we can add processors without a complete
         //recompile...
 
-        //The processor class for this profile. Ignore the reference to mongo for this purpose...
-        GlucoseBundleProcessor glucoseBundleProcessor = new GlucoseBundleProcessor(_myMongo);
+        //The processor class for this profile.
+        GlucoseBundleProcessor glucoseBundleProcessor = new GlucoseBundleProcessor();
 
         //generate the simple XML objects for insertion into the database
         List<org.w3c.dom.Document> lst = glucoseBundleProcessor.generateSimpleXML(bundle);
+        IdentifierDt patientIdentifier = glucoseBundleProcessor.getIdentifier();    //set when the processor encounters the patient resource
 
         //Here is where the insert would occur...
         TransformerFactory factory = TransformerFactory.newInstance();
@@ -79,6 +82,9 @@ public class TransactionProvider {
                 StringWriter writer = new StringWriter();
                 transformer.transform(new DOMSource(doc), new StreamResult(writer));
                 String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+
+                _myMongo.addSimpleXml(output,patientIdentifier);
+
                 System.out.println(output);
             }
         } catch (Exception ex) {

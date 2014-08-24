@@ -7,6 +7,7 @@ import ca.uhn.fhir.model.dstu.composite.IdentifierDt;
 import ca.uhn.fhir.model.dstu.resource.Observation;
 import ca.uhn.fhir.model.dstu.resource.Patient;
 import ca.uhn.fhir.model.primitive.IdDt;
+import ca.uhn.fhir.model.primitive.StringDt;
 import ca.uhn.fhir.model.primitive.UriDt;
 import ca.uhn.fhir.parser.IParser;
 import com.mongodb.*;
@@ -191,6 +192,41 @@ public class MyMongo {
 
         coll.insert(top);//  new BasicDBObject("resource",sResource));
     }
+
+    public void addSimpleXml(String xml, IdentifierDt identifier){
+        DBObject top = new BasicDBObject();
+        top.put("data",xml);
+        String sIdentifier = null;
+        if (identifier.getSystem() != null) {
+            sIdentifier = identifier.getSystem().getValueAsString() + "|" + identifier.getValue().toString();
+        } else {
+            sIdentifier = identifier.getValue().toString();
+        }
+        top.put("identifier",sIdentifier);
+        DBCollection coll = _db.getCollection("xml");
+        coll.insert(top);
+    }
+
+
+    //get all entries from the simple xml file with the matching identifier...
+    //note: uses a substring tyope search...
+    public List<String> getSimpleXml(StringDt identifier){
+        List<String> lst = new ArrayList<String>();
+
+        DBCollection coll = _db.getCollection("xml");
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("identifier",  java.util.regex.Pattern.compile(identifier.toString()));
+        DBCursor cursor = coll.find(whereQuery);
+
+        while(cursor.hasNext()) {
+            BasicDBObject o = (BasicDBObject) cursor.next();
+            String s = o.get("data").toString();
+            lst.add(s);
+        }
+        return lst;
+
+    }
+
 
     //add a new resource to the database...
     //
