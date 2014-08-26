@@ -2,6 +2,7 @@ package listeners;
 
 import auth.Person;
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.model.dstu.resource.ListResource;
 import util.MyMongo;
 
 import javax.json.JsonObject;
@@ -34,7 +35,7 @@ public class GlobalListener implements ServletContextListener,ServletRequestList
         context.setAttribute("usertokens", new HashMap<String, Person>());
 
         //A HAPI FHIR context object
-        context.setAttribute("fhircontext",new FhirContext());
+        context.setAttribute("fhircontext",new FhirContext(ListResource.class));
 
         //Access to the mongo database
         context.setAttribute("mymongo",new MyMongo());

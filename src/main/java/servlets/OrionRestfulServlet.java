@@ -9,6 +9,7 @@ package servlets;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IResource;
 import ca.uhn.fhir.model.api.ResourceMetadataKeyEnum;
+import ca.uhn.fhir.model.dstu.resource.ListResource;
 import ca.uhn.fhir.model.primitive.IdDt;
 import ca.uhn.fhir.model.primitive.InstantDt;
 import ca.uhn.fhir.rest.annotation.Transaction;
@@ -21,6 +22,7 @@ import util.MyMongo;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,14 +37,36 @@ import java.util.Map;
 public class OrionRestfulServlet extends RestfulServer {
 
     private static final long serialVersionUID = 1L;
-    private MyMongo _myMongo;
+    //private MyMongo _myMongo;
 
     //ServletContext context =  getServletContext();
     //FhirContext ctx = (FhirContext) getServletContext().getAttribute("fhircontext");
 
+    private MyMongo _myMongo;
+    private FhirContext _fhirContext;
+
+    /*
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        //get the 'global' resources from the servlet context
+        ServletContext ctx = config.getServletContext();
+       // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
+        //_fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+    }
+
+    */
     public OrionRestfulServlet() {
 
         _myMongo = new MyMongo();   //constructor is called before init (of course)...
+
+        /*
+
+        ServletContext ctx =  getServletContext();
+        // ServletContext ctx = config.getServletContext();
+        // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
+        _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+
+*/
 
         List<IResourceProvider> resourceProviders = new ArrayList<IResourceProvider>();
         resourceProviders.add(new ConditionResourceProvider(_myMongo));
@@ -56,6 +80,8 @@ public class OrionRestfulServlet extends RestfulServer {
         plainProviders.add(new TransactionProvider(_myMongo));
         setPlainProviders(plainProviders);
 
+        setFhirContext(new FhirContext(ListResource.class));
+        //setFhirContext(_fhirContext);
         setServerConformanceProvider(new ConformanceProvider(this ));
         setServerName("FHIRBlog server");
         setServerVersion("0.1");
@@ -69,7 +95,15 @@ public class OrionRestfulServlet extends RestfulServer {
                 .add("startUp", (new Date()).toString())
                 .build();
         _myMongo.addToLog(model);
+
+        ServletContext ctx =  getServletContext();
+        System.out.println("test");
+       // ServletContext ctx = config.getServletContext();
+        // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
+       // _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+
     }
+
 
 
     //as an initial security check. I'm sure HAPI will be enhancing this...

@@ -11,6 +11,8 @@ import ca.uhn.fhir.rest.annotation.Transaction;
 import ca.uhn.fhir.rest.annotation.TransactionParam;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 import fhir.server.GlucoseBundleProcessor;
+import fhir.server.IProcessor;
+import fhir.server.MlomBundleProcessor;
 import fhir.server.Validator;
 import util.MyMongo;
 
@@ -66,36 +68,52 @@ public class TransactionProvider {
         //some clever way of doing that that means we can add processors without a complete
         //recompile...
 
-        //The processor class for this profile.
-        GlucoseBundleProcessor glucoseBundleProcessor = new GlucoseBundleProcessor();
 
-        //generate the simple XML objects for insertion into the database
-        List<org.w3c.dom.Document> lst = glucoseBundleProcessor.generateSimpleXML(bundle);
-        IdentifierDt patientIdentifier = glucoseBundleProcessor.getIdentifier();    //set when the processor encounters the patient resource
 
-        //Here is where the insert would occur...
-        TransformerFactory factory = TransformerFactory.newInstance();
-        try {
-            Transformer transformer = factory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            for (org.w3c.dom.Document doc : lst) {
-                StringWriter writer = new StringWriter();
-                transformer.transform(new DOMSource(doc), new StreamResult(writer));
-                String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+        //http://localhost/Profile/glucose
 
-                _myMongo.addSimpleXml(output,patientIdentifier);
 
-                System.out.println(output);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        IProcessor processor = null;
+        List<IResource> lst2 = new ArrayList<IResource>();
+
+
+        //The processor class for this profile...
+        if (profileName.equals("http://localhost/Profile/glucose")) {
+            processor = new GlucoseBundleProcessor();
+        } else if (profileName.equals("http://localhost/Profile/medman")){
+            processor = new MlomBundleProcessor();
         }
 
-        //just return the resources we received. We do want to think about assigning ID's at some point...
-        //HAPI will turn these into a conformant bundle...
-        List<IResource> lst2 = new ArrayList<IResource>();
-        for (BundleEntry entry : bundle.getEntries()) {
-            lst2.add(entry.getResource());
+        if (processor != null) {
+
+            //generate the simple XML objects for insertion into the database
+            List<org.w3c.dom.Document> lst = processor.generateSimpleXML(bundle);
+            IdentifierDt patientIdentifier = processor.getIdentifier();    //set when the processor encounters the patient resource
+
+            //Here is where the insert would occur...
+            TransformerFactory factory = TransformerFactory.newInstance();
+            try {
+                Transformer transformer = factory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+                for (org.w3c.dom.Document doc : lst) {
+                    StringWriter writer = new StringWriter();
+                    transformer.transform(new DOMSource(doc), new StreamResult(writer));
+                    String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+
+                    _myMongo.addSimpleXml(output, patientIdentifier);
+
+                    System.out.println(output);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            //just return the resources we received. We do want to think about assigning ID's at some point...
+            //HAPI will turn these into a conformant bundle...
+
+            for (BundleEntry entry : bundle.getEntries()) {
+                lst2.add(entry.getResource());
+            }
         }
         return lst2;
 
