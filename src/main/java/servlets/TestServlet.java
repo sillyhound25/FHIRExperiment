@@ -2,17 +2,10 @@ package servlets;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.*;
-import ca.uhn.fhir.model.dstu.resource.Device;
-import ca.uhn.fhir.model.dstu.resource.ListResource;
-import ca.uhn.fhir.model.dstu.resource.Observation;
-import ca.uhn.fhir.model.dstu.resource.Patient;
-import dataplatform.Glucose;
-import dataplatform.IPojo;
-import dataplatform.PojoFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
+import ca.uhn.fhir.model.dstu.resource.OperationOutcome;
+import ca.uhn.fhir.model.dstu.valueset.IssueSeverityEnum;
+import com.orchestral.data.healthkit.web.data.IDapPojo;
+import com.orchestral.data.healthkit.web.fhir.ProcessBundle;
 import util.MyMongo;
 
 import javax.servlet.ServletConfig;
@@ -25,13 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * for generic testing...
@@ -66,6 +53,40 @@ public class TestServlet extends HttpServlet {
         System.out.println(jb.toString());
 
         Bundle bundle = _fhirContext.newXmlParser().parseBundle(jb.toString());
+
+        //------- this code segment is what observationService would do...
+        try {
+            //process the bundle, returning a list of Pojo's that implement IDapPojo
+            List<IDapPojo> lst = ProcessBundle.process(bundle);
+            for (IDapPojo pojo : lst) {
+                String modelName = pojo.getModelName();
+
+                System.out.println(modelName);
+                //=========>>>>>>>> write out to the log
+            }
+            OperationOutcome operationOutcome = new OperationOutcome();
+            OperationOutcome.Issue issue = operationOutcome.addIssue();
+            issue.setSeverity(IssueSeverityEnum.INFORMATION);
+            issue.setDetails(lst.size() + " Resources added");
+            response.setStatus(422);
+            out.println(_fhirContext.newXmlParser().encodeResourceToString(operationOutcome));
+
+        } catch (Exception exception) {
+            //set the response to 422 (Unprocessable error and return the OperationOutcome
+            OperationOutcome operationOutcome = new OperationOutcome();
+            OperationOutcome.Issue issue = operationOutcome.addIssue();
+            issue.setSeverity(IssueSeverityEnum.FATAL);
+            issue.setDetails(exception.getMessage());
+            response.setStatus(422);
+            out.println(_fhirContext.newXmlParser().encodeResourceToString(operationOutcome));
+        }
+
+        //--------------- code segment ends here ---------------
+
+
+
+        /*
+
 
         //The profile will be in a bundle tag (ie a 'category' feed element)
         String profileName = null;
@@ -124,7 +145,7 @@ public class TestServlet extends HttpServlet {
         //.getModelName() will return the modelName for each one...
 
         out.println(jb.toString());
-
+*/
 
     }
 
