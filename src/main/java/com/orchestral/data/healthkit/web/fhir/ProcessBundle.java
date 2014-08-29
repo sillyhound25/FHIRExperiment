@@ -75,6 +75,7 @@ public class ProcessBundle {
             ObservationProcessorVO vo = new ObservationProcessorVO();
             vo.lstObservations = lstObservations;
             vo.mapIDs = mapIDs;
+            vo.currentObservation = observation;
 
 /*
             String code = null;
@@ -83,7 +84,8 @@ public class ProcessBundle {
             Float value = null;         //value will always be a number...
             String units = null;
 */
-            //I'm pretty sure that HAPI creates child elements as we go so shouldn't throw an exception
+            //Extract the key properties from the Observation.
+            // I'm pretty sure that HAPI creates child elements as we go so shouldn't throw an exception
             // - but will check with the try/catch anyway...
             try {
                 vo.code = observation.getName().getCodingFirstRep().getCode().getValueAsString();

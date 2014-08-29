@@ -15,11 +15,16 @@ package com.orchestral.data.healthkit.web.data;
 /**
  * All measurements should have an identifier.
  */
-public class BaseMeasurement {
+public abstract class BaseMeasurement {
 
 	private String id;
 	private int dummyOrder = 1;
 	private String dummySequenceId;
+
+    /*
+    * return the name that this event will be published in Data Platform as
+     */
+    public abstract String getEventTypeName();
 
 	public String getId() {
 		return this.id;
@@ -30,10 +35,6 @@ public class BaseMeasurement {
 		this.dummySequenceId = id;
 	}
 
-    //return the name of the model in Data Platform to save this observation in...
-    public String getModelName() {
-        return "";
-    }
 
 	public String getDummySequenceId() {
 		return this.dummySequenceId;

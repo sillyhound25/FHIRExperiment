@@ -15,7 +15,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BloodPressure extends BaseMeasurement {
+public class BloodPressure extends BaseMeasurement implements IDapPojo {
 	private String id;
 	private Date time;
 	private int systolicValueInMmHg;

@@ -17,5 +17,6 @@ public class ObservationProcessorVO {
     public Float value;         //value will always be a number...
     public String units;
     public List<Observation> lstObservations;
+    public Observation currentObservation;
     public Map<String,IResource> mapIDs;
 }

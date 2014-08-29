@@ -35,8 +35,8 @@ public class FhirFactory {
             HeartRate heartRate = new HeartRate(vo.startDate,(int) Math.round(vo.value),UUID.randomUUID().toString());
             return heartRate;
         } else if (vo.code.equals(Constants.BloodPressureCode)) {
-            //BloodPressure bloodPressure = new BloodPressure(startDate,)
-            return null;
+            BloodPressure bloodPressure = FhirFactory.getBloodPressure(vo);
+            return bloodPressure;
         } else if (vo.code.equals(Constants.SystolicBloodPressureCode) || vo.code.equals(Constants.DiastolicBloodPressureCode)) {
             return null;
         } else {
@@ -45,7 +45,19 @@ public class FhirFactory {
         }
     }
 
-    private BloodPressure getBloodPressure(ObservationProcessorVO vo) {
+    //get the blood pressure pojo. This requires finding the referenced systolic & diastolic obsevations,,,
+    private static BloodPressure getBloodPressure(ObservationProcessorVO vo) throws Exception{
+
+
+        List<Observation.Related> lstRelated =  vo.currentObservation.getRelated();    //the related observations
+        for (Observation.Related related : lstRelated) {
+            String code = related.getTarget().getReference().getValueAsString();
+            if (! vo.mapIDs.containsKey(code)){
+                throw new Exception("There was a Blood Pressure Observation that references a non-existent code: "+code);
+            }
+            Observation observation =
+        }
+        //Observation systolic =
        // BloodPressure bloodPressure = new
         return null;
     }
