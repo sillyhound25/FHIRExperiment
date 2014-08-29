@@ -10,6 +10,7 @@ import ca.uhn.fhir.model.dstu.resource.Device;
 import ca.uhn.fhir.model.dstu.resource.Observation;
 import ca.uhn.fhir.model.dstu.resource.Patient;
 import ca.uhn.fhir.model.primitive.DateTimeDt;
+import com.orchestral.data.healthkit.web.ObservationProcessorVO;
 import com.orchestral.data.healthkit.web.data.BloodGlucose;
 import com.orchestral.data.healthkit.web.data.IDapPojo;
 import dataplatform.IPojo;
@@ -27,7 +28,7 @@ public class ProcessBundle {
         Device device = null;       //this will be the device resource. There should only be one....
         String deviceName = "Unknown Device";   //this will be the name of the device...
 
-        Map<String,IResource> lstID = new HashMap<String, IResource>();   //a map of all ID's
+        Map<String,IResource> mapIDs = new HashMap<String, IResource>();   //a map of all ID's
 
         List<Observation> lstObservations = new ArrayList<Observation>();
 
@@ -47,10 +48,10 @@ public class ProcessBundle {
             }
 
             //no duplicates in this implementation...
-            if (lstID.containsKey(ID)) {
+            if (mapIDs.containsKey(ID)) {
                 throw new Exception("There is more than one resource with the ID '"+ID + "'");
             }
-            lstID.put(ID,resource);
+            mapIDs.put(ID,resource);
 
             if (resource instanceof Patient) {
                 //don't really need to capture the patient actually, but can't bring myself not too...
@@ -67,42 +68,54 @@ public class ProcessBundle {
             }
         }
 
-
-
         //now that we have the device resource, we can properly process the bundle. What we'll do is to iterate
         //through the entries, pulling out the Observations and generating POJO's from them.
         for (Observation observation : lstObservations) {
-            //I'm pretty sure that HAPI creates child elements as we go so shouldn't throw an exception - but should check...
+
+            ObservationProcessorVO vo = new ObservationProcessorVO();
+            vo.lstObservations = lstObservations;
+            vo.mapIDs = mapIDs;
+
+/*
             String code = null;
             Date startDate = null;
             Date endDate = null;
             Float value = null;         //value will always be a number...
             String units = null;
+*/
+            //I'm pretty sure that HAPI creates child elements as we go so shouldn't throw an exception
+            // - but will check with the try/catch anyway...
             try {
-                code = observation.getName().getCodingFirstRep().getCode().getValueAsString();
+                vo.code = observation.getName().getCodingFirstRep().getCode().getValueAsString();
                 QuantityDt qty = (QuantityDt) observation.getValue();
-                value = qty.getValue().getValueAsNumber().floatValue();
-                units = qty.getUnits().getValue();
+                vo.value = qty.getValue().getValueAsNumber().floatValue();
+                vo.units = qty.getUnits().getValue();
 
                 //if the 'applies' is a Period then set start date and end date. Otherwise, just set start date
                 IDatatype dt = observation.getApplies();
                 if (dt instanceof PeriodDt) {
                     //this is a period
                     PeriodDt periodDt = (PeriodDt) observation.getApplies();
-                    startDate = periodDt.getStart().getValue();
-                    endDate = periodDt.getEnd().getValue();
+                    vo.startDate = periodDt.getStart().getValue();
+                    vo.endDate = periodDt.getEnd().getValue();
 
                 } else {
                     //this is a dateTime
-                    startDate = ((DateTimeDt) observation.getApplies()).getValue();
+                    vo.startDate = ((DateTimeDt) observation.getApplies()).getValue();
                 }
 
-                //get the pojo
-                IDapPojo pojo = FhirFactory.getPojo(code,startDate,endDate,value,units);
+                //Note that this method will throw an exception if there is a code it doesn't recognize.
+                //(and the try/catch will surface that)
+                //But, there still may not be a pojo - for example, Blood Pressure is actually 3 observations -
+                //a 'parent' obs, and then the systolic & diastolic. The first will return a pojo, the others won't.
+                //IDapPojo pojo = FhirFactory.getPojo(code, startDate, endDate, value, units, lstObservations, mapIDs);
+                IDapPojo pojo = FhirFactory.getPojo(vo);
+
+
+                //if pojo is null, then that measn there was a code that didn;t result in a pojo
+                //like systolic BP for example...  ie it's not an error...
                 if (pojo != null) {
                     thePojos.add(pojo);
-                } else {
-                    System.out.println("Unknown code: "+code);
                 }
 
             } catch (Exception exception) {
