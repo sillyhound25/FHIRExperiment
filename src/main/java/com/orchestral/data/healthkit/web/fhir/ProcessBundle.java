@@ -14,9 +14,7 @@ import com.orchestral.data.healthkit.web.data.BloodGlucose;
 import com.orchestral.data.healthkit.web.data.IDapPojo;
 import dataplatform.IPojo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by davidhay on 29/08/14.
@@ -29,16 +27,33 @@ public class ProcessBundle {
         Device device = null;       //this will be the device resource. There should only be one....
         String deviceName = "Unknown Device";   //this will be the name of the device...
 
+        Map<String,IResource> lstID = new HashMap<String, IResource>();   //a map of all ID's
+
         List<Observation> lstObservations = new ArrayList<Observation>();
 
         //generate a list of the POJO's to return...
         List<IDapPojo> thePojos = new ArrayList<IDapPojo>();    //list of resources in bundle
 
         //first, locate the patient and device resources - we can;t assume they are first in the bundle...
+        //at the same time, generate a list of resource ID's in the bundle. This is needed by Blood Pressure, and alse
+        //serves as part of the overall bundle audit - all resources must have an ID, and they must all be unique
+        // (actually the uniqueness constraint is just for this implementation)
         for (BundleEntry entry : bundle.getEntries()) {
             IResource resource = entry.getResource();
+            String className = resource.getClass().getName();
+            String ID = resource.getId().getValueAsString();
+            if (ID == null) {
+                throw new Exception("There was a resource of type " + className + " missing an ID");
+            }
+
+            //no duplicates in this implementation...
+            if (lstID.containsKey(ID)) {
+                throw new Exception("There is more than one resource with the ID '"+ID + "'");
+            }
+            lstID.put(ID,resource);
+
             if (resource instanceof Patient) {
-                //don't really need to capture the patient actually...
+                //don't really need to capture the patient actually, but can't bring myself not too...
                 patient = (Patient) resource;
 
             } else if (resource instanceof Device) {
@@ -48,9 +63,10 @@ public class ProcessBundle {
                 lstObservations.add((Observation) resource);
             } else {
                 //this is an unknown resource.
-                throw new Exception("There was an unknown Resource ("+resource.getClass().getName()+") in the Bundle. Only Patient, Device and Observation are allowed");
+                throw new Exception("There was an unknown Resource ("+className+") in the Bundle. Only Patient, Device and Observation are allowed");
             }
         }
+
 
 
         //now that we have the device resource, we can properly process the bundle. What we'll do is to iterate
@@ -95,4 +111,6 @@ public class ProcessBundle {
         }
         return thePojos;
     }
+
+
 }
