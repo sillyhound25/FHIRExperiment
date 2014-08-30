@@ -15,18 +15,26 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Weight extends BaseMeasurement implements IDapPojo{
-	private Date time;
+public class Weight extends BaseMeasurement{
+
+    public static String EVENT_TYPE_NAME = "Weight";
+
+    private Date time;
 	private float value;
 	private String unit;
 
-	public Weight() {
-	}
 
     @Override
-    public String getModelName() {
-        return "Weight";
+    public String getEventTypeName() {
+        return EVENT_TYPE_NAME;
     }
+
+
+
+    public Weight() {
+	}
+
+
 
 	public Weight(final Date time, final float value, final String unit,
         final String id) {

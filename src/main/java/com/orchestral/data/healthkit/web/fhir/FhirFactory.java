@@ -1,15 +1,17 @@
 package com.orchestral.data.healthkit.web.fhir;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import ca.uhn.fhir.model.api.IResource;
 import ca.uhn.fhir.model.dstu.resource.Observation;
 import com.orchestral.data.healthkit.web.Constants;
 import com.orchestral.data.healthkit.web.ObservationProcessorVO;
 import com.orchestral.data.healthkit.web.data.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+
 
 /**
  * Factory object to return a populated instance of a POJO for persistance to Data Platform...
@@ -18,7 +20,7 @@ public class FhirFactory {
 
 
     //todo refactor all params to a VO
-    public static IDapPojo getPojo(ObservationProcessorVO vo)
+    public static BaseMeasurement getPojo(ObservationProcessorVO vo)
     //public static IDapPojo getPojo(String code, Date startDate, Date endDate, Float value,
       //                             String units,List<Observation> lstResources, Map<String,IResource> mapIDs)
             throws Exception{
@@ -55,7 +57,7 @@ public class FhirFactory {
             if (! vo.mapIDs.containsKey(code)){
                 throw new Exception("There was a Blood Pressure Observation that references a non-existent code: "+code);
             }
-            Observation observation =
+            //Observation observation =
         }
         //Observation systolic =
        // BloodPressure bloodPressure = new

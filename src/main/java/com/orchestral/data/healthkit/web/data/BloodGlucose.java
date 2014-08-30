@@ -16,14 +16,16 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BloodGlucose extends BaseMeasurement implements IDapPojo {
+public class BloodGlucose extends BaseMeasurement {
 	private Date time;
 	private float value;
 	private String unit;
 
+    public static String EVENT_TYPE_NAME = "BloodGlucose";
+
     @Override
-    public String getModelName() {
-        return "Glucose";
+    public String getEventTypeName() {
+        return EVENT_TYPE_NAME;
     }
 
 	public BloodGlucose() {

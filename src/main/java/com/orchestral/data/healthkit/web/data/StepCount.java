@@ -16,11 +16,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class StepCount extends BaseMeasurement {
+    public static String EVENT_TYPE_NAME = "StepCount";
 	private Date start;
 	private Date end;
 	private int numberOfSteps;
 
-	public StepCount() {
+    @Override
+    public String getEventTypeName() {
+        return EVENT_TYPE_NAME;
+    }
+
+
+
+    public StepCount() {
 	}
 
 	public StepCount(final Date start, final Date end, final int numberOfSteps,

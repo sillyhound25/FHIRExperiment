@@ -4,7 +4,8 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.*;
 import ca.uhn.fhir.model.dstu.resource.OperationOutcome;
 import ca.uhn.fhir.model.dstu.valueset.IssueSeverityEnum;
-import com.orchestral.data.healthkit.web.data.IDapPojo;
+import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
+import com.orchestral.data.healthkit.web.data.BaseMeasurement;
 import com.orchestral.data.healthkit.web.fhir.ProcessBundle;
 import util.MyMongo;
 
@@ -57,9 +58,9 @@ public class TestServlet extends HttpServlet {
         //------- this code segment is what observationService would do...
         try {
             //process the bundle, returning a list of Pojo's that implement IDapPojo
-            List<IDapPojo> lst = ProcessBundle.process(bundle);
-            for (IDapPojo pojo : lst) {
-                String modelName = pojo.getModelName();
+            List<BaseMeasurement> lst = ProcessBundle.process(bundle);
+            for (BaseMeasurement pojo : lst) {
+                String modelName = pojo.getEventTypeName();
 
                 System.out.println(modelName);
                 //=========>>>>>>>> write out to the log
@@ -73,12 +74,16 @@ public class TestServlet extends HttpServlet {
 
         } catch (Exception exception) {
             //set the response to 422 (Unprocessable error and return the OperationOutcome
+           // response.setStatus(exception.getStatusCode());
+            //return exception.getOperationOutcome();
+
             OperationOutcome operationOutcome = new OperationOutcome();
             OperationOutcome.Issue issue = operationOutcome.addIssue();
             issue.setSeverity(IssueSeverityEnum.FATAL);
             issue.setDetails(exception.getMessage());
             response.setStatus(422);
             out.println(_fhirContext.newXmlParser().encodeResourceToString(operationOutcome));
+
         }
 
         //--------------- code segment ends here ---------------

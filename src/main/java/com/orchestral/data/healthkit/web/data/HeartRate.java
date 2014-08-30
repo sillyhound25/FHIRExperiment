@@ -15,17 +15,23 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class HeartRate extends BaseMeasurement implements IDapPojo{
-	private Date time;
+public class HeartRate extends BaseMeasurement{
+    public static String EVENT_TYPE_NAME = "HeartRate";
+
+    private Date time;
 	private int beatsPerMinute;
 
-	public HeartRate() {
-	}
 
     @Override
-    public String getModelName() {
-        return "HeartRate";
+    public String getEventTypeName() {
+        return EVENT_TYPE_NAME;
     }
+
+
+
+    public HeartRate() {
+	}
+
 
 	public HeartRate(final Date time, final int beatsPerMinute, final String id) {
 		super();

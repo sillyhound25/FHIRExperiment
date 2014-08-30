@@ -15,14 +15,24 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BloodPressure extends BaseMeasurement implements IDapPojo {
-	private String id;
-	private Date time;
-	private int systolicValueInMmHg;
-	private int diastolicValueInMmHg;
+public class BloodPressure extends BaseMeasurement {
+
+    public static String EVENT_TYPE_NAME = "BloodPressure";
+
+    private String id;
+    private Date time;
+    private int systolicValueInMmHg;
+    private int diastolicValueInMmHg;
+
+    @Override
+    public String getEventTypeName() {
+        return EVENT_TYPE_NAME;
+    }
+
 
 	public BloodPressure() {
 	}
+
 
 	public BloodPressure(final Date time, final int systolicValueInMmHg, final int diastolicValueInMmHg, final String id) {
 		super();
