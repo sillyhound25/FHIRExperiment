@@ -72,7 +72,17 @@ public class TestServlet extends HttpServlet {
             response.setStatus(422);
             out.println(_fhirContext.newXmlParser().encodeResourceToString(operationOutcome));
 
-        } catch (Exception exception) {
+        }
+        //these are exceptions that the processor threw deliberatly...
+        catch (UnprocessableEntityException exception) {
+            //set the response to 422 (Unprocessable error and return the OperationOutcome
+            response.setStatus(exception.getStatusCode());
+            out.println(_fhirContext.newXmlParser().encodeResourceToString(exception.getOperationOutcome()));
+
+            //return ;
+        }
+        //other exceptions that w
+        catch (Exception exception) {
             //set the response to 422 (Unprocessable error and return the OperationOutcome
            // response.setStatus(exception.getStatusCode());
             //return exception.getOperationOutcome();

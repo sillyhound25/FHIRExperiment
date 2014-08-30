@@ -27,7 +27,7 @@ public class Constants {
 	public static final String SOURCE = "Healthkit-patientReported";
 
 	public static final String StepCount = "StepCount";
-    public static final String StepCountCode = "StepCountCode";
+    public static final String StepCountCode = "55423-8";
 
 	public static final String Weight = "Weight";
     public static final String WeightCode = "3141-9";

@@ -43,7 +43,7 @@ public class ProcessBundle {
         final List<BaseMeasurement> thePojos = new ArrayList<BaseMeasurement>();    //list of resources in bundle
 
         //first, locate the patient and device resources - we can;t assume they are first in the bundle...
-        //at the same time, generate a list of resource ID's in the bundle. This is needed by Blood Pressure, and alse
+        //at the same time, generate a list of resource ID's in the bundle. This is needed by Blood Pressure, and also
         //serves as part of the overall bundle audit - all resources must have an ID, and they must all be unique
         // (actually the uniqueness constraint is just for this implementation)
         for (BundleEntry entry : bundle.getEntries()) {
@@ -73,11 +73,6 @@ public class ProcessBundle {
                 //this is an unknown resource.
                 OperationOutcome operationOutcome = ProcessBundle.getOperationOutcome(IssueSeverityEnum.FATAL,
                         "There was an unknown Resource ("+className+") in the Bundle. Only Patient, Device and Observation are allowed");
-
-                //final OperationOutcome operationOutcome = new OperationOutcome();
-                //final OperationOutcome.Issue issue = operationOutcome.addIssue();
-                //issue.setSeverity(IssueSeverityEnum.FATAL);
-                //issue.setDetails("There was an unknown Resource ("+className+") in the Bundle. Only Patient, Device and Observation are allowed");
                 throw new UnprocessableEntityException(operationOutcome);
             }
         }
@@ -85,19 +80,12 @@ public class ProcessBundle {
         //now that we have the device resource, we can properly process the bundle. What we'll do is to iterate
         //through the entries, pulling out the Observations and generating POJO's from them.
         for (Observation observation : lstObservations) {
-
+            //use a ValueObject to pass the extracted values to.
             ObservationProcessorVO vo = new ObservationProcessorVO();
             vo.lstObservations = lstObservations;
             vo.mapIDs = mapIDs;
             vo.currentObservation = observation;
 
-/*
-            String code = null;
-            Date startDate = null;
-            Date endDate = null;
-            Float value = null;         //value will always be a number...
-            String units = null;
-*/
             //Extract the key properties from the Observation.
             // I'm pretty sure that HAPI creates child elements as we go so shouldn't throw an exception
             // - but will check with the try/catch anyway...
@@ -124,8 +112,8 @@ public class ProcessBundle {
                 //(and the try/catch will surface that)
                 //But, there still may not be a pojo - for example, Blood Pressure is actually 3 observations -
                 //a 'parent' obs, and then the systolic & diastolic. The first will return a pojo, the others won't.
-                //IDapPojo pojo = FhirFactory.getPojo(code, startDate, endDate, value, units, lstObservations, mapIDs);
-                final BaseMeasurement pojo = FhirFactory.getPojo(vo);
+                FhirFactory fhirFactory = new FhirFactory();
+                 final BaseMeasurement pojo = fhirFactory.getPojo(vo);
 
 
                 //if pojo is null, then that measn there was a code that didn;t result in a pojo
@@ -141,7 +129,10 @@ public class ProcessBundle {
         return thePojos;
     }
 
-private static OperationOutcome getOperationOutcome(IssueSeverityEnum severity,String message) {
+    /*
+    Generate an OperationOutcome resource. Also used by the FhirFactory class (?is this a good pattern???)
+     */
+public static OperationOutcome getOperationOutcome(IssueSeverityEnum severity,String message) {
     final OperationOutcome operationOutcome = new OperationOutcome();
     final OperationOutcome.Issue issue = operationOutcome.addIssue();
     issue.setSeverity(severity);
