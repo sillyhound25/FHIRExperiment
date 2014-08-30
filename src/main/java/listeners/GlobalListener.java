@@ -9,6 +9,10 @@ import javax.json.JsonObject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +27,7 @@ public class GlobalListener implements ServletContextListener,ServletRequestList
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext context = servletContextEvent.getServletContext();
+
         Map<String,Person> oauthcodes = new HashMap<String, Person>();
 
         //map of outh codes, indexed by code

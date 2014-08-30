@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Glucosemeter data from suresense</title>
+    <id>urn:uuid:500bee81-d973-4afe-b592-d39fe71e38</id>
+    <updated>2014-05-28T22:12:21Z</updated>    
+    <author>
+        <name>Dorothy Diabetic</name>
+    </author>
+    
+    <category scheme="http://hl7.org/fhir/tag/profile" term="http://localhost/Profile/glucose" label="Glucose Profile" />
+
+<entry>
+    <title>Patient details</title>
+    <id>cid:patient@bundle</id>
+    <updated>2014-05-28T22:12:21Z</updated>
+    <link href="http://localhost/Patient?identifier=PRP1660" rel="search"/>
+    <content type="text/xml">
+        <Patient xmlns="http://hl7.org/fhir">
+            <text>
+                <status value="generated"/>
+                <div xmlns="http://www.w3.org/1999/xhtml">Joe Bloggs</div>
+            </text>
+            <identifier>
+                <system value="urn:oid:2.16.840.1.113883.2.18.2"/>
+                <value value="PRP1660"/>
+            </identifier>
+            <name>
+                <text value="Joe Bloggs"/>
+            </name>
+        </Patient>
+    </content>
+</entry>
+    
+    <entry>
+        <title>Practitioner</title>
+        <id>cid:practioner@bundle</id>
+        <updated>2014-05-28T22:12:21Z</updated>
+        <link href="http://localhost/Device?udi=abc123456" rel="search"/>
+        <content type="text/xml">
+            <Practitioner xmlns="http://hl7.org/fhir">
+                <text>
+                    <status value="generated"/>
+                    <div xmlns="http://www.w3.org/1999/xhtml"/>
+                </text>
+            </Practitioner>
+        </content>
+    </entry>
+    
+<entry>
+    <title>Device Taking measurement</title>
+    <id>cid:device@bundle</id>
+    <updated>2014-05-28T22:12:21Z</updated>
+    <link href="http://localhost/Device?udi=abc123456" rel="search"/>
+    <content type="text/xml">
+        <Device xmlns="http://hl7.org/fhir">
+            <text>
+                <status value="generated"/>
+                <div xmlns="http://www.w3.org/1999/xhtml">Device</div>
+            </text>
+            <identifier>
+                <system value="urn:oid:2.16.840.1.113883.2.18.23"/>
+                <value value="dev0"/>
+            </identifier>
+            <type>
+                <coding>
+                    <system value="http://loinc.org"/>
+                    <code value="ToBeDetermined"/>
+                    <display value="Glucose Meter"/>
+                </coding>               
+            </type>
+            <manufacturer value="careSense"/>
+            <model value="modelA"/>
+            <udi value="abc123456"/>
+            <patient>
+                <reference value="cid:patient@bundle"/>
+            </patient>
+        </Device>
+    </content>
+</entry>
+    
+    
+<entry>
+    <title>First Observation</title>
+    <id>cid:obs1</id>
+    <updated>2013-05-28T22:12:21Z</updated>
+    
+    <content type="text/xml">
+        <Observation xmlns="http://hl7.org/fhir">
+            <text>
+                <status value="empty"/>
+                <div xmlns="http://www.w3.org/1999/xhtml"/>
+            </text>
+            <!-- The test code  - may not be correct -->
+            <name>
+                <coding>
+                    <system value="http://loinc.org"/>
+                    <code value="43151-0"/>
+                    <display value="Glucose Meter Device Panel"/>
+                </coding>
+            </name>
+            <valueQuantity>
+                <value value="7.7"/>
+                <units value="mmol/L"/>
+                <system value="http://unitsofmeasure.org"/>
+            </valueQuantity>
+            <appliesDateTime value="2014-05-28T22:12:21Z"/>
+            <status value="final"/>
+            <reliability value="ok"/>
+            <subject>
+                <reference value="cid:patient@bundle"/>
+            </subject>
+            <performer>
+                <reference value="cid:device@bundle"></reference>
+            </performer>
+        </Observation>
+    </content>
+</entry>
+
+    <entry>
+        <title>Second Observation</title>
+        <id>cid:obs2</id>
+        <updated>2013-05-29T22:12:21Z</updated>
+        
+        <content type="text/xml">
+            <Observation xmlns="http://hl7.org/fhir">
+                <text>
+                    <status value="empty"/>
+                    <div xmlns="http://www.w3.org/1999/xhtml"/>
+                </text>
+                <!-- The test code  - may not be correct -->
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="43151-0"/>
+                        <display value="Glucose Meter Device Panel"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="8.1"/>
+                    <units value="mmol/L"/>
+                    <system value="http://unitsofmeasure.org"/>
+                </valueQuantity>
+                <appliesDateTime value="2014-05-29T22:12:21Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <subject>
+                    <reference value="cid:patient@bundle"/>
+                </subject>
+                <performer>
+                    <reference value="cid:device@bundle"></reference>
+                </performer>
+            </Observation>
+        </content>
+    </entry>
+    
+    
+
+
+</feed>
