@@ -20,7 +20,14 @@ public class HeartRate extends BaseMeasurement{
 
     private Date time;
 	private int beatsPerMinute;
+    private String deviceName;
+    public String getDeviceName() {
+        return deviceName;
+    }
 
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
     @Override
     public String getEventTypeName() {
@@ -33,11 +40,12 @@ public class HeartRate extends BaseMeasurement{
 	}
 
 
-	public HeartRate(final Date time, final int beatsPerMinute, final String id) {
+	public HeartRate(final Date time, final int beatsPerMinute, final String id,final String deviceName) {
 		super();
 		setId(id);
 		this.time = time;
 		this.beatsPerMinute = beatsPerMinute;
+        this.deviceName = deviceName;
 	}
 
 	public Date getTime() {

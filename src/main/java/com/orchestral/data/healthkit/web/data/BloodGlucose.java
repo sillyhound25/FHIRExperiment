@@ -21,6 +21,17 @@ public class BloodGlucose extends BaseMeasurement {
 	private float value;
 	private String unit;
 
+    private String deviceName;
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+
+
     public static String EVENT_TYPE_NAME = "BloodGlucose";
 
     @Override
@@ -32,11 +43,12 @@ public class BloodGlucose extends BaseMeasurement {
 	}
 
 	public BloodGlucose(final Date time, final float value, final String unit,
-			final String id) {
+			final String id,final String deviceName) {
 		super();
 		this.time = time;
 		this.value = value;
 		this.unit = unit;
+        this.deviceName = deviceName;
 		setId(id);
 	}
 

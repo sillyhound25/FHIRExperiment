@@ -23,6 +23,14 @@ public class BloodPressure extends BaseMeasurement {
     private Date time;
     private int systolicValueInMmHg;
     private int diastolicValueInMmHg;
+    private String deviceName;
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
     @Override
     public String getEventTypeName() {
@@ -34,12 +42,14 @@ public class BloodPressure extends BaseMeasurement {
 	}
 
 
-	public BloodPressure(final Date time, final int systolicValueInMmHg, final int diastolicValueInMmHg, final String id) {
+	public BloodPressure(final Date time, final int systolicValueInMmHg, final int diastolicValueInMmHg, final String id,
+                         final String deviceName) {
 		super();
 		setId(id);
 		this.time = time;
 		this.systolicValueInMmHg = systolicValueInMmHg;
 		this.diastolicValueInMmHg = diastolicValueInMmHg;
+        this.deviceName = deviceName;
 	}
 
 	@Override

@@ -76,6 +76,7 @@ public class ObservationResourceProvider implements IResourceProvider {
         return obs;
     }
 
+    /*
 
     // search that accesses the "xml" store, rather than a resource store...
     //might want some more genric way of doing this...
@@ -114,7 +115,7 @@ public class ObservationResourceProvider implements IResourceProvider {
         //return _myMongo.findResource("Observation");
     }
 
-    /*
+   */
     @Search()
     public List<Observation> getObservationBySubject(@RequiredParam(name = Observation.SP_SUBJECT) StringDt theSubject,
                                                      @RequiredParam(name = Observation.SP_NAME) TokenOrListParam theObsNames) {
@@ -180,7 +181,7 @@ public class ObservationResourceProvider implements IResourceProvider {
 
     }
 
-    */
+
 
 
 

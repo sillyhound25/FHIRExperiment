@@ -59,16 +59,19 @@ public class TestServlet extends HttpServlet {
         try {
             //process the bundle, returning a list of Pojo's that implement IDapPojo
             List<BaseMeasurement> lst = ProcessBundle.process(bundle);
+
+            String msg = "";
+
             for (BaseMeasurement pojo : lst) {
                 String modelName = pojo.getEventTypeName();
-
+                msg += " " + modelName;
                 System.out.println(modelName);
                 //=========>>>>>>>> write out to the log
             }
             OperationOutcome operationOutcome = new OperationOutcome();
             OperationOutcome.Issue issue = operationOutcome.addIssue();
             issue.setSeverity(IssueSeverityEnum.INFORMATION);
-            issue.setDetails(lst.size() + " Resources added");
+            issue.setDetails(lst.size() + " Resources added. "+msg);
             response.setStatus(422);
             out.println(_fhirContext.newXmlParser().encodeResourceToString(operationOutcome));
 

@@ -31,22 +31,35 @@ public class FhirFactory {
 
         //would like to use a Switch, but doesn't seem to work for String...
         if (vo.code.equals(Constants.BloodGlucoseCode)) {
-            BloodGlucose bloodGlucose = new BloodGlucose(vo.startDate,vo.value,vo.units, UUID.randomUUID().toString());
+            BloodGlucose bloodGlucose = new BloodGlucose(vo.startDate,vo.value,vo.units, UUID.randomUUID().toString(),
+                    vo.deviceName);
             return bloodGlucose;
         } else if (vo.code.equals(Constants.WeightCode)) {
-            Weight weight = new Weight(vo.startDate,vo.value,vo.units, UUID.randomUUID().toString());
+            Weight weight = new Weight(vo.startDate,vo.value,vo.units, UUID.randomUUID().toString(),
+                    vo.deviceName);
             return weight;
         } else if (vo.code.equals(Constants.StepCountCode)) {
-            StepCount stepCount = new StepCount(vo.startDate,vo.endDate,(int) Math.round(vo.value),UUID.randomUUID().toString());
+            StepCount stepCount = new StepCount(vo.startDate,vo.endDate,(int) Math.round(vo.value),
+                    UUID.randomUUID().toString(),vo.deviceName);
             return stepCount;
         } else if (vo.code.equals(Constants.HeartRateCode)) {
-            HeartRate heartRate = new HeartRate(vo.startDate,(int) Math.round(vo.value),UUID.randomUUID().toString());
+            HeartRate heartRate = new HeartRate(vo.startDate,(int) Math.round(vo.value),UUID.randomUUID().toString(),
+                    vo.deviceName);
             return heartRate;
         } else if (vo.code.equals(Constants.BloodPressureCode)) {
             BloodPressure bloodPressure = this.getBloodPressure(vo);
             return bloodPressure;
         } else if (vo.code.equals(Constants.SystolicBloodPressureCode) || vo.code.equals(Constants.DiastolicBloodPressureCode)) {
             //the systolic & diastolic observations aren't converted to a POJO - they are part of the BP...
+            //if the observation is not refernced by a Blood Pressure Observation, then it is an orphan...
+
+            String Id = vo.currentObservation.getId().getValueAsString();
+            if (! vo.BPObservations.contains(Id)) {
+                OperationOutcome operationOutcome = ProcessBundle.getOperationOutcome(IssueSeverityEnum.FATAL,
+                        "There was an Observation with the ID : " + Id + " that should be related to a Blood Pressure Observation");
+                throw new UnprocessableEntityException(operationOutcome);
+            }
+
             return null;
         } else {
             OperationOutcome operationOutcome = ProcessBundle.getOperationOutcome(IssueSeverityEnum.FATAL,
@@ -92,6 +105,13 @@ public class FhirFactory {
             }
             String code = observation.getName().getCodingFirstRep().getCode().getValueAsString();
 
+            if (code == null) {
+                String message = "There was a Systolic or a Diastolic BP with no code";
+                OperationOutcome operationOutcome = ProcessBundle.getOperationOutcome(IssueSeverityEnum.FATAL,message);
+                throw new UnprocessableEntityException(operationOutcome);
+            }
+
+
             if (code.equals(Constants.SystolicBloodPressureCode)) {
                 systolicObservation = observation;
             } else if (code.equals(Constants.DiastolicBloodPressureCode)) {
@@ -119,6 +139,7 @@ public class FhirFactory {
         bp.setSystolicValueInMmHg(((QuantityDt) systolicObservation.getValue()).getValue().getValueAsNumber().intValue());
         bp.setDiastolicValueInMmHg(((QuantityDt) diastolicObservation.getValue()).getValue().getValueAsNumber().intValue());
 
+        bp.setDeviceName(vo.deviceName);
         return bp;
     }
 

@@ -23,6 +23,15 @@ public class Weight extends BaseMeasurement{
 	private float value;
 	private String unit;
 
+    private String deviceName;
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
 
     @Override
     public String getEventTypeName() {
@@ -37,11 +46,12 @@ public class Weight extends BaseMeasurement{
 
 
 	public Weight(final Date time, final float value, final String unit,
-        final String id) {
+        final String id, final String deviceName) {
 		super();
 		this.time = time;
 		this.value = value;
 		this.unit = unit;
+        this.deviceName = deviceName;
 		setId(id);
 	}
 

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: davidhay
-  Date: 20/07/14
-  Time: 8:09 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -25,15 +19,36 @@
             <p class="navbar-brand">My EMR</p>
             <p id="selectedPatient" class="navbar-text"></p>
 
+          <ul class="nav navbar-nav" id="patientOptionsMenu">
+
+              <li><a href="#" id="patientNewRecord" title="New Record" style="display: none">
+                  <i class="glyphicon glyphicon-briefcase"></i>
+                  </a></li>
+
+
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-play"></i> </a>
+                  <ul class="dropdown-menu" role="menu">
+                      <li><a href="#" id="patSMART">SMART</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                  </ul>
+              </li>
+          </ul>
+
+
+
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
               <ul class="nav navbar-nav navbar-right">
                   <li><a href="#" id="searchPatient">Search</a></li>
-                  <li><a href="#"  id="login">Login</a></li>
+                  <li><a href="#"  id="login">Login & Select Patient</a></li>
                   <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> </a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <i class="glyphicon glyphicon-cog"></i> </a>
                       <ul class="dropdown-menu" role="menu">
                           <li><a href="#">Logout</a></li>
                           <li><a href="#">Another action</a></li>
@@ -42,25 +57,61 @@
                           <li><a href="#">Separated link</a></li>
                       </ul>
                   </li>
-
               </ul>
           </div><!-- /.navbar-collapse -->
+
+
       </div><!-- /.container-fluid -->
   </nav>
 
 
 
-  <div class="row">
-      <div class="col-md-2">
 
+
+  <div class="row">
+      <div class="col-md-3">
+
+
+
+
+
+<!--
           <ul class="nav nav-pills nav-stacked">
               <li class="active sidebar"><a href="#">Home</a></li>
-              <li class="sidebar"><a href="#">Profile</a></li>
-              <li class="sidebar" data-id="launchApp"><a href="#">Show SMART</a></li>
+              <li class="sidebar" data-id="profile"><a href="#">Profile</a></li>
+              <li class="sidebar" data-id="launchApp"><a href="#">SMART</a></li>
           </ul>
+-->
+
+          <!-- Where the vitals accordion will go...-->
+          <div id="vitalsDiv"></div>
+
+
 
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
+
+          <div id="newRecordDiv">
+              <div class="row">
+                  <div class="col-md-8">
+                      <!-- adding a new resource-->
+                      <div id="addNewResource" style="display:none">
+                          <select id="selNewResource" class="form-control"></select>
+                          <iframe id='profileIframe' width='100%' height='600px'></iframe>
+                      </div>
+
+
+
+                  </div>
+                  <div class="col-md-4">
+                      <!-- as new resources are created, add them here -->
+                    <div id="newResourceHx"></div>
+                  </div>
+
+              </div>
+
+          </div>
+
           <div id="launchFrameDiv"></div>
           <br />
           <hr />
@@ -75,10 +126,49 @@
 
       var global = {user : {}};
 
+
+      $("#patientOptionsMenu").hide();      //hide the patien specific stuff
+
+      //create the vitals accordian
+
+
+
+        $("#selNewResource").on("change",function(ev){
+            //alert($(ev.currentTarget).val());
+
+
+            var name = $(ev.currentTarget).val();
+            //$("#profileTitle").html("Loading "+name+"...");
+            url = "http://fhir-dev.healthintersections.com.au/open/_web/Profile/"+name;
+            //$("#displayDiv").html("Loading " + name);
+            //$("#profileIframe").attr("src","about:blank");
+            $("#profileIframe").attr("src",url);
+
+        })
+
+
+      //get the list of knows profiles...
+      $.get("cc/profilelist",function(data){
+          global.profileList = data;
+          console.log(global);
+
+
+          var template = Handlebars.compile($('#selectProfileTemplate').html());
+
+          $("#selNewResource").append(template(global.profileList));
+
+
+
+
+          //$("#selNewResource").append('<option value=1>My option</option>');
+
+      })
+
+
       var iframe = "<iframe id='launchIframe' width='100%' height='400px'></iframe>";
 
       $('#login').on('click',function(){
-          $.get("/auth/login",function(user){
+          $.get("auth/login",function(user){
               global.user = user;
               //console.log(user);
               showUser(user);
@@ -86,6 +176,15 @@
           })
       });
 
+
+
+      $("#patSMART").on('click',function(){
+          alert('smart')
+      });
+
+      $("#patientNewRecord").on('click',function(){
+          alert('setup for new record');
+      });
 
       $('.sidebar').on("click",function(ev){
           clearWorkArea();
@@ -95,11 +194,28 @@
           //console.log(data_id);
           switch (data_id){
               case "launchApp" :
-                  var url = "/auth/launch?dummy="+new Date().getTime() + "&usertoken=" + global.user.userToken;     //ensure not caching...
+                  var url = "auth/launch?dummy="+new Date().getTime() + "&usertoken=" + global.user.userToken;     //ensure not caching...
                   url += "&patientid=PRP1660";
                     //console.log(global,url);
                   $("#launchFrameDiv").append(iframe);
                   $("#launchIframe").attr("src",url);
+
+                  break;
+              case "profile" :
+                      //alert('x')
+                  var template = Handlebars.compile($('#listProfileDiv').html());
+
+                  $("#launchFrameDiv").append(template(global.profileList));
+
+                   $('.oneprofile').on('click',function(ev){
+                       var name = $(ev.currentTarget).attr('data-name');
+                       $("#profileTitle").html("Loading "+name+"...");
+                       url = "http://fhir-dev.healthintersections.com.au/open/_web/Profile/"+name;
+                       $("#displayDiv").html("Loading " + name);
+                       $("#profileIframe").attr("src","about:blank");
+                       $("#profileIframe").attr("src",url);
+
+                   })
 
                   break;
           }
@@ -129,18 +245,6 @@
                           $("#lstPatientResults").html(listTemplate(rslt));
                       });
 
-              /*
-              $.get(url,function(rslt){
-                  $("#throbber").html("");
-                  console.log(rslt);
-                  var listTemplate = Handlebars.compile($('#listPatientDiv').html());
-
-                  $("#lstPatientResults").html(listTemplate(rslt));
-
-
-              })
-              */
-              //http://localhost:8081/local/patient?name=jones
 
           })
       });
@@ -156,7 +260,8 @@
           })
           .done(function( pat ) {
               console.log( pat );
-              $('#selectedPatient').html(pat.text.div)
+              setUpPatient(pat);
+
           });
       }
 
@@ -174,9 +279,24 @@
     }
 
 
+  //called after a patient has been selected...
+    function setUpPatient(pat){
+        $('#selectedPatient').html(pat.text.div)
+        $("#patientOptionsMenu").show();
+        var vitalsTemplate = Handlebars.compile($('#vitalsTemplate').html());
+        $("#vitalsDiv").html(vitalsTemplate());
+
+        $("#patientNewRecord").show();      //menu option
+        $("#addNewResource").show();        //div with new resources
+
+        var problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
+        $("#patProblemList").html(problemsTemplate({entry:["Asthma","Diabetes"]}));
+        $("#problemCnt").html("2");
+    }
 
 
 </script>
+
   <script type="handlebars/text" id="selectPatientDiv">
       <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
@@ -188,10 +308,96 @@
 
   </script>
 
+
+
+  <!-- The drop down of profiles available to select-->
+  <script type="handlebars/text" id="selectProfileTemplate">
+    <option> -- please select profile to use --</option>
+        {{#each profile}}
+            <option value={{this}}>{{this}}</option>
+        {{/each}}
+  </script>
+
+  <script type="handlebars/text" id="listProfileDiv">
+    <h5>Profiles</h5>
+
+        <div class="row">
+            <div class="col-md-3">
+                    <div class='list-group'>
+                      {{#each profile}}
+                        <a href='#' class='list-group-item oneprofile' data-name={{this}}>{{this}}</a>
+                      {{/each}}
+                    </div>
+                </div>
+            <div class="col-md-9">
+                <div id="profileTitle"></div>
+                <iframe id='profileIframeDEP' width='100%' height='600px'></iframe>
+            </div>
+        </div>
+
+
+
+
+  </script>
+
   <script type="handlebars/text" id="listPatientDiv">
       {{#each entry}}
         {{{content.text.div}}}
       {{/each}}
+  </script>
+
+  <script type="handlebars/text" id="vitalsTemplate">
+      <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Medications</a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <ul></ul>
+        </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+        Problem List (<span id="problemCnt"></span>)</a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div id="patProblemList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Allergies</a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </script>
+
+  <script type="handlebars/text" id="problemsTemplate">
+    <div class='list-group'>
+      {{#each entry}}
+        <a href='#' class='list-group-item oneprofile' data-name={{this}}>{{this}}</a>
+      {{/each}}
+    </div>
+
   </script>
 
   </body>

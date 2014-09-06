@@ -36,10 +36,18 @@ public class Launch extends HttpServlet {
 
             //the re-direct URL. In reality the url and 'iss' would come from config...
             String url = "https://fhir.smartplatforms.org/apps/growth-chart/launch.html?";
-            url += "iss=http://localhost:8081/fhir";
+            //url += "iss=http://localhost:8081/fhir";
 
+            String serverName = request.getServerName();
+            int serverPort = request.getServerPort();
+
+            System.out.println(serverName + ":" + serverPort);
+
+            url += "iss=http://" + serverName + ":" + serverPort + "/" + "fhir";
             //we'll use the user token as the launch token as we can use that to validate the Auth call..
             url += "&launch=" + userToken;// launchToken;
+
+            System.out.println(url);
 
             response.sendRedirect(url);
         } else {

@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8'?><feed xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.w3.org/2005/Atom ../fhir-all-xsd/fhir-atom.xsd' xmlns='http://www.w3.org/2005/Atom'><title type='text'>Observation Feed</title><id>cid:feed</id><updated>2014-09-03T10:59:31+12:00</updated><entry><title type='text'>Patient</title><id>cid:patient</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Patient xmlns="http://hl7.org/fhir">
+   <identifier>
+      <system value="OHCP" />
+      <value value="84568-4562" />
+   </identifier>
+</Patient></content></entry><entry><title type='text'>Device</title><id>cid:device</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Device xmlns="http://hl7.org/fhir">
+   <identifier>
+      <system value="http://fhir.orionhealth.com" />
+      <value value="1EE4464C-4A51-4F29-BF2F-8AC5179AF52E" />
+   </identifier>
+   <type/>
+</Device></content></entry><entry><title type='text'>Observation #0</title><id>cid:obs0</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="0.7400000095367430144" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T10:59:31+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry><entry><title type='text'>Observation #1</title><id>cid:obs1</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="2.740000009536742912" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T10:42:51+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry><entry><title type='text'>Observation #2</title><id>cid:obs2</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="4.739999771118163968" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T10:26:11+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry><entry><title type='text'>Observation #3</title><id>cid:obs3</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="6.739999771118163968" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T10:09:31+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry><entry><title type='text'>Observation #4</title><id>cid:obs4</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="8.739999771118162944" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T09:52:51+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry><entry><title type='text'>Observation #5</title><id>cid:obs5</id><updated>2014-09-03T10:59:31+12:00</updated><content type='text/xml'>
+<Observation xmlns="http://hl7.org/fhir">
+   <name>
+      <coding>
+         <system value="http://loinc.org" />
+         <code value="8462-4" />
+      </coding>
+   </name>
+   <valueQuantity>
+      <value value="10.739999771118163968" />
+      <units value="mm/Hg" />
+      <system value="http://fhir.orionhealth.com" />
+   </valueQuantity>
+   <appliesDateTime value="2014-09-03T09:36:11+12:00" />
+   <status value="final" />
+   <reliability value="ok" />
+   <subject>
+      <reference value="cid:patient" />
+   </subject>
+   <performer>
+      <reference value="cid:device" />
+   </performer>
+</Observation></content></entry></feed>

@@ -20,6 +20,14 @@ public class StepCount extends BaseMeasurement {
 	private Date start;
 	private Date end;
 	private int numberOfSteps;
+    private String deviceName;
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
     @Override
     public String getEventTypeName() {
@@ -32,11 +40,12 @@ public class StepCount extends BaseMeasurement {
 	}
 
 	public StepCount(final Date start, final Date end, final int numberOfSteps,
-			final String id) {
+			final String id, final String deviceName) {
 		super();
 		this.start = start;
 		this.end = end;
 		this.numberOfSteps = numberOfSteps;
+        this.deviceName = deviceName;
 		setId(id);
 	}
 
