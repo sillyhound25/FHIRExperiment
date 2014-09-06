@@ -31,11 +31,15 @@
       <file leaf-file-name="index.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4293478" vertical-offset="2272" max-vertical-offset="6345">
-              <caret line="250" column="30" selection-start-line="250" selection-start-column="30" selection-end-line="250" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.61141306" vertical-offset="4455" max-vertical-offset="6240">
+              <caret line="392" column="12" selection-start-line="392" selection-start-column="12" selection-end-line="392" selection-end-column="12" />
               <folding>
-                <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#4;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#5;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#7;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#9;tag#body#0;tag#html#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -841,12 +845,12 @@
       <workItem from="1408868697152" duration="58042000" />
       <workItem from="1409516985161" duration="3903000" />
       <workItem from="1409529931266" duration="3029000" />
-      <workItem from="1409542333424" duration="35257000" />
+      <workItem from="1409542333424" duration="37727000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239573000" />
+    <option name="totallyTimeSpent" value="242043000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="36" width="1226" height="817" extended-state="0" />
@@ -871,7 +875,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38636363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38636363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3275401" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22349103" sideWeight="0.23747277" order="4" side_tool="true" content_ui="tabs" />
@@ -1486,11 +1490,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4293478" vertical-offset="2272" max-vertical-offset="6345">
-          <caret line="250" column="30" selection-start-line="250" selection-start-column="30" selection-end-line="250" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.61141306" vertical-offset="4455" max-vertical-offset="6240">
+          <caret line="392" column="12" selection-start-line="392" selection-start-column="12" selection-end-line="392" selection-end-column="12" />
           <folding>
-            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
             <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#4;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#5;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#7;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#9;tag#body#0;tag#html#0" expanded="false" />
           </folding>
         </state>
       </provider>

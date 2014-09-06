@@ -93,7 +93,7 @@
           <div id="areaAddingNewConsult" style="display:none">
 
               <ul class="nav nav-tabs" role="tablist">
-                  <li class="active"><a href="#editNew" role="tab" data-toggle="tab">Create new Consult</a></li>
+                  <li class="active"><a href="#editNew" role="tab" data-toggle="tab">New Consult</a></li>
                   <li><a href="#previewNew" role="tab" data-toggle="tab">Preview record</a></li>
               </ul>
 
@@ -159,10 +159,17 @@
 <script>
   $(document).ready(function(){
 
-      var global = {user : {},consult:[],template:{}};
+      var global = {user : {},consult:[],template:{},vital:{}};
       global.template.consult = Handlebars.compile($('#consultList').html());
       global.template.consultPreviewTemplate = Handlebars.compile($('#consultPreviewTemplate').html());
 
+      global.template.problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
+      global.template.medsTemplate = Handlebars.compile($('#medsTemplate').html());
+
+
+      global.vital.problem = ["Asthma","Diabetes"]
+
+      global.vital.meds = ["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"];
 
 
       $("#patientOptionsMenu").hide();      //hide the patient specific stuff
@@ -170,6 +177,9 @@
         $("#btn_save").on('click',function(){
             var narrative = $("#resource_narrative").val();
             var resourceName = $("#selNewResource").val();
+
+
+            checkResource(resourceName,narrative);
 
             //reset combo and narrative..
             $("#resource_narrative").val("");
@@ -179,9 +189,18 @@
 
             //the list of resources in the main editing window. should allow editing etc...
             $("#newResourceHx").html(global.template.consult({item:global.consult}));
-
             //the preview
             $("#previewNewConsult").html(global.template.consultPreviewTemplate({item:global.consult}));
+
+            $(".remove-resource").on('click',function(ev){
+                var inx = $(ev.currentTarget).attr("data-inx");
+                //alert('del '+inx)
+                global.consult.splice(inx,1);
+                $("#newResourceHx").html(global.template.consult({item:global.consult}));
+                $("#previewNewConsult").html(global.template.consultPreviewTemplate({item:global.consult}));
+            })
+
+
 
             $("#profileIframe").attr("src","empty.html");
         })
@@ -222,7 +241,6 @@
               getPatient("t100");
           })
       });
-
 
 
       $("#patSMART").on('click',function(){
@@ -316,7 +334,77 @@
           $('#login').html("Dr Smith");
       }
 
-  });
+
+      //see if the resource is a 'special' one - like a condition
+      function checkResource(resourceName,narrative) {
+          if (resourceName.toLowerCase().indexOf("condition") > -1) {
+              if (confirm("Do you wish to add this Condition to the patients problem list")) {
+                  global.vital.problem.push(narrative);
+                 // $("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
+                  //$("#problemCnt").html(global.vital.problem.length);
+                  showVitals();
+              }
+          }
+
+          if (resourceName.toLowerCase().indexOf("medication") > -1) {
+              if (confirm("Do you wish to add this Medication to the patients current medication list")) {
+                  global.vital.meds.push(narrative);
+                  showVitals();
+              }
+          }
+      }
+
+
+      function showVitals() {
+          $("#patMedList").html(global.template.medsTemplate({entry:global.vital.meds}));
+          $("#medCnt").html(global.vital.meds.length);
+
+          $("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
+          $("#problemCnt").html(global.vital.problem.length);
+
+      }
+
+      //called after a patient has been selected...
+      function setUpPatient(pat){
+          $('#selectedPatient').html(pat.text.div)
+          $("#patientOptionsMenu").show();
+          var vitalsTemplate = Handlebars.compile($('#vitalsTemplate').html());
+          $("#vitalsDiv").html(vitalsTemplate());
+
+          $("#patientNewRecord").show();      //menu option
+          $("#areaAddingNewConsult").show();        //div with new resources
+
+
+          showVitals();
+
+          //$("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
+          //$("#problemCnt").html(global.vital.problem.length);
+
+          //var problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
+          //$("#patProblemList").html(problemsTemplate({entry:global.vital.problem}));
+          //$("#problemCnt").html(global.vital.problem.length);
+
+
+          //global.template.medsTemplate
+
+          //global.vital.meds
+
+          //$("#patMedList").html(global.template.medsTemplate({entry:global.vital.meds}));
+          //$("#medCnt").html(global.vital.meds.length);
+
+          //var medsTemplate = Handlebars.compile($('#medsTemplate').html());
+          //$("#patMedList").html(medsTemplate({entry:["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"]}));
+          //$("#medCnt").html("3");
+
+          $('#introText').hide();
+
+      }
+
+
+
+  });       //end of the jquery 'onload'
+
+
 
     function clearWorkArea() {
         $("#launchFrameDiv").empty();
@@ -326,28 +414,6 @@
 
 
 
-
-  //called after a patient has been selected...
-    function setUpPatient(pat){
-        $('#selectedPatient').html(pat.text.div)
-        $("#patientOptionsMenu").show();
-        var vitalsTemplate = Handlebars.compile($('#vitalsTemplate').html());
-        $("#vitalsDiv").html(vitalsTemplate());
-
-        $("#patientNewRecord").show();      //menu option
-        $("#areaAddingNewConsult").show();        //div with new resources
-
-        var problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
-        $("#patProblemList").html(problemsTemplate({entry:["Asthma","Diabetes"]}));
-        $("#problemCnt").html("2");
-
-        var medsTemplate = Handlebars.compile($('#medsTemplate').html());
-        $("#patMedList").html(medsTemplate({entry:["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"]}));
-        $("#medCnt").html("3");
-
-        $('#introText').hide();
-
-    }
 
 
 </script>
@@ -373,11 +439,14 @@
         {{/each}}
   </script>
 
+
+
   <!-- List the resources that have been created for this consult...-->
   <script type="handlebars/text" id="consultList">
     <div class='list-group'>
         {{#each item}}
         <a href="#" class="list-group-item">
+            <div><i class="glyphicon glyphicon-remove pull-right remove-resource" data-inx="{{@index}}"></i></div>
             <div><strong>{{resourceName}}</strong></div>
             <div style="padding-left: 10px"><em>{{narrative}}</em></div>
         </a>
@@ -425,9 +494,6 @@
             </div>
         </div>
 
-
-
-
   </script>
 
   <script type="handlebars/text" id="listPatientDiv">
@@ -436,6 +502,7 @@
       {{/each}}
   </script>
 
+  <!-- Display all the vitals in an accordian -->
   <script type="handlebars/text" id="vitalsTemplate">
       <div class="panel-group" id="accordion">
   <div class="panel panel-default">
@@ -482,6 +549,7 @@
 
   </script>
 
+  <!-- Display the problems within the accordian -->
   <script type="handlebars/text" id="problemsTemplate">
     <div class='list-group'>
       {{#each entry}}
@@ -491,6 +559,7 @@
 
   </script>
 
+  <!-- Display the meds within the accordian -->
   <script type="handlebars/text" id="medsTemplate">
     <div class='list-group'>
       {{#each entry}}
