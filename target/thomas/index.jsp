@@ -140,7 +140,9 @@
                   </div>
 
               <div class="tab-pane" id="previewNew">
+
                   <div id="previewNewConsult"></div>
+                  <p>This display is a summary of the information selected during this consultation</p>
               </div>
 
           </div>
@@ -362,6 +364,22 @@
           $("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
           $("#problemCnt").html(global.vital.problem.length);
 
+          $(".remove-med").on('click',function(ev){
+              if (confirm('Do you wish to remove this medication from the patients usual list')){
+                  var inx = $(ev.currentTarget).attr("data-inx");
+                  global.vital.meds.splice(inx,1);
+                  showVitals();
+              };
+          });
+
+          $(".remove-problem").on('click',function(ev){
+              if (confirm('Do you wish to remove this problem from the patients problem list')){
+                  var inx = $(ev.currentTarget).attr("data-inx");
+                  global.vital.problem.splice(inx,1);
+                  showVitals();
+              };
+          })
+
       }
 
       //called after a patient has been selected...
@@ -377,24 +395,6 @@
 
           showVitals();
 
-          //$("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
-          //$("#problemCnt").html(global.vital.problem.length);
-
-          //var problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
-          //$("#patProblemList").html(problemsTemplate({entry:global.vital.problem}));
-          //$("#problemCnt").html(global.vital.problem.length);
-
-
-          //global.template.medsTemplate
-
-          //global.vital.meds
-
-          //$("#patMedList").html(global.template.medsTemplate({entry:global.vital.meds}));
-          //$("#medCnt").html(global.vital.meds.length);
-
-          //var medsTemplate = Handlebars.compile($('#medsTemplate').html());
-          //$("#patMedList").html(medsTemplate({entry:["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"]}));
-          //$("#medCnt").html("3");
 
           $('#introText').hide();
 
@@ -553,17 +553,24 @@
   <script type="handlebars/text" id="problemsTemplate">
     <div class='list-group'>
       {{#each entry}}
-        <a href='#' class='list-group-item' data-name={{this}}>{{this}}</a>
+        <a href='#' class='list-group-item' data-name={{this}}>
+            <div><i class="glyphicon glyphicon-remove pull-right remove-problem" data-inx="{{@index}}"></i></div>
+            {{this}}
+        </a>
       {{/each}}
     </div>
 
   </script>
 
+
   <!-- Display the meds within the accordian -->
   <script type="handlebars/text" id="medsTemplate">
     <div class='list-group'>
       {{#each entry}}
-        <a href='#' class='list-group-item' data-name={{this}}>{{this}}</a>
+        <a href='#' class='list-group-item' data-name={{this}}>
+            <div><i class="glyphicon glyphicon-remove pull-right remove-med" data-inx="{{@index}}"></i></div>
+            {{this}}
+        </a>
       {{/each}}
     </div>
 
