@@ -61,9 +61,6 @@
   </nav>
 
 
-
-
-
   <div class="row">
       <div class="col-md-3">
 
@@ -95,6 +92,7 @@
               <ul class="nav nav-tabs" role="tablist">
                   <li class="active"><a href="#editNew" role="tab" data-toggle="tab">New Consult</a></li>
                   <li><a href="#previewNew" role="tab" data-toggle="tab">Preview record</a></li>
+                  <li><a href="#allergyHx" role="tab" data-toggle="tab">Allergy History</a></li>
               </ul>
 
               <br />
@@ -145,6 +143,11 @@
                   <p>This display is a summary of the information selected during this consultation</p>
               </div>
 
+              <div class="tab-pane" id="allergyHx">
+                  <div id="allergyHxDiv"></div>
+              </div>
+
+
           </div>
 
           </div>
@@ -157,24 +160,39 @@
   </div>
 
 
-
 <script>
   $(document).ready(function(){
 
-      var global = {user : {},consult:[],template:{},vital:{}};
+      var global = {user : {},consult:[],template:{},vital:{},originalVital:{}};
       global.template.consult = Handlebars.compile($('#consultList').html());
       global.template.consultPreviewTemplate = Handlebars.compile($('#consultPreviewTemplate').html());
 
       global.template.problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
       global.template.medsTemplate = Handlebars.compile($('#medsTemplate').html());
       global.template.allergyTemplate = Handlebars.compile($('#allergyTemplate').html());
+      global.template.showAllergyHistoryTemplate = Handlebars.compile($('#showAllergyHistoryTemplate').html());
 
+
+
+      //set vitals
       global.vital.problem = ["Asthma","Diabetes"]
-
       global.vital.meds = ["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"];
-
-
       global.vital.allergy = [{display:"Peanuts cause anaphylaxis"}];
+
+
+      global.history = {allergy: []};   //history of the allergy list
+      global.history.allergy.push({userName:"John Smith",list: [{display:"Peanuts cause anaphylaxis"}]}); //the first list
+
+      //global.history.allergy.push({userName:"Mary Jones",list: $.extend({}, global.vital.allergy)}); //the first list
+
+
+
+      $("#allergyHxDiv").html(global.template.showAllergyHistoryTemplate({review:global.history.allergy}))
+
+
+      //global.originalVital.allergy = $.extend({}, global.vital.allergy);
+
+      console.log(global)
 
       $("#patientOptionsMenu").hide();      //hide the patient specific stuff
 
@@ -241,6 +259,7 @@
       $('#login').on('click',function(){
           $.get("auth/login",function(user){
               global.user = user;
+
               showUser(user);
               getPatient("t100");
           })
@@ -335,6 +354,7 @@
 
 
       function showUser(user) {
+          console.log(user);
           $('#login').html("Dr Smith");
       }
 
@@ -360,6 +380,38 @@
           if (resourceName.toLowerCase().indexOf("allergy") > -1) {
               if (confirm("Do you wish to add this Allergy to the patients list of allergies")) {
                   global.vital.allergy.push({display:narrative});
+
+                  //update the history of the list
+                  // global.history.allergy.push({userName:"Mary Jones",list: $.extend({}, global.vital.allergy)}); //the first list
+
+                  var mostRecentList = global.history.allergy[global.history.allergy.length-1];    //clone the current list
+                  console.log(mostRecentList)
+                  var newList = [];
+                  $.each(mostRecentList.list,function(inx,obj){
+                      //this is a list of lists...
+                      /*
+                      var ar = [];
+                      console.log(lst);
+                      $.each(lst.list,function(inx1,obj){
+                          //obj will be a single allergy...
+                          ar.push($.extend({},obj));
+                          console.log(ar)
+                      })
+                      */
+                      newList.push(obj);
+                      console.log(newList)
+                  })
+
+                  newList.push({display:narrative});
+                  console.log(newList)
+                  global.history.allergy.push({userName:global.user.userName,list:newList});
+
+                  //show the updated list
+                  $("#allergyHxDiv").html(global.template.showAllergyHistoryTemplate({review:global.history.allergy}))
+
+
+
+
                   showVitals();
               }
           }
@@ -439,6 +491,32 @@
 
 
 </script>
+
+
+  <script type="handlebars/text" id="showAllergyHistoryTemplate">
+      <h5 class="text-center">History of changes to Allergy List</h5>
+      <table class="table table-bordered table-condensed">
+        <thead>
+            <tr><th>User</th><th>List</th></tr>
+        </thead>
+        <tbody>
+
+          {{#each review}}
+                <tr>
+                    <td>{{userName}}</td>
+                    <td>
+                        <ul>
+                        {{#each list}}
+                            <li>{{display}}</li>
+                        {{/each}}
+                        </ul>
+                    </td>
+                </tr>
+          {{/each}}
+      </tbody></table>
+
+</script>
+
 
   <script type="handlebars/text" id="selectPatientDiv">
       <form class="navbar-form navbar-left" role="search">
