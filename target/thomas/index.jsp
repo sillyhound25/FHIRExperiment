@@ -23,8 +23,8 @@
 
               <li><a href="#" id="patientNewRecord" title="New Record" style="display: none">
                   <i class="glyphicon glyphicon-briefcase"></i>
-                  </a></li>
-
+                  </a>
+              </li>
 
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -38,8 +38,6 @@
                   </ul>
               </li>
           </ul>
-
-
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -59,8 +57,6 @@
                   </li>
               </ul>
           </div><!-- /.navbar-collapse -->
-
-
       </div><!-- /.container-fluid -->
   </nav>
 
@@ -90,25 +86,64 @@
 
       </div>
       <div class="col-md-9">
+        <div id="introText">
+            <p>Click the <em>Login & Select Patient</em> Link above to start with a demo user and patient</p>
+        </div>
 
-          <div id="newRecordDiv">
-              <div class="row">
-                  <div class="col-md-8">
-                      <!-- adding a new resource-->
-                      <div id="addNewResource" style="display:none">
-                          <select id="selNewResource" class="form-control"></select>
-                          <iframe id='profileIframe' width='100%' height='600px'></iframe>
-                      </div>
+          <div id="areaAddingNewConsult" style="display:none">
 
+              <ul class="nav nav-tabs" role="tablist">
+                  <li class="active"><a href="#editNew" role="tab" data-toggle="tab">Create new Consult</a></li>
+                  <li><a href="#previewNew" role="tab" data-toggle="tab">Preview record</a></li>
+              </ul>
 
+              <br />
+
+              <div class="tab-content">
+
+              <div class="tab-pane active" id="editNew">
+                    <div id="newRecordDiv">
+                        <div class="row">
+                              <div class="col-md-8">
+                                  <!-- adding a new resource-->
+                                  <div id="addNewResource" >
+
+                                      <div class="row" style="margin-bottom: 5px">
+                                          <div class="col-md-10">
+                                              <select id="selNewResource" class="form-control"></select>
+                                          </div>
+                                          <div class="col-md-2">
+                                                <a href="#" id="btn_save" class="btn btn-primary form-control">Save</a>
+                                          </div>
+                                      </div>
+                                      <div class="row" style="margin-bottom: 5px">
+                                          <div class="col-md-12">
+                                              <textarea placeholder="Enter Narrative" class="form-control" id="resource_narrative"></textarea>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                              <iframe id='profileIframe' width='100%' height='600px'></iframe>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <!-- as new resources are created, add them here -->
+                                <div id="newResourceHx"></div>
+                              </div>
+
+                          </div>
+
+                    </div>
 
                   </div>
-                  <div class="col-md-4">
-                      <!-- as new resources are created, add them here -->
-                    <div id="newResourceHx"></div>
-                  </div>
 
+              <div class="tab-pane" id="previewNew">
+                  <div id="previewNewConsult"></div>
               </div>
+
+          </div>
 
           </div>
 
@@ -124,24 +159,44 @@
 <script>
   $(document).ready(function(){
 
-      var global = {user : {}};
+      var global = {user : {},consult:[],template:{}};
+      global.template.consult = Handlebars.compile($('#consultList').html());
+      global.template.consultPreviewTemplate = Handlebars.compile($('#consultPreviewTemplate').html());
 
 
-      $("#patientOptionsMenu").hide();      //hide the patien specific stuff
 
-      //create the vitals accordian
+      $("#patientOptionsMenu").hide();      //hide the patient specific stuff
 
+        $("#btn_save").on('click',function(){
+            var narrative = $("#resource_narrative").val();
+            var resourceName = $("#selNewResource").val();
 
+            //reset combo and narrative..
+            $("#resource_narrative").val("");
+            $("#selNewResource").val($("#target option:first").val());
+
+            global.consult.push({resourceName:resourceName,narrative:narrative});
+
+            //the list of resources in the main editing window. should allow editing etc...
+            $("#newResourceHx").html(global.template.consult({item:global.consult}));
+
+            //the preview
+            $("#previewNewConsult").html(global.template.consultPreviewTemplate({item:global.consult}));
+
+            $("#profileIframe").attr("src","empty.html");
+        })
 
         $("#selNewResource").on("change",function(ev){
-            //alert($(ev.currentTarget).val());
-
-
             var name = $(ev.currentTarget).val();
             //$("#profileTitle").html("Loading "+name+"...");
             url = "http://fhir-dev.healthintersections.com.au/open/_web/Profile/"+name;
             //$("#displayDiv").html("Loading " + name);
-            //$("#profileIframe").attr("src","about:blank");
+            //$("#profileIframe").attr("src","loading.html");
+
+            var localS = "loading...";
+            //document.getElementById('output_iframe1').src = "data:text/html;charset=utf-8," + escape(localS);
+
+            //$('#profileIframe').attr("src","data:text/html;charset=utf-8," + escape(localS))
             $("#profileIframe").attr("src",url);
 
         })
@@ -152,16 +207,9 @@
           global.profileList = data;
           console.log(global);
 
-
           var template = Handlebars.compile($('#selectProfileTemplate').html());
 
           $("#selNewResource").append(template(global.profileList));
-
-
-
-
-          //$("#selNewResource").append('<option value=1>My option</option>');
-
       })
 
 
@@ -170,7 +218,6 @@
       $('#login').on('click',function(){
           $.get("auth/login",function(user){
               global.user = user;
-              //console.log(user);
               showUser(user);
               getPatient("t100");
           })
@@ -279,6 +326,8 @@
     }
 
 
+
+
   //called after a patient has been selected...
     function setUpPatient(pat){
         $('#selectedPatient').html(pat.text.div)
@@ -287,11 +336,18 @@
         $("#vitalsDiv").html(vitalsTemplate());
 
         $("#patientNewRecord").show();      //menu option
-        $("#addNewResource").show();        //div with new resources
+        $("#areaAddingNewConsult").show();        //div with new resources
 
         var problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
         $("#patProblemList").html(problemsTemplate({entry:["Asthma","Diabetes"]}));
         $("#problemCnt").html("2");
+
+        var medsTemplate = Handlebars.compile($('#medsTemplate').html());
+        $("#patMedList").html(medsTemplate({entry:["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"]}));
+        $("#medCnt").html("3");
+
+        $('#introText').hide();
+
     }
 
 
@@ -317,6 +373,41 @@
             <option value={{this}}>{{this}}</option>
         {{/each}}
   </script>
+
+  <!-- List the resources that have been created for this consult...-->
+  <script type="handlebars/text" id="consultList">
+    <div class='list-group'>
+        {{#each item}}
+        <a href="#" class="list-group-item">
+            <div><strong>{{resourceName}}</strong></div>
+            <div style="padding-left: 10px"><em>{{narrative}}</em></div>
+        </a>
+
+        {{/each}}
+    </div>
+    </script>
+
+
+
+  <!-- Generate the preview for the consult-->
+  <script type="handlebars/text" id="consultPreviewTemplate">
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr><th>Narrative></th><th>Resource</th></tr>
+        </thead>
+        <tbody>
+        {{#each item}}
+            <tr>
+                <td>{{narrative}}</td>
+                <td>{{resourceName}}</td>
+            </tr>
+
+
+        {{/each}}
+        </tbody>
+    </table>
+    </script>
+
 
   <script type="handlebars/text" id="listProfileDiv">
     <h5>Profiles</h5>
@@ -351,12 +442,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Medications</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Medications
+        (<span id="medCnt"></span>)</a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        <ul></ul>
+        <div id="patMedList"></div>
         </div>
     </div>
   </div>
@@ -394,11 +486,21 @@
   <script type="handlebars/text" id="problemsTemplate">
     <div class='list-group'>
       {{#each entry}}
-        <a href='#' class='list-group-item oneprofile' data-name={{this}}>{{this}}</a>
+        <a href='#' class='list-group-item' data-name={{this}}>{{this}}</a>
       {{/each}}
     </div>
 
   </script>
+
+  <script type="handlebars/text" id="medsTemplate">
+    <div class='list-group'>
+      {{#each entry}}
+        <a href='#' class='list-group-item' data-name={{this}}>{{this}}</a>
+      {{/each}}
+    </div>
+
+  </script>
+
 
   </body>
 </html>
