@@ -167,12 +167,14 @@
 
       global.template.problemsTemplate = Handlebars.compile($('#problemsTemplate').html());
       global.template.medsTemplate = Handlebars.compile($('#medsTemplate').html());
-
+      global.template.allergyTemplate = Handlebars.compile($('#allergyTemplate').html());
 
       global.vital.problem = ["Asthma","Diabetes"]
 
       global.vital.meds = ["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"];
 
+
+      global.vital.allergy = [{display:"Peanuts cause anaphylaxis"}];
 
       $("#patientOptionsMenu").hide();      //hide the patient specific stuff
 
@@ -354,6 +356,13 @@
                   showVitals();
               }
           }
+
+          if (resourceName.toLowerCase().indexOf("allergy") > -1) {
+              if (confirm("Do you wish to add this Allergy to the patients list of allergies")) {
+                  global.vital.allergy.push({display:narrative});
+                  showVitals();
+              }
+          }
       }
 
 
@@ -363,6 +372,11 @@
 
           $("#patProblemList").html(global.template.problemsTemplate({entry:global.vital.problem}));
           $("#problemCnt").html(global.vital.problem.length);
+
+          $("#patAllergyList").html(global.template.allergyTemplate({entry:global.vital.allergy}));
+          $("#allergyCnt").html(global.vital.allergy.length);
+
+
 
           $(".remove-med").on('click',function(ev){
               if (confirm('Do you wish to remove this medication from the patients usual list')){
@@ -376,6 +390,14 @@
               if (confirm('Do you wish to remove this problem from the patients problem list')){
                   var inx = $(ev.currentTarget).attr("data-inx");
                   global.vital.problem.splice(inx,1);
+                  showVitals();
+              };
+          })
+
+          $(".remove-allergy").on('click',function(ev){
+              if (confirm('Do you wish to remove this allergy from the patients list of allergies')){
+                  var inx = $(ev.currentTarget).attr("data-inx");
+                  global.vital.allergy.splice(inx,1);
                   showVitals();
               };
           })
@@ -536,12 +558,12 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Allergies</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Allergies (<span id="allergyCnt"></span>)</a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
-        <ul></ul>
+        <div id="patAllergyList"></div>
       </div>
     </div>
   </div>
@@ -562,6 +584,19 @@
 
   </script>
 
+
+  <!-- Display the allergies within the accordian-->
+  <script type="handlebars/text" id="allergyTemplate">
+    <div class='list-group'>
+      {{#each entry}}
+        <a href='#' class='list-group-item' data-name={{display}}>
+            <div><i class="glyphicon glyphicon-remove pull-right remove-allergy" data-inx="{{@index}}"></i></div>
+            {{display}}
+        </a>
+      {{/each}}
+    </div>
+
+  </script>
 
   <!-- Display the meds within the accordian -->
   <script type="handlebars/text" id="medsTemplate">

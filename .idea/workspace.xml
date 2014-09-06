@@ -31,20 +31,22 @@
       <file leaf-file-name="index.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8136483" vertical-offset="4280" max-vertical-offset="4830">
-              <caret line="571" column="20" selection-start-line="571" selection-start-column="20" selection-end-line="571" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.5027174" vertical-offset="2620" max-vertical-offset="4515">
+              <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
               <folding>
                 <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
-                <element signature="e#9717#11126#0#HTML" expanded="false" />
-                <element signature="e#11177#12151#0#HTML" expanded="false" />
-                <element signature="e#12185#12569#0#HTML" expanded="false" />
-                <element signature="e#12773#13538#0#HTML" expanded="false" />
-                <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
-                <element signature="tag#script#3;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="e#11337#12311#0#HTML" expanded="false" />
+                <element signature="e#12345#12729#0#HTML" expanded="false" />
+                <element signature="e#14022#15514#0#HTML" expanded="false" />
+                <element signature="e#15600#16034#0#HTML" expanded="false" />
+                <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="tag#script#4;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="tag#script#5;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#6;tag#body#0;tag#html#0" expanded="false" />
                 <element signature="tag#script#7;tag#body#0;tag#html#0" expanded="false" />
+                <element signature="tag#script#8;tag#body#0;tag#html#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -850,12 +852,12 @@
       <workItem from="1408868697152" duration="58042000" />
       <workItem from="1409516985161" duration="3903000" />
       <workItem from="1409529931266" duration="3029000" />
-      <workItem from="1409542333424" duration="39127000" />
+      <workItem from="1409542333424" duration="39833000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243443000" />
+    <option name="totallyTimeSpent" value="244149000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="36" width="1226" height="817" extended-state="0" />
@@ -1495,20 +1497,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8136483" vertical-offset="4280" max-vertical-offset="4830">
-          <caret line="571" column="20" selection-start-line="571" selection-start-column="20" selection-end-line="571" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.5027174" vertical-offset="2620" max-vertical-offset="4515">
+          <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
           <folding>
             <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="false" />
             <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
-            <element signature="e#9717#11126#0#HTML" expanded="false" />
-            <element signature="e#11177#12151#0#HTML" expanded="false" />
-            <element signature="e#12185#12569#0#HTML" expanded="false" />
-            <element signature="e#12773#13538#0#HTML" expanded="false" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="false" />
-            <element signature="tag#script#3;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="e#11337#12311#0#HTML" expanded="false" />
+            <element signature="e#12345#12729#0#HTML" expanded="false" />
+            <element signature="e#14022#15514#0#HTML" expanded="false" />
+            <element signature="e#15600#16034#0#HTML" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
             <element signature="tag#script#4;tag#body#0;tag#html#0" expanded="false" />
             <element signature="tag#script#5;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#6;tag#body#0;tag#html#0" expanded="false" />
             <element signature="tag#script#7;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#8;tag#body#0;tag#html#0" expanded="false" />
           </folding>
         </state>
       </provider>
