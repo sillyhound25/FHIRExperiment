@@ -9,7 +9,14 @@
       <script src="js/libs/moment.min.js"></script>
       <script src="js/libs/bootstrap.min.js"></script>
       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <title></title>
+    <title>Sample EMR using FHIR resources</title>
+
+      <style>
+          .removed {
+              text-decoration: line-through;
+              color: red;;
+          }
+      </style>
 
   </head>
   <body style="padding: 8px">
@@ -21,7 +28,7 @@
 
           <ul class="nav navbar-nav" id="patientOptionsMenu">
 
-              <li><a href="#" id="patientNewRecord" title="New Record" style="display: none">
+              <li><a href="#" id="patientNewRecord" title="New Record" class="whenPatientSelected">
                   <i class="glyphicon glyphicon-briefcase"></i>
                   </a>
               </li>
@@ -40,9 +47,14 @@
           </ul>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
+
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#" id="searchPatient">Search</a></li>
+
+
+                  <li class="whenPatientSelected"><a href="#" id="searchPatient">Search Patient</a></li>
+                  <li class="whenPatientSelected"><a href="#" id="changeUser">Change User</a></li>
+
                   <li><a href="#"  id="login">Login & Select Patient</a></li>
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -84,10 +96,11 @@
       </div>
       <div class="col-md-9">
         <div id="introText">
+            <h4>Sample EMR selecting information via Profiles</h4>
             <p>Click the <em>Login & Select Patient</em> Link above to start with a demo user and patient</p>
         </div>
 
-          <div id="areaAddingNewConsult" style="display:none">
+          <div id="areaAddingNewConsult" class="whenPatientSelected">
 
               <ul class="nav nav-tabs" role="tablist">
                   <li class="active"><a href="#editNew" role="tab" data-toggle="tab">New Consult</a></li>
@@ -172,8 +185,6 @@
       global.template.allergyTemplate = Handlebars.compile($('#allergyTemplate').html());
       global.template.showAllergyHistoryTemplate = Handlebars.compile($('#showAllergyHistoryTemplate').html());
 
-
-
       //set vitals
       global.vital.problem = ["Asthma","Diabetes"]
       global.vital.meds = ["Atenolol 50mg, 1 nocte","Frusemide 10mg, 1 mane","Simvastatin 25mg 1 mane"];
@@ -187,10 +198,12 @@
 
 
 
+
+
       $("#allergyHxDiv").html(global.template.showAllergyHistoryTemplate({review:global.history.allergy}))
 
 
-      //global.originalVital.allergy = $.extend({}, global.vital.allergy);
+      $(".whenPatientSelected").hide();
 
       console.log(global)
 
@@ -227,29 +240,22 @@
             $("#profileIframe").attr("src","empty.html");
         })
 
+        //when th euser selects a profile in the combo...
         $("#selNewResource").on("change",function(ev){
             var name = $(ev.currentTarget).val();
-            //$("#profileTitle").html("Loading "+name+"...");
             url = "http://fhir-dev.healthintersections.com.au/open/_web/Profile/"+name;
-            //$("#displayDiv").html("Loading " + name);
-            //$("#profileIframe").attr("src","loading.html");
-
-            var localS = "loading...";
-            //document.getElementById('output_iframe1').src = "data:text/html;charset=utf-8," + escape(localS);
-
-            //$('#profileIframe').attr("src","data:text/html;charset=utf-8," + escape(localS))
             $("#profileIframe").attr("src",url);
 
         })
 
 
-      //get the list of knows profiles...
+      //get the list of known profiles...
       $.get("cc/profilelist",function(data){
           global.profileList = data;
           console.log(global);
 
+          //add all the profiles to the combo
           var template = Handlebars.compile($('#selectProfileTemplate').html());
-
           $("#selNewResource").append(template(global.profileList));
       })
 
@@ -257,12 +263,23 @@
       var iframe = "<iframe id='launchIframe' width='100%' height='400px'></iframe>";
 
       $('#login').on('click',function(){
-          $.get("auth/login",function(user){
+          $.get("auth/login?username=Dr Jones",function(user){
               global.user = user;
 
               showUser(user);
               getPatient("t100");
           })
+      });
+
+
+      $("#changeUser").on('click',function(){
+          var userName = prompt("Enter new User name");
+          if (userName) {
+              global.user.userName = userName;
+
+              showUser(global.user);
+          }
+
       });
 
 
@@ -274,6 +291,7 @@
           alert('setup for new record');
       });
 
+      /*
       $('.sidebar').on("click",function(ev){
           clearWorkArea();
           $('.sidebar').removeClass("active");
@@ -308,6 +326,8 @@
           }
       });
 
+
+      */
       $('#searchPatient').on('click',function(){
           clearWorkArea();
           var template = Handlebars.compile($('#selectPatientDiv').html());
@@ -355,7 +375,8 @@
 
       function showUser(user) {
           console.log(user);
-          $('#login').html("Dr Smith");
+          //$('#login').html("Dr Smith");
+          $('#login').html(user.userName);
       }
 
 
@@ -382,23 +403,18 @@
                   global.vital.allergy.push({display:narrative});
 
                   //update the history of the list
-                  // global.history.allergy.push({userName:"Mary Jones",list: $.extend({}, global.vital.allergy)}); //the first list
 
                   var mostRecentList = global.history.allergy[global.history.allergy.length-1];    //clone the current list
                   console.log(mostRecentList)
                   var newList = [];
                   $.each(mostRecentList.list,function(inx,obj){
-                      //this is a list of lists...
-                      /*
-                      var ar = [];
-                      console.log(lst);
-                      $.each(lst.list,function(inx1,obj){
-                          //obj will be a single allergy...
-                          ar.push($.extend({},obj));
-                          console.log(ar)
-                      })
-                      */
-                      newList.push(obj);
+
+                      console.log(obj.deletedReason);
+                      //don't add one that was deleted
+                      if (! obj.deletedReason) {
+
+                          newList.push(obj);
+                      }
                       console.log(newList)
                   })
 
@@ -447,9 +463,45 @@
           })
 
           $(".remove-allergy").on('click',function(ev){
-              if (confirm('Do you wish to remove this allergy from the patients list of allergies')){
+              var deletedReason = prompt('Do you wish to remove this allergy from the patients list of allergies','Incorrect');
+              if (deletedReason){
                   var inx = $(ev.currentTarget).attr("data-inx");
                   global.vital.allergy.splice(inx,1);
+
+
+
+                  //create a new list
+
+                  var mostRecentList = global.history.allergy[global.history.allergy.length-1];    //clone the current list
+                  console.log(mostRecentList)
+                  var newList = [];
+                  $.each(mostRecentList.list,function(inx1,obj){
+
+                      if (inx1 == inx) {
+                            //mark the one just deleted...
+                          var newObj = $.extend({},obj);
+
+                          newObj.deletedReason = deletedReason;
+                          newList.push(newObj);
+                      } else {
+                          //if the allergy was previously deleted, then stop adding it...
+                          console.log(obj.deletedReason);
+                            if (! obj.deletedReason) {
+                               // newList.push(obj);
+                                newList.push($.extend({},obj));
+                            }
+
+                      }
+
+                  })
+
+                  //newList.push({display:narrative});
+                  //console.log(newList)
+                  global.history.allergy.push({userName:global.user.userName,list:newList});
+
+                  //show the updated list
+                  $("#allergyHxDiv").html(global.template.showAllergyHistoryTemplate({review:global.history.allergy}))
+
                   showVitals();
               };
           })
@@ -464,13 +516,15 @@
           $("#vitalsDiv").html(vitalsTemplate());
 
           $("#patientNewRecord").show();      //menu option
-          $("#areaAddingNewConsult").show();        //div with new resources
+         // $("#areaAddingNewConsult").show();        //div with new resources
 
 
           showVitals();
 
 
           $('#introText').hide();
+
+          $(".whenPatientSelected").show();
 
       }
 
@@ -507,7 +561,13 @@
                     <td>
                         <ul>
                         {{#each list}}
-                            <li>{{display}}</li>
+                            {{#if deletedReason}}
+                                <li class='removed'>{{display}}. Allergy removed because: {{deletedReason}}</li>
+                            {{else}}
+                                <li>{{display}}</li>
+                            {{/if}}
+
+
                         {{/each}}
                         </ul>
                     </td>
@@ -667,10 +727,13 @@
   <script type="handlebars/text" id="allergyTemplate">
     <div class='list-group'>
       {{#each entry}}
+        {{#unless deletedReason}}
         <a href='#' class='list-group-item' data-name={{display}}>
             <div><i class="glyphicon glyphicon-remove pull-right remove-allergy" data-inx="{{@index}}"></i></div>
             {{display}}
         </a>
+        {{/unless}}
+
       {{/each}}
     </div>
 
