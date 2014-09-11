@@ -59,6 +59,10 @@
         <servlet-name>ProfilesServlet</servlet-name>
         <servlet-class>cc.GetProfilesListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConvertResourceServlet</servlet-name>
+        <servlet-class>cc.ConvertResourceServlet</servlet-class>
+    </servlet>
 
 
     <!-- Filter to check access to fhir end points...
