@@ -1,0 +1,193 @@
+<html >
+<head>
+
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/angular/controller/cc.js"></script>
+
+    <script src="js/libs/jquery-1.9.0.min.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <title>Sample EMR using FHIR resources</title>
+
+    <style>
+        .removed {
+            text-decoration: line-through;
+            color: red;
+        }
+    </style>
+
+</head>
+<body style="padding: 8px"  ng-app="myApp">
+
+
+<div ng-controller="MyController">
+
+    <div ng-controller="NavController">
+
+
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <p class="navbar-brand">My EMR</p>
+
+                <p ng-show="status.loggedIn" class="navbar-text">
+                    {{status.patient.text.div}}
+                </p>
+
+                <p id="selectedPatient" class="navbar-text"></p>
+
+                <ul class="nav navbar-nav" id="patientOptionsMenu">
+
+                    <li><a href="#" id="patientNewRecord" title="New Record" class="whenPatientSelected">
+                        <i class="glyphicon glyphicon-briefcase"></i>
+                    </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-play"></i> </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="patSMART">SMART</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+
+
+                        <li class="whenPatientSelected"><a href="#" id="searchPatient">Search Patient</a></li>
+                        <li class="whenPatientSelected"><a href="#" id="changeUser">Change User</a></li>
+
+                        <li><a href="#"  ng-click="login()">Login & Select Patient</a></li>
+                        <li ng-show="status.loggedIn"><a href="#">{{status.user.userName}}</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-cog"></i> </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Logout</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+    </div>
+
+    <div ng-init="getData()"></div>     <!-- Get the list of profiles -->
+
+
+    <div ng-show="status.loggedIn" class="row">
+        <div class="col-md-3">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Medications
+                                ({{vitals.med.length}})</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class='list-group'>
+                                <a href='#' ng-click="profileSelected(p.name);$event.preventDefault()"
+                                   ng-repeat="m in vitals.med" class='list-group-item'> {{ m.narrative }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                Problem List ({{vitals.condition.length}})</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class='list-group'>
+                                <a href='#' ng-click="profileSelected(p.name);$event.preventDefault()"
+                                   ng-repeat="c in vitals.condition" class='list-group-item'> {{ c.narrative }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Allergies ({{vitals.allergy.length}})</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class='list-group'>
+                                <a href='#'
+                                    ng-repeat="a in vitals.allergy" class='list-group-item'> {{ a.narrative }}
+                                    <div ng-click="deleteAllergy(a,$index);$event.preventDefault()" class="pull-right">X</div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <!--<h5>Profiles</h5>-->
+            <div class="row" ng-show="status.loggedIn">
+                <div class="col-md-9">
+                    <h5>Profiles</h5>
+                    <select ng-model="status.profileName" ng-change="profileSelected()" ng-options="p.name for p in profiles" class="form-control">
+                        <option value="">Choose Profile</option>
+                    </select>
+
+
+                    <div ng-show="status.profileSelected">
+                        <!--<h5>{{status.profileName}}</h5>-->
+                        <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
+                        <hr/>
+                        <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
+                        <div>----->   form should go here   <------- </div>
+                        <iframe id='profileIframe' width='100%' height='600px'></iframe>
+                        <hr />
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>History</h5>
+                    <div class='list-group'>
+
+                        <a href='#' ng-repeat="hx in data.hx" class='list-group-item '>
+                            {{hx.profile}}
+                            <div><em>{{hx.narrative}}</em></div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    </div>
+
+</body>
+</html>

@@ -40,7 +40,8 @@ public class GetProfilesListServlet extends HttpServlet {
 
         JsonArrayBuilder array = Json.createArrayBuilder();//.build();
         for (String profile : lstProfile) {
-            array.add(profile);
+            array.add(Json.createObjectBuilder()
+                    .add("name", profile));
         }
 
         json.add("profile",array);

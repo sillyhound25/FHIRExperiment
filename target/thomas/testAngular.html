@@ -1,0 +1,90 @@
+<html >
+<head>
+
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/angular/controller/cc.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <title>Sample EMR using FHIR resources</title>
+
+    <style>
+        .removed {
+            text-decoration: line-through;
+            color: red;
+        }
+    </style>
+
+</head>
+<body style="padding: 8px"  ng-app="myApp">
+
+
+<!-- http://www.ng-newsletter.com/posts/beginner2expert-how_to_start.html -->
+
+
+<div>
+    <h3>Inside an AngularJS app</h3>
+    <p>Nothing here {{'yet' + '!'}}</p>
+    {{1+2}}
+
+    {{ name }}
+
+    <div ng-controller="MyController">
+        {{ person.name }}
+
+        <a ng-click="sayHello()">Say hello</a>
+        <hr />
+        {{person}}
+        <hr />
+
+        <input type="text" class="form-control" ng-model="person.name" placeholder="Enter your name" />
+        <h5>Hello {{ person.name }}</h5>
+
+        {{clock}}
+        <hr />
+        {{counter}}
+        <div ng-click="add(1)">Add 1</div>
+        <div ng-click="subtract(1)">Subtract 1</div>
+
+        <div ng-click="getData()">Get data</div>
+
+        <div ng-init="getData()">Get init</div>
+
+
+        <h5>Profiles</h5>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class='list-group'>
+
+                    <a href='#' ng-click="profileSelected(p.name);$event.preventDefault()" ng-repeat="p in profiles" class='list-group-item oneprofile' data-name={{p.name}}>{{ p.name }}</a>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                Detail here
+            </div>
+        </div>
+<!--
+
+        <ul>
+            <li ng-repeat="p in profiles"> {{ p.name }}</li>
+        </ul>
+-->
+
+    </div>
+
+
+</div>
+
+{{ name }}
+<!--
+<div ng-controller="MyCtrl">
+    <button ng-click="toggle()">Toggle</button>
+    <p ng-show="visible">Hi</p>
+</div>
+
+-->
+
+</body>
+</html>

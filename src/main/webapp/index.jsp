@@ -48,6 +48,8 @@
 
           <!-- Collect the nav links, forms, and other content for toggling -->
 
+
+
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
 
@@ -56,6 +58,7 @@
                   <li class="whenPatientSelected"><a href="#" id="changeUser">Change User</a></li>
 
                   <li><a href="#"  id="login">Login & Select Patient</a></li>
+
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                           <i class="glyphicon glyphicon-cog"></i> </a>
@@ -618,7 +621,7 @@
   <script type="handlebars/text" id="selectProfileTemplate">
     <option> -- please select profile to use --</option>
         {{#each profile}}
-            <option value={{this}}>{{this}}</option>
+            <option value={{this.name}}>{{this.name}}</option>
         {{/each}}
   </script>
 
