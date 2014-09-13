@@ -68,14 +68,13 @@ myApp.controller('MyController', function($scope,$http) {
 
     //remove an allergy from the allergy list
     $scope.deleteAllergy = function(a,inx) {
-        console.log(a);
-        alert(inx);
+        //console.log(a);
+        //alert(inx);
 
 
 
         var deletedReason = prompt('Why do you wish to remove this allergy from the patients list of allergies','Incorrect');
         if (deletedReason){
-
 
             $scope.vitals.allergy.splice(inx,1);    //remove from the current list...
 
@@ -91,6 +90,7 @@ myApp.controller('MyController', function($scope,$http) {
 
 
                     newObj.deletedReason = deletedReason;
+                    newObj.deleted = true;
                     newList.push(newObj);
                 } else {
                     //if the allergy was previously deleted, then stop adding it...
