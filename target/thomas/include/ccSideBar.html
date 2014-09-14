@@ -1,0 +1,57 @@
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Medications
+                    ({{vitals.med.length}})</a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class='list-group'>
+                    <a href='#' ng-click="profileSelected(p.name);$event.preventDefault()"
+                       ng-repeat="m in vitals.med" class='list-group-item'> {{ m.narrative }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    Problem List ({{vitals.condition.length}})</a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class='list-group'>
+                    <a href='#' ng-click="profileSelected(p.name);$event.preventDefault()"
+                       ng-repeat="c in vitals.condition" class='list-group-item'> {{ c.narrative }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Allergies ({{vitals.allergy.length}})</a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class='list-group'>
+                    <a href='#'
+                       ng-repeat="a in vitals.allergy" class='list-group-item'> {{ a.narrative }}
+                        <div ng-click="deleteAllergy(a,$index);$event.preventDefault()" class="pull-right">X</div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            
+            

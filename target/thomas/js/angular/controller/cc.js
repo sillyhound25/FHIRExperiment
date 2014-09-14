@@ -1,8 +1,12 @@
 //controller for clinical connectathon...
+/*
+Server dependencies (expected to be in the same domain):
+ fhir/Patient?name=?        - search for a patient  (this is a proxy to another FHIR server) (fhir.PatientResourceProvider)
+ cc/profilelist             - returns a collection of the profiles that are available  (cc.GetProfilesListServlet)
+
+*/
 
 var myApp = angular.module('myApp',['ngSanitize']);
-
-
 myApp.run(function($rootScope) {
     $rootScope.name = "David Hay";
 });
@@ -23,6 +27,7 @@ myApp.controller('MyController', function($scope,$http) {
     //status.searchPatient - true if a patient is being selected
     //status.user.userName - the name of the current user
     //status.user.userToken - the token assigned at login
+    //status.queryingServer - true when the client is waiting for the server to respond to a query
 
     $scope.status = {
         loggedIn : false
@@ -69,7 +74,7 @@ myApp.controller('MyController', function($scope,$http) {
     $scope.saveProfileData = function() {
         var newResource = {profile:$scope.status.profileName.name,narrative:$scope.data.narrative};
         $scope.data.hx.push(newResource);
-        checkNewProfile(newResource);
+        checkNewProfile(newResource);       //some profiles have extra work...
 
         //disable the profile details
         $scope.status.profileSelected = false;
@@ -177,7 +182,6 @@ myApp.controller('MyController', function($scope,$http) {
 //handles the functions from the top bar - ie login & patient select...
 myApp.controller('NavController', function($scope,$http) {
 
-
     $scope.searchPatient = function() {
         $scope.status.patientSelected=false;
         delete $scope.status.patient;
@@ -189,15 +193,16 @@ myApp.controller('NavController', function($scope,$http) {
 
     //finds patients with the matching names...
     $scope.findPatient = function() {
-        //alert ($scope.search.params.name);
-
+        $scope.status.queryingServer = true;    //shows the 'please wait' message
         $http({
             method: 'GET',
             url: "fhir/Patient?name="+$scope.search.params.name
         }).success(function (data, status, headers, config) {
             console.log(data)
             $scope.search.results = data;
+            $scope.status.queryingServer = false;
         }).error(function (data, status, headers, config) {
+            $scope.status.queryingServer = false;
             alert('there was an error getting the list of patients');
         });
 
@@ -216,29 +221,24 @@ myApp.controller('NavController', function($scope,$http) {
 
     //perform a user login. Right now - it always logs in the same person...
     $scope.login = function() {
-        //alert('login');
 
-        //if (!$scope.status.loggedIn) {
-            $http({
-                method: 'GET',
-                url: "auth/login?username=Dr Jones"
-            }).success(function (data, status, headers, config) {
-                //console.log(data)
-                $scope.status.user = data;
-                $scope.status.loggedIn = true;  //defined in MyController - assume that controller is a parent...
-                $scope.getPatient("dummy");     //gets a dummy patient
-            }).error(function (data, status, headers, config) {
-                alert('there was an error getting the user');
-            });
-       // }
-      //  else {
-            //logout
-            //$scope.status.loggedIn = false;
-        //}
+        $http({
+            method: 'GET',
+            url: "auth/login?username=Dr Jones"
+        }).success(function (data, status, headers, config) {
+            //console.log(data)
+            $scope.status.user = data;
+            $scope.status.loggedIn = true;  //defined in MyController - assume that controller is a parent...
+            $scope.getPatient("dummy");     //gets a dummy patient
+        }).error(function (data, status, headers, config) {
+            alert('there was an error getting the user');
+        });
+
     };
 
     $scope.logout = function() {
         $scope.status.loggedIn = false;
+        $scope.status.patientSelected = false;
         delete $scope.status.user;
     };
 

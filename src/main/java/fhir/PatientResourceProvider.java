@@ -1,9 +1,5 @@
 package fhir;
 
-/**
- * The Patient provider
- */
-
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.Bundle;
 import ca.uhn.fhir.model.api.BundleEntry;
@@ -37,27 +33,16 @@ import javax.servlet.http.HttpServletResponse;
  * The provider for Observation Resources...
  */
 public class PatientResourceProvider implements IResourceProvider {
-    //return a single Patient by ID
-
 
 
     private MyMongo _myMongo;
     private FhirContext _ctx;
 
+    private String _serverBase = "http://fhir.healthintersections.com.au/open";
+
     //constructor to pass instance of MongoClient across - actually, could this be in the Context???
     public PatientResourceProvider( MyMongo myMongo){
-        _myMongo = myMongo;
-       // _ctx = ctx;
-     //   _ctx = new FhirContext(ListResource.class);
-    }
-
-
-
-    public void init(ServletConfig config) throws ServletException {
-        //get the 'global' resources from the servlet context
-       // ServletContext ctx = config.getServletContext();
-        // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
-       // _ctx = (FhirContext) ctx.getAttribute("fhircontext");
+        _myMongo = myMongo; //not currently using this, but nice to have a local Db around...
     }
 
     @Override
@@ -65,20 +50,13 @@ public class PatientResourceProvider implements IResourceProvider {
         return Patient.class;
     }
 
-    // read a single resource by id
-    //http://www.mkyong.com/java/how-to-modify-date-time-date-manipulation-java/
-
-
-
+    //return a single patient by Id
     @Read()
-    public Patient getResourceById(@IdParam IdDt theId,
-                                   HttpServletRequest theRequest,
-                                   HttpServletResponse theResponse) {
-
-        System.out.println(theId.getValueAsString());
+    public Patient getResourceById(@IdParam IdDt theId, HttpServletRequest theRequest, HttpServletResponse theResponse) {
 
         Patient patient = null;
         if (theId.toString().equals("Patient/dummy")) {
+            //this is a dummy patient for when a server is not available...
             System.out.println("Get patient "+ theId.toString());
             patient = new Patient();
             Calendar cal = Calendar.getInstance();
@@ -89,24 +67,57 @@ public class PatientResourceProvider implements IResourceProvider {
             patient.setGender(AdministrativeGenderCodesEnum.M);
             patient.getText().setDiv("Cold Power  M  Age 18y");
         } else {
+            //this will read the patient from the server
+
+            //the FHIR context is saved against the servlet context
             ServletContext context = theRequest.getServletContext();// getServletContext();
             _ctx = (FhirContext) context.getAttribute("fhircontext");
-            String serverBase = "http://fhir.healthintersections.com.au/open";
-            IGenericClient client = _ctx.newRestfulGenericClient(serverBase);
-
+            //String serverBase = "http://fhir.healthintersections.com.au/open";
+            IGenericClient client = _ctx.newRestfulGenericClient(_serverBase);
             IResource resource = client.read(Patient.class,theId);
-
-
-            return (Patient) resource;
-
-
-
+            patient = (Patient) resource;
+            //return (Patient) resource;
         }
-
-
 
         return patient;
     }
+
+
+    //find patients based on name
+    @Search()
+    public List<IResource> getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
+                                               HttpServletRequest theRequest,
+                                               HttpServletResponse theResponse) {
+        List<IResource> lst = new ArrayList<IResource>();
+        //get the FHIR context...
+        ServletContext context = theRequest.getServletContext();// getServletContext();
+        _ctx = (FhirContext) context.getAttribute("fhircontext");
+
+        //System.out.println(_ctx);
+
+        //String serverBase = "http://fhir.healthintersections.com.au/open";
+        IGenericClient client = _ctx.newRestfulGenericClient(_serverBase);
+
+        Bundle bundle = client.search()
+                .forResource(Patient.class)
+                .where(Patient.NAME.matches().value(theName))
+                .execute();
+
+        //need to return a List<IResource>
+        for (BundleEntry entry : bundle.getEntries()) {
+            lst.add(entry.getResource());
+        }
+
+
+        //System.out.println("Search Patient");
+
+        return lst;
+
+        //return bundle;
+
+    }
+
+    //=============  everything below this line not used in the Clinical Connectathon app =============
 
 
     @Create
@@ -154,49 +165,7 @@ public class PatientResourceProvider implements IResourceProvider {
         return _myMongo.findResourcesByIdentifier("Patient",identifier);
     }
 
-        //get a patients Patients
-    @Search()
-    //public List<IResource> getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
-    public List<IResource> getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
-                                                 HttpServletRequest theRequest,
-                                                 HttpServletResponse theResponse) {
-        List<IResource> lst = new ArrayList<IResource>();
 
-         ServletContext context = theRequest.getServletContext();// getServletContext();
-        _ctx = (FhirContext) context.getAttribute("fhircontext");
-
-
-
-        System.out.println(_ctx);
-
-        String serverBase = "http://fhir.healthintersections.com.au/open";
-        IGenericClient client = _ctx.newRestfulGenericClient(serverBase);
-
-
-        Bundle bundle = client.search()
-                .forResource(Patient.class)
-                .where(Patient.NAME.matches().value(theName))
-                .execute();
-
-
-        for (BundleEntry entry : bundle.getEntries()) {
-            lst.add(entry.getResource());
-        }
-
-
-        System.out.println("Search Patient");
-
-       // if (_myMongo != null) {
-         //   _myMongo.addFhirResourceListToLog(lst);
-       // }
-
-        //return lst;
-
-        return lst;
-
-        //return bundle;
-
-    }
 /*
 
     @Transaction
