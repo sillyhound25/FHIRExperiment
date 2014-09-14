@@ -46,27 +46,28 @@ public class OrionRestfulServlet extends RestfulServer {
     private FhirContext _fhirContext;
 
     /*
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         //get the 'global' resources from the servlet context
         ServletContext ctx = config.getServletContext();
        // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
-        //_fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+        _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
     }
+*/
 
-    */
     public OrionRestfulServlet() {
 
         _myMongo = new MyMongo();   //constructor is called before init (of course)...
 
-        /*
 
-        ServletContext ctx =  getServletContext();
+
+        //ServletContext ctx =  getServletContext();
         // ServletContext ctx = config.getServletContext();
         // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
-        _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+       // _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
 
-*/
+
 
         List<IResourceProvider> resourceProviders = new ArrayList<IResourceProvider>();
         resourceProviders.add(new ConditionResourceProvider(_myMongo));
@@ -100,7 +101,7 @@ public class OrionRestfulServlet extends RestfulServer {
         System.out.println("test");
        // ServletContext ctx = config.getServletContext();
         // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
-       // _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
+        _fhirContext = (FhirContext) ctx.getAttribute("fhircontext");
 
     }
 

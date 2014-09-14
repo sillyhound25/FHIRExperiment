@@ -6,8 +6,10 @@ package fhir;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.Bundle;
+import ca.uhn.fhir.model.api.BundleEntry;
 import ca.uhn.fhir.model.api.IResource;
 import ca.uhn.fhir.model.dstu.composite.IdentifierDt;
+import ca.uhn.fhir.model.dstu.resource.ListResource;
 import ca.uhn.fhir.model.dstu.resource.OperationOutcome;
 import ca.uhn.fhir.model.dstu.resource.Patient;
 
@@ -24,6 +26,9 @@ import util.MyMongo;
 import java.util.*;
 
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,7 +47,17 @@ public class PatientResourceProvider implements IResourceProvider {
     //constructor to pass instance of MongoClient across - actually, could this be in the Context???
     public PatientResourceProvider( MyMongo myMongo){
         _myMongo = myMongo;
-        //_ctx = ctx;
+       // _ctx = ctx;
+     //   _ctx = new FhirContext(ListResource.class);
+    }
+
+
+
+    public void init(ServletConfig config) throws ServletException {
+        //get the 'global' resources from the servlet context
+       // ServletContext ctx = config.getServletContext();
+        // _myMongo = (MyMongo) ctx.getAttribute("mymongo");
+       // _ctx = (FhirContext) ctx.getAttribute("fhircontext");
     }
 
     @Override
@@ -56,17 +71,39 @@ public class PatientResourceProvider implements IResourceProvider {
 
 
     @Read()
-    public Patient getResourceById(@IdParam IdDt theId) {
+    public Patient getResourceById(@IdParam IdDt theId,
+                                   HttpServletRequest theRequest,
+                                   HttpServletResponse theResponse) {
 
-        System.out.println("Get patient "+ theId.toString());
-        Patient patient = new Patient();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -18);         //18 years old
-        patient.setBirthDate(new DateTimeDt(cal.getTime()));
-        patient.addName().addFamily("Power");
-        patient.getName().get(0).addGiven("Cold");
-        patient.setGender(AdministrativeGenderCodesEnum.M);
-        patient.getText().setDiv("Cold Power  M  Age 18y");
+        System.out.println(theId.getValueAsString());
+
+        Patient patient = null;
+        if (theId.toString().equals("Patient/dummy")) {
+            System.out.println("Get patient "+ theId.toString());
+            patient = new Patient();
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, -18);         //18 years old
+            patient.setBirthDate(new DateTimeDt(cal.getTime()));
+            patient.addName().addFamily("Power");
+            patient.getName().get(0).addGiven("Cold");
+            patient.setGender(AdministrativeGenderCodesEnum.M);
+            patient.getText().setDiv("Cold Power  M  Age 18y");
+        } else {
+            ServletContext context = theRequest.getServletContext();// getServletContext();
+            _ctx = (FhirContext) context.getAttribute("fhircontext");
+            String serverBase = "http://fhir.healthintersections.com.au/open";
+            IGenericClient client = _ctx.newRestfulGenericClient(serverBase);
+
+            IResource resource = client.read(Patient.class,theId);
+
+
+            return (Patient) resource;
+
+
+
+        }
+
+
 
         return patient;
     }
@@ -120,13 +157,17 @@ public class PatientResourceProvider implements IResourceProvider {
         //get a patients Patients
     @Search()
     //public List<IResource> getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
-    public Bundle getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
+    public List<IResource> getPatientBySubject(@RequiredParam(name = Patient.SP_NAME) StringDt theName,
                                                  HttpServletRequest theRequest,
                                                  HttpServletResponse theResponse) {
         List<IResource> lst = new ArrayList<IResource>();
 
-       // ServletContext context =  getServletContext();
+         ServletContext context = theRequest.getServletContext();// getServletContext();
+        _ctx = (FhirContext) context.getAttribute("fhircontext");
 
+
+
+        System.out.println(_ctx);
 
         String serverBase = "http://fhir.healthintersections.com.au/open";
         IGenericClient client = _ctx.newRestfulGenericClient(serverBase);
@@ -134,18 +175,26 @@ public class PatientResourceProvider implements IResourceProvider {
 
         Bundle bundle = client.search()
                 .forResource(Patient.class)
-                .where(Patient.NAME.matches().value("eve"))
+                .where(Patient.NAME.matches().value(theName))
                 .execute();
+
+
+        for (BundleEntry entry : bundle.getEntries()) {
+            lst.add(entry.getResource());
+        }
 
 
         System.out.println("Search Patient");
 
-        if (_myMongo != null) {
-            _myMongo.addFhirResourceListToLog(lst);
-        }
+       // if (_myMongo != null) {
+         //   _myMongo.addFhirResourceListToLog(lst);
+       // }
 
         //return lst;
-        return bundle;
+
+        return lst;
+
+        //return bundle;
 
     }
 /*

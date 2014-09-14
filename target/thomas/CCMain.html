@@ -1,7 +1,10 @@
 <html >
 <head>
 
+
     <script src="js/libs/angular.min.js"></script>
+    <script src="js/libs/angular-sanitize.js"></script>
+
     <script src="js/angular/controller/cc.js"></script>
 
     <script src="js/libs/jquery-1.9.0.min.js"></script>
@@ -30,43 +33,31 @@
             <div class="container-fluid">
                 <p class="navbar-brand">My EMR</p>
 
-                <p ng-show="status.loggedIn" class="navbar-text">
-                    {{status.patient.text.div}}
-                </p>
+                <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.patient.text.div"></p>
+                <br />
+                <div ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.userName"></div>
 
-                <p id="selectedPatient" class="navbar-text"></p>
+                <!--
 
-                <ul class="nav navbar-nav" id="patientOptionsMenu">
-
-                    <li><a href="#" id="patientNewRecord" title="New Record" class="whenPatientSelected">
-                        <i class="glyphicon glyphicon-briefcase"></i>
-                    </a>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-play"></i> </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="patSMART">SMART</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <li ng-show="status.loggedIn">
+                    <a href="#">User: {{status.user.userName}}</a>
+                </li>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
 
-
-                        <li><a href="#" id="searchPatient">Search Patient</a></li>
+                        <li><a href="#" ng-show="status.loggedIn" ng-click="searchPatient()">Find Patient</a></li>
+                        <!--
                         <li><a href="#" id="changeUser">Change User</a></li>
+-->
 
-                        <li><a href="#"  ng-click="login()">Login & Select Patient</a></li>
-                        <li ng-show="status.loggedIn"><a href="#">{{status.user.userName}}</a></li>
+                        <li ng-hide="status.loggedIn"><a href="#" ng-click="login()">Login & Select Patient</a></li>
+                        <li ng-show="status.loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
+
+
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-cog"></i> </a>
@@ -84,13 +75,30 @@
         </nav>
 
 
-    </div>
 
-    <div ng-init="getData()"></div>     <!-- Get the list of profiles -->
+        <!-- The panel that will allow a patient to be selected...-->
+        <div ng-show="status.searchPatient">
+            <h5>Select the patient</h5>
+            <input ng-model="search.params.name"/>
+            <a href="#"  class="btn btn-default" ng-click="findPatient()">Search</a>
+
+            <div class='list-group'>
+                <a href='#' ng-click="PatientSelected(entry)" ng-repeat="entry in search.results.entry"
+                   class='list-group-item' data-ng-bind-html="entry.content.text.div">
+                </a>
+            </div>
+        </div>
+
+    </div>  <!-- The end of the scope of NavController-->
 
 
-    <div ng-show="status.loggedIn" class="row">
+    <div ng-init="getData()"></div>     <!-- Get the list of profiles from the server-->
+
+
+    <!-- Panels that are appropriate when a patient has been selected-->
+    <div ng-show="status.patientSelected" class="row">
         <!-- This is the sidebar -->
+
         <div class="col-md-3">
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
@@ -146,10 +154,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>      <!-- the end of the sidebar -->
+
+        <!-- The work area when a patient has been selected-->
         <div class="col-md-9">
-
-
+            <!-- There are 3 tabs-->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#editNew" role="tab" data-toggle="tab">New Consult</a></li>
                 <li><a href="#previewNew" role="tab" data-toggle="tab">Preview record</a></li>
@@ -158,12 +167,10 @@
 
             <div class="tab-content">
 
+                <!-- the tab that selects a profile and allows the user to ender data -->
                 <div class="tab-pane active" id="editNew">
-
-
-                    <!--<h5>Profiles</h5>-->
-                    <div class="row" ng-show="status.loggedIn">
-
+                    <div class="row">
+                    <!-- Left side is the profile seelct & work area-->
 
                         <div class="col-md-9">
                             <h5>Profiles</h5>
@@ -171,14 +178,18 @@
                                 <option value="">Choose Profile</option>
                             </select>
 
-
                             <div ng-show="status.profileSelected">
                                 <!--<h5>{{status.profileName}}</h5>-->
                                 <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
                                 <hr/>
                                 <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
-                                <div>----->   form should go here   <------- </div>
-                                <iframe id='profileIframe' width='100%' height='600px'></iframe>
+                                <!--
+                                <div>----   form should go here   <------- </div>
+
+                                {{status.resourceUrl}}
+                                -->
+                                <iframe id = "myIframe" ng-src="{{trustAsUrl(status.resourceUrl)}}" width='100%' height='600px'></iframe>
+
                                 <hr />
 
                             </div>
@@ -191,20 +202,28 @@
                                     {{hx.profile}}
                                     <div><em>{{hx.narrative}}</em></div>
                                 </a>
-
                             </div>
                         </div>
                     </div>
+                </div>  <!-- end of tab pane --->
 
-
-
-
-        </div>  <!-- end of tab pane --->
-
+                <!-- A preview of the current consultation in a simple table-->
                 <div class="tab-pane" id="previewNew">
-                    previewnew
-                </div>
 
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><th>Narrative</th><th>Resource</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="hx in data.hx">
+                                <td width="80%">{{hx.narrative}}</td>
+                                <td>{{hx.profile}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- end of the preview panel -->
+
+                <!-- The history of changes to the allergy list over time-->
                 <div class="tab-pane" id="allergyHx">
 
                     <h5 class="text-center">History of changes to Allergy List</h5>
@@ -214,10 +233,8 @@
                         </thead>
                         <tbody>
 
-
-
                         <tr ng-repeat = "hx in history.allergy">
-                            <td>{{hx.userName}}</td>
+                            <td width="15%">{{hx.userName}}</td>
                             <td>
                                 <ul class="list-unstyled">
 
@@ -241,11 +258,15 @@
                 </div>      <!-- end of allergy pane-->
 
             </div>  <!-- end of tab content -->
-
-
-
+        </div>
 
     </div>
+
+
+
+
+</div>
+
 
 </body>
 </html>
