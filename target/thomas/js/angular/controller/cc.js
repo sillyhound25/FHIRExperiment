@@ -25,12 +25,14 @@ myApp.controller('MyController', function($scope,$http) {
     //status.user - user object (a FHIR person object)
     //status.patientSelected - true if a patient has been selected
     //status.searchPatient - true if a patient is being selected
-    //status.user.userName - the name of the current user
-    //status.user.userToken - the token assigned at login
+    //status.user - a Practitioner resource
+    //status.user.meta.userName - the name of the current user
+    //status.user.meta.id - the userID
     //status.queryingServer - true when the client is waiting for the server to respond to a query
 
     $scope.status = {
-        loggedIn : false
+        loggedIn : false,
+        startUp : true
     }
 
     //represents data collected
@@ -73,20 +75,6 @@ myApp.controller('MyController', function($scope,$http) {
     //when a profile narrative has been completed
     $scope.saveProfileData = function() {
         var newResource = {profile:$scope.status.profileName.name,narrative:$scope.data.narrative};
-
-        /*
-        //a hack because login and get user are confused...
-        var userName = $scope.status.user.userName;
-        if (!userName) {
-            console.log($scope.status.user)
-            try {
-                userName = $scope.status.user.name.family[0] + "," + $scope.status.user.name.given[0];
-            } catch (ex) {
-                userName = "Error getting name";
-            }
-
-        }
-        */
 
         newResource.userName = $scope.status.user.meta.userName;
 
@@ -280,6 +268,7 @@ myApp.controller('NavController', function($scope,$http) {
     //there's a cross over with find user - this was part of the SMART stuff...
     $scope.login = function() {
 
+        $scope.status.startUp = false;
         $scope.getUser("dummy");
 
         $scope.getPatient("dummy");     //gets a dummy patient
@@ -301,6 +290,7 @@ myApp.controller('NavController', function($scope,$http) {
     $scope.logout = function() {
         $scope.status.loggedIn = false;
         $scope.status.patientSelected = false;
+        $scope.status.startUp = true;
         delete $scope.status.user;
     };
 

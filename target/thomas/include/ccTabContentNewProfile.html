@@ -10,14 +10,19 @@
 
         <div ng-show="status.profileSelected">
             <!--<h5>{{status.profileName}}</h5>-->
-            <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
-            <hr/>
-            <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
-            <!--
-            <div>----   form should go here   <------- </div>
+            <br />
+            <div class="row">
+                <div class="col-md-10">
+                    <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
+                </div>
+            </div>
 
-            {{status.resourceUrl}}
-            -->
+            <hr/>
+
+
             <iframe id = "myIframe" ng-src="{{trustAsUrl(status.resourceUrl)}}" width='100%' height='600px'></iframe>
 
             <hr />

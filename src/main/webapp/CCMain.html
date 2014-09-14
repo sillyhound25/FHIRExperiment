@@ -30,96 +30,23 @@
     <div ng-controller="NavController">
 
 
-        <!--
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <p class="navbar-brand">My EMR</p>
 
-                <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.patient.text.div"></p>
-
-                <!-- todo - fix user
-                <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.userName"></p>
-
-                <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.text.div"></p>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-
-
-                        <li><a href="#" ng-show="status.patientSelected" ng-click="searchUser()">Change User</a></li>
-
-                        <li><a href="#" ng-show="status.loggedIn" ng-click="searchPatient()">Find Patient</a></li>
-                        <li ng-hide="status.loggedIn"><a href="#" ng-click="login()">Login & Select Patient</a></li>
-                        <li ng-show="status.loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-cog"></i> </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Sample Option 1</a></li>
-                                <li><a href="#">Sample Option 2</a></li>
-                                <li><a href="#">Sample Option 3</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Sample Option 4</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse
-            </div><!-- /.container-fluid
-        </nav>
-
-        -->
         <ng-include src="'include/ccHeader.html'"></ng-include>
 
-        <!-- Some static HTML when no-one is logged in-->
-        <!--  todo figure out display status
-        <ng-include ng-hide="status.loggedIn" src="'include/ccIntroduction.html'"></ng-include>
+        <!-- Some static HTML at startup-->
 
-        -->
+        <ng-include ng-show="status.startUp" src="'include/ccIntroduction.html'"></ng-include>
+
+
 
         <!-- The panel that will allow a patient to be selected...-->
-        <!--
-        <div ng-show="status.searchPatient">
-            <h5>Select the patient</h5>
-            <div class="row">
-                <div class="col-md-1">Name: </div>
-                <div class="col-md-5"><input ng-model="search.params.name" class="form-control"/></div>
-                <div class="col-md-2"><a href="#"  class="btn btn-primary" ng-click="findPatient()">Search</a></div>
-                <div class="col-md-4"><div ng-show="status.queryingServer">Finding matching patients, please wait...</div></div>
-            </div>
 
-
-            <div class='list-group'>
-                <a href='#' ng-click="PatientSelected(entry)" ng-repeat="entry in search.results.entry"
-                   class='list-group-item' data-ng-bind-html="entry.content.text.div">
-                </a>
-            </div>
-        </div>
-        -->
         <ng-include src="'include/ccSearchPatient.html'"></ng-include>
 
 
 
         <!-- The panel that will allow a user to be selected...-->
-        <!--
-        <div ng-show="status.searchUser">
-            <h5>Select the User (Practitioner)</h5>
-            <div class="row">
-                <div class="col-md-1">Name: </div>
-                <div class="col-md-5"><input ng-model="search.params.name" class="form-control"/></div>
-                <div class="col-md-2"><a href="#"  class="btn btn-primary" ng-click="findUser()">Search</a></div>
-                <div class="col-md-4"><div ng-show="status.queryingServer">Finding matching users, please wait...</div></div>
-            </div>
 
-
-            <div class='list-group'>
-                <a href='#' ng-click="UserSelected(entry)" ng-repeat="entry in search.results.entry"
-                   class='list-group-item' data-ng-bind-html="entry.content.text.div">
-                </a>
-            </div>
-            <hr />
-        </div>
--->
         <ng-include src="'include/ccSearchUser.html'"></ng-include>
 
         <!-------------------------------------- -->
@@ -154,45 +81,6 @@
 
                 <!-- the tab that selects a profile and allows the user to ender data -->
                 <div class="tab-pane active" id="editNew">
-                    <!--
-
-                    <div class="row">
-                    <!-- Left side is the profile seelct & work area
-                        <br />
-                        <div class="col-md-9">
-                            <h5>Profiles</h5>
-                            <select ng-model="status.profileName" ng-change="profileSelected()" ng-options="p.name for p in profiles" class="form-control">
-                                <option value="">Choose Profile</option>
-                            </select>
-
-                            <div ng-show="status.profileSelected">
-                                <!--<h5>{{status.profileName}}</h5>
-                                <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
-                                <hr/>
-                                <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
-                                <!--
-                                <div>----   form should go here   <------- </div>
-
-                                {{status.resourceUrl}}
-                                --
-                                <iframe id = "myIframe" ng-src="{{trustAsUrl(status.resourceUrl)}}" width='100%' height='600px'></iframe>
-
-                                <hr />
-
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <h5>History</h5>
-                            <div class='list-group'>
-
-                                <a href='#' ng-repeat="hx in data.hx" class='list-group-item '>
-                                    {{hx.profile}}
-                                    <div><em>{{hx.narrative}}</em></div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    -->
 
                     <ng-include src="'include/ccTabContentNewProfile.html'"></ng-include>
 
@@ -201,57 +89,14 @@
 
                 <!-- A preview of the current consultation in a simple table-->
                 <div class="tab-pane" id="previewNew">
-<!--
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                            <tr><th>User</th><th>Narrative</th><th>Resource</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="hx in data.hx">
-                                <td width="20%">{{hx.userName}}</td>
-                                <td width="60%">{{hx.narrative}}</td>
-                                <td>{{hx.profile}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
--->
+
                     <ng-include src="'include/ccTabContentPreview.html'"></ng-include>
 
                 </div> <!-- end of the preview panel -->
 
                 <!-- The history of changes to the allergy list over time-->
                 <div class="tab-pane" id="allergyHx">
-<!--
-                    <h5 class="text-center">History of changes to Allergy List</h5>
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                            <tr><th>User</th><th>List</th></tr>
-                        </thead>
-                        <tbody>
 
-                        <tr ng-repeat = "hx in history.allergy">
-                            <td width="15%">{{hx.userName}}</td>
-                            <td>
-                                <ul class="list-unstyled">
-
-                                    <li ng-repeat = "item in hx.list">
-
-                                        <div ng-switch on="item.deleted">
-                                            <span ng-switch-when="true">
-                                                <span class="removed"> {{item.display}} </span> ({{item.deletedReason}})
-                                            </span>
-
-                                            <span ng-switch-default>{{item.display}}</span>
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                        </tbody></table>
-
--->
                     <ng-include src="'include/ccTabContentAllergyHistory.html'"></ng-include>
 
                 </div>      <!-- end of allergy pane-->
