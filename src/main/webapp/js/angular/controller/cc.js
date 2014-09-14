@@ -73,6 +73,21 @@ myApp.controller('MyController', function($scope,$http) {
     //when a profile narrative has been completed
     $scope.saveProfileData = function() {
         var newResource = {profile:$scope.status.profileName.name,narrative:$scope.data.narrative};
+
+        //a hack because login and get user are confused...
+        var userName = $scope.status.user.userName;
+        if (!userName) {
+            console.log($scope.status.user)
+            try {
+                userName = $scope.status.user.name.family[0] + "," + $scope.status.user.name.given[0];
+            } catch (ex) {
+                userName = "Error getting name";
+            }
+
+        }
+
+        newResource.userName = userName;
+
         $scope.data.hx.push(newResource);
         checkNewProfile(newResource);       //some profiles have extra work...
 
@@ -155,26 +170,22 @@ myApp.controller('MyController', function($scope,$http) {
         if (confirm("Do you wish to add this Allergy to the patients allergy list")) {
             $scope.vitals.allergy.push(vo);
             //now add to the list of allergies
-            console.log($scope)
+
             var mostRecentList = $scope.history.allergy[$scope.history.allergy.length-1];    //clone the current list
 
             if (! mostRecentList) {mostRecentList = [];}
-
-
             var newList = [];
             angular.forEach(mostRecentList.list,function(obj,inx){
                 //don't add one that was deleted
                 if (! obj.deletedReason) {
                     newList.push(obj);
                 }
-                console.log(newList)
             });
 
             newList.push({display:vo.narrative});
             $scope.history.allergy.push({userName:$scope.status.user.userName,list:newList});
         }
     }
-
 });
 
 
@@ -208,6 +219,9 @@ myApp.controller('NavController', function($scope,$http) {
 
     };
 
+
+
+
     //when a patient has been selected from the list...
     $scope.PatientSelected = function(entry) {
         $scope.status.searchPatient = false;    //don't need to show the search screen
@@ -215,18 +229,59 @@ myApp.controller('NavController', function($scope,$http) {
 
         //get the virtual id - this is a hack...
         var ar = entry.id.split('/');
-
         $scope.getPatient(ar[ar.length-1]);
     };
 
+
+    //============== user search functions ===============
+
+    $scope.searchUser = function() {
+        $scope.status.userSelected=false;
+        delete $scope.status.user;
+
+        $scope.search = {};
+        $scope.status.searchUser = true;     //to indicate that searching for a patient...
+        $scope.search.params = {name:"a"};
+    };
+
+
+    //finds patients with the matching names...
+    $scope.findUser = function() {
+        $scope.status.queryingServer = true;    //shows the 'please wait' message
+        $http({
+            method: 'GET',
+            url: "fhir/Practitioner?name="+$scope.search.params.name
+        }).success(function (data, status, headers, config) {
+            console.log(data)
+            $scope.search.results = data;
+            $scope.status.queryingServer = false;
+        }).error(function (data, status, headers, config) {
+            $scope.status.queryingServer = false;
+            alert('there was an error getting the list of Users');
+        });
+
+    };
+
+    //when a user has been selected from the list...
+    $scope.UserSelected = function(entry) {
+        $scope.status.searchUser = false;    //don't need to show the search screen
+        console.log(entry);
+
+        //get the virtual id - this is a hack...
+        var ar = entry.id.split('/');
+        $scope.getUser(ar[ar.length-1]);
+    };
+
+    //=========== login - note overlap with User search...
+
     //perform a user login. Right now - it always logs in the same person...
+    //there's a cross over with find user - this was part of the SMART stuff...
     $scope.login = function() {
 
         $http({
             method: 'GET',
             url: "auth/login?username=Dr Jones"
         }).success(function (data, status, headers, config) {
-            //console.log(data)
             $scope.status.user = data;
             $scope.status.loggedIn = true;  //defined in MyController - assume that controller is a parent...
             $scope.getPatient("dummy");     //gets a dummy patient
@@ -236,6 +291,7 @@ myApp.controller('NavController', function($scope,$http) {
 
     };
 
+
     $scope.logout = function() {
         $scope.status.loggedIn = false;
         $scope.status.patientSelected = false;
@@ -243,7 +299,6 @@ myApp.controller('NavController', function($scope,$http) {
     };
 
     $scope.getPatient = function (patId) {
-        //alert(patId);
         $http({
             method: 'GET',
             url: "fhir/Patient/" + patId,
@@ -258,6 +313,26 @@ myApp.controller('NavController', function($scope,$http) {
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the patient');
         });
-    }
+    };
+
+    $scope.getUser = function (userId) {
+        $http({
+            method: 'GET',
+            url: "fhir/Practitioner/" + userId,
+            headers: {
+                //Authorization: 'Bearer ' + $scope.status.user.userToken,
+                Accept: 'application/json+fhir'
+            }
+        }).success(function (data, status, headers, config) {
+            console.log("user=",data)
+            $scope.status.user = data;
+            $scope.status.loggedIn = true;
+        }).error(function (data, status, headers, config) {
+            alert('there was an error getting the User');
+        });
+    };
+
+
+    //http://localhost:8081/fhir/Practitioner?name=henry
 
 });

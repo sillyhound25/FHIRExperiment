@@ -35,10 +35,17 @@
                 <p class="navbar-brand">My EMR</p>
 
                 <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.patient.text.div"></p>
+
+                <!-- todo - fix user -->
                 <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.userName"></p>
+
+                <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.text.div"></p>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
+
+
+                        <li><a href="#"  ng-click="searchUser()">Change User</a></li>
 
                         <li><a href="#" ng-show="status.loggedIn" ng-click="searchPatient()">Find Patient</a></li>
                         <li ng-hide="status.loggedIn"><a href="#" ng-click="login()">Login & Select Patient</a></li>
@@ -62,7 +69,10 @@
 
 
         <!-- Some static HTML when no-one is logged in-->
+        <!--  todo figure out display status
         <ng-include ng-hide="status.loggedIn" src="'include/ccIntroduction.html'"></ng-include>
+
+        -->
 
         <!-- The panel that will allow a patient to be selected...-->
         <div ng-show="status.searchPatient">
@@ -81,6 +91,31 @@
                 </a>
             </div>
         </div>
+
+
+
+        <!-- The panel that will allow a user to be selected...-->
+        <div ng-show="status.searchUser">
+            <h5>Select the User (Practitioner)</h5>
+            <div class="row">
+                <div class="col-md-1">Name: </div>
+                <div class="col-md-5"><input ng-model="search.params.name" class="form-control"/></div>
+                <div class="col-md-2"><a href="#"  class="btn btn-primary" ng-click="findUser()">Search</a></div>
+                <div class="col-md-4"><div ng-show="status.queryingServer">Finding matching users, please wait...</div></div>
+            </div>
+
+
+            <div class='list-group'>
+                <a href='#' ng-click="UserSelected(entry)" ng-repeat="entry in search.results.entry"
+                   class='list-group-item' data-ng-bind-html="entry.content.text.div">
+                </a>
+            </div>
+            <hr />
+        </div>
+
+        <!-------------------------------------- -->
+
+
 
     </div>  <!-- The end of the scope of NavController-->
 
@@ -111,7 +146,7 @@
                 <div class="tab-pane active" id="editNew">
                     <div class="row">
                     <!-- Left side is the profile seelct & work area-->
-
+                        <br />
                         <div class="col-md-9">
                             <h5>Profiles</h5>
                             <select ng-model="status.profileName" ng-change="profileSelected()" ng-options="p.name for p in profiles" class="form-control">
@@ -152,11 +187,12 @@
 
                     <table class="table table-bordered table-condensed">
                         <thead>
-                            <tr><th>Narrative</th><th>Resource</th></tr>
+                            <tr><th>User</th><th>Narrative</th><th>Resource</th></tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="hx in data.hx">
-                                <td width="80%">{{hx.narrative}}</td>
+                                <td width="20%">{{hx.userName}}</td>
+                                <td width="60%">{{hx.narrative}}</td>
                                 <td>{{hx.profile}}</td>
                             </tr>
                         </tbody>
