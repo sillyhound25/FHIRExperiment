@@ -278,6 +278,10 @@ myApp.controller('NavController', function($scope,$http) {
     //there's a cross over with find user - this was part of the SMART stuff...
     $scope.login = function() {
 
+        $scope.getUser("dummy");
+
+        $scope.getPatient("dummy");     //gets a dummy patient
+        /*
         $http({
             method: 'GET',
             url: "auth/login?username=Dr Jones"
@@ -288,7 +292,7 @@ myApp.controller('NavController', function($scope,$http) {
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the user');
         });
-
+*/
     };
 
 
@@ -303,7 +307,7 @@ myApp.controller('NavController', function($scope,$http) {
             method: 'GET',
             url: "fhir/Patient/" + patId,
             headers: {
-                Authorization: 'Bearer ' + $scope.status.user.userToken,
+                //Authorization: 'Bearer ' + $scope.status.user.userToken,
                 Accept: 'application/json+fhir'
             }
         }).success(function (data, status, headers, config) {
@@ -318,7 +322,7 @@ myApp.controller('NavController', function($scope,$http) {
     $scope.getUser = function (userId) {
         $http({
             method: 'GET',
-            url: "fhir/Practitioner/" + userId,
+            url: "fhir/Practitioner/" + userId + "?_format=json",
             headers: {
                 //Authorization: 'Bearer ' + $scope.status.user.userToken,
                 Accept: 'application/json+fhir'

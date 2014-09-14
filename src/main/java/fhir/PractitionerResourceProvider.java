@@ -58,6 +58,12 @@ public class PractitionerResourceProvider implements IResourceProvider {
 
         Practitioner practitioner = null;
         if (theId.toString().equals("Practitioner/dummy")) {
+            practitioner = new Practitioner();
+            //practitioner.setBirthDate(new DateTimeDt(cal.getTime()));
+            practitioner.getName().addFamily("Jones");
+            practitioner.getName().addGiven("Dale");
+            practitioner.getText().setDiv("Dr Dale Jones");
+
             /*
             //this is a dummy patient for when a server is not available...
             System.out.println("Get patient "+ theId.toString());
