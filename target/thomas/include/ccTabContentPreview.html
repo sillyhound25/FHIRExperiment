@@ -1,0 +1,12 @@
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr><th>User</th><th>Narrative</th><th>Resource</th></tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="hx in data.hx">
+        <td width="20%">{{hx.userName}}</td>
+        <td width="60%">{{hx.narrative}}</td>
+        <td>{{hx.profile}}</td>
+    </tr>
+    </tbody>
+</table>

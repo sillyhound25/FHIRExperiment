@@ -1,0 +1,30 @@
+
+<h5 class="text-center">History of changes to Allergy List</h5>
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr><th>User</th><th>List</th></tr>
+    </thead>
+    <tbody>
+
+    <tr ng-repeat = "hx in history.allergy">
+        <td width="15%">{{hx.userName}}</td>
+        <td>
+            <ul class="list-unstyled">
+
+                <li ng-repeat = "item in hx.list">
+
+                    <div ng-switch on="item.deleted">
+                                            <span ng-switch-when="true">
+                                                <span class="removed"> {{item.display}} </span> ({{item.deletedReason}})
+                                            </span>
+
+                        <span ng-switch-default>{{item.display}}</span>
+                    </div>
+
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    </tbody></table>
+                    

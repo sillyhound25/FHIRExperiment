@@ -1,0 +1,17 @@
+<div ng-show="status.searchUser">
+    <h5>Select the User (Practitioner)</h5>
+    <div class="row">
+        <div class="col-md-1">Name: </div>
+        <div class="col-md-5"><input ng-model="search.params.name" class="form-control"/></div>
+        <div class="col-md-2"><a href="#"  class="btn btn-primary" ng-click="findUser()">Search</a></div>
+        <div class="col-md-4"><div ng-show="status.queryingServer">Finding matching users, please wait...</div></div>
+    </div>
+
+
+    <div class='list-group'>
+        <a href='#' ng-click="UserSelected(entry)" ng-repeat="entry in search.results.entry"
+           class='list-group-item' data-ng-bind-html="entry.content.text.div">
+        </a>
+    </div>
+    <hr />
+</div>

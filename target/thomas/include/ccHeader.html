@@ -1,0 +1,38 @@
+
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <p class="navbar-brand">My EMR</p>
+
+        <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.patient.text.div"></p>
+
+        <!-- todo - fix user -->
+        <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.userName"></p>
+
+        <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.text.div"></p>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <li><a href="#" ng-show="status.patientSelected" ng-click="searchUser()">Change User</a></li>
+
+                <li><a href="#" ng-show="status.loggedIn" ng-click="searchPatient()">Find Patient</a></li>
+                <li ng-hide="status.loggedIn"><a href="#" ng-click="login()">Login & Select Patient</a></li>
+                <li ng-show="status.loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-cog"></i> </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Sample Option 1</a></li>
+                        <li><a href="#">Sample Option 2</a></li>
+                        <li><a href="#">Sample Option 3</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Sample Option 4</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

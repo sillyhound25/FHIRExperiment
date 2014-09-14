@@ -74,6 +74,7 @@ myApp.controller('MyController', function($scope,$http) {
     $scope.saveProfileData = function() {
         var newResource = {profile:$scope.status.profileName.name,narrative:$scope.data.narrative};
 
+        /*
         //a hack because login and get user are confused...
         var userName = $scope.status.user.userName;
         if (!userName) {
@@ -85,8 +86,9 @@ myApp.controller('MyController', function($scope,$http) {
             }
 
         }
+        */
 
-        newResource.userName = userName;
+        newResource.userName = $scope.status.user.meta.userName;
 
         $scope.data.hx.push(newResource);
         checkNewProfile(newResource);       //some profiles have extra work...
@@ -130,7 +132,7 @@ myApp.controller('MyController', function($scope,$http) {
 
             });
 
-            $scope.history.allergy.push({userName:$scope.status.user.userName,list:newList});
+            $scope.history.allergy.push({userName:$scope.status.user.meta.userName,list:newList});
 
         };
     };
@@ -183,7 +185,7 @@ myApp.controller('MyController', function($scope,$http) {
             });
 
             newList.push({display:vo.narrative});
-            $scope.history.allergy.push({userName:$scope.status.user.userName,list:newList});
+            $scope.history.allergy.push({userName:$scope.status.user.meta.userName,list:newList});
         }
     }
 });
@@ -311,6 +313,7 @@ myApp.controller('NavController', function($scope,$http) {
                 Accept: 'application/json+fhir'
             }
         }).success(function (data, status, headers, config) {
+            data.meta = {id:patId};
             //console.log(data)
             $scope.status.patientSelected=true;
             $scope.status.patient = data;
@@ -328,6 +331,14 @@ myApp.controller('NavController', function($scope,$http) {
                 Accept: 'application/json+fhir'
             }
         }).success(function (data, status, headers, config) {
+
+            //add som emetadata...
+            data.meta = {};
+            data.meta.id = userId;
+            data.meta.userName = data.name.family[0] + ", " + data.name.given[0];
+
+
+
             console.log("user=",data)
             $scope.status.user = data;
             $scope.status.loggedIn = true;

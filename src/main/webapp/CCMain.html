@@ -30,13 +30,14 @@
     <div ng-controller="NavController">
 
 
+        <!--
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <p class="navbar-brand">My EMR</p>
 
                 <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.patient.text.div"></p>
 
-                <!-- todo - fix user -->
+                <!-- todo - fix user
                 <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.userName"></p>
 
                 <p ng-show="status.loggedIn" class="navbar-text" data-ng-bind-html="status.user.text.div"></p>
@@ -63,10 +64,12 @@
                             </ul>
                         </li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div><!-- /.navbar-collapse
+            </div><!-- /.container-fluid
         </nav>
 
+        -->
+        <ng-include src="'include/ccHeader.html'"></ng-include>
 
         <!-- Some static HTML when no-one is logged in-->
         <!--  todo figure out display status
@@ -75,6 +78,7 @@
         -->
 
         <!-- The panel that will allow a patient to be selected...-->
+        <!--
         <div ng-show="status.searchPatient">
             <h5>Select the patient</h5>
             <div class="row">
@@ -91,10 +95,13 @@
                 </a>
             </div>
         </div>
+        -->
+        <ng-include src="'include/ccSearchPatient.html'"></ng-include>
 
 
 
         <!-- The panel that will allow a user to be selected...-->
+        <!--
         <div ng-show="status.searchUser">
             <h5>Select the User (Practitioner)</h5>
             <div class="row">
@@ -112,6 +119,8 @@
             </div>
             <hr />
         </div>
+-->
+        <ng-include src="'include/ccSearchUser.html'"></ng-include>
 
         <!-------------------------------------- -->
 
@@ -142,10 +151,13 @@
 
             <div class="tab-content">
 
+
                 <!-- the tab that selects a profile and allows the user to ender data -->
                 <div class="tab-pane active" id="editNew">
+                    <!--
+
                     <div class="row">
-                    <!-- Left side is the profile seelct & work area-->
+                    <!-- Left side is the profile seelct & work area
                         <br />
                         <div class="col-md-9">
                             <h5>Profiles</h5>
@@ -154,7 +166,7 @@
                             </select>
 
                             <div ng-show="status.profileSelected">
-                                <!--<h5>{{status.profileName}}</h5>-->
+                                <!--<h5>{{status.profileName}}</h5>
                                 <textarea ng-model="data.narrative" placeholder="Enter the Narrative text" class="form-control"></textarea>
                                 <hr/>
                                 <a ng-click="saveProfileData()" class="btn btn-primary">Save resource</a>
@@ -162,7 +174,7 @@
                                 <div>----   form should go here   <------- </div>
 
                                 {{status.resourceUrl}}
-                                -->
+                                --
                                 <iframe id = "myIframe" ng-src="{{trustAsUrl(status.resourceUrl)}}" width='100%' height='600px'></iframe>
 
                                 <hr />
@@ -180,11 +192,16 @@
                             </div>
                         </div>
                     </div>
+                    -->
+
+                    <ng-include src="'include/ccTabContentNewProfile.html'"></ng-include>
+
+
                 </div>  <!-- end of tab pane --->
 
                 <!-- A preview of the current consultation in a simple table-->
                 <div class="tab-pane" id="previewNew">
-
+<!--
                     <table class="table table-bordered table-condensed">
                         <thead>
                             <tr><th>User</th><th>Narrative</th><th>Resource</th></tr>
@@ -197,11 +214,14 @@
                             </tr>
                         </tbody>
                     </table>
+-->
+                    <ng-include src="'include/ccTabContentPreview.html'"></ng-include>
+
                 </div> <!-- end of the preview panel -->
 
                 <!-- The history of changes to the allergy list over time-->
                 <div class="tab-pane" id="allergyHx">
-
+<!--
                     <h5 class="text-center">History of changes to Allergy List</h5>
                     <table class="table table-bordered table-condensed">
                         <thead>
@@ -230,6 +250,9 @@
                         </tr>
 
                         </tbody></table>
+
+-->
+                    <ng-include src="'include/ccTabContentAllergyHistory.html'"></ng-include>
 
                 </div>      <!-- end of allergy pane-->
 
