@@ -6,13 +6,49 @@ Server dependencies (expected to be in the same domain):
 
 */
 
+
 var myApp = angular.module('myApp',['ngSanitize']);
+//angular.module('myApp',['ngSanitize']);
+
+//this is the patient service
+angular.module('myApp').service('patientService', function($http) {
+    var serviceInstance = {}; // Our first service return serviceInstance;
+
+    var runUserRequest = function(uri) { // Return the promise from the $http service // that calls the Github API using JSONP
+    return $http({
+        method: 'GET',
+            url: uri
+    })};
+
+    return {
+        getUser: function (userId) {
+            var uri = "fhir/Practitioner/" + userId + "?_format=json";
+            //returns a promise...
+
+            return runUserRequest(uri);
+            /*
+            runUserRequest(uri).success(function (data, status, headers, config) {
+                return data;
+            }).error(function (data, status, headers, config) {
+                alert('there was an error executing the function');
+                return null;
+            });
+            */
+        }
+    };
+
+
+});
+
+
+
 myApp.run(function($rootScope) {
     $rootScope.name = "David Hay";
 });
 
+
 //this is the main controller - currently at page level
-myApp.controller('MyController', function($scope,$http) {
+myApp.controller('MyController', function($scope,$http ,patientService) {
     $scope.person = {
         name: "David hay controller"
     };
@@ -32,7 +68,9 @@ myApp.controller('MyController', function($scope,$http) {
 
     $scope.status = {
         loggedIn : false,
-        startUp : true
+        startUp : true,
+        showHistory : true,
+        showDataEntry : false   //hide the data entry parts of the app
     }
 
     //represents data collected
@@ -181,7 +219,7 @@ myApp.controller('MyController', function($scope,$http) {
 
 //this is a child controller (nested in MyController)
 //handles the functions from the top bar - ie login & patient select...
-myApp.controller('NavController', function($scope,$http) {
+myApp.controller('NavController', function($scope,$http,patientService) {
 
     $scope.searchPatient = function() {
         $scope.status.patientSelected=false;
@@ -269,21 +307,28 @@ myApp.controller('NavController', function($scope,$http) {
     $scope.login = function() {
 
         $scope.status.startUp = false;
-        $scope.getUser("dummy");
+
+
+        //$scope.getUser("dummy");
+        var userId = "dummy";
+        patientService.getUser(userId).success(function (data) {
+
+            //add som emetadata...
+            data.meta = {};
+            data.meta.id = userId;
+            data.meta.userName = data.name.family[0] + ", " + data.name.given[0];
+
+
+
+            console.log("user=",data)
+            $scope.status.user = data;
+            $scope.status.loggedIn = true;
+        }).error(function (data, status, headers, config) {
+            alert('there was an error getting the User');
+        });
+
 
         $scope.getPatient("dummy");     //gets a dummy patient
-        /*
-        $http({
-            method: 'GET',
-            url: "auth/login?username=Dr Jones"
-        }).success(function (data, status, headers, config) {
-            $scope.status.user = data;
-            $scope.status.loggedIn = true;  //defined in MyController - assume that controller is a parent...
-            $scope.getPatient("dummy");     //gets a dummy patient
-        }).error(function (data, status, headers, config) {
-            alert('there was an error getting the user');
-        });
-*/
     };
 
 
@@ -297,7 +342,7 @@ myApp.controller('NavController', function($scope,$http) {
     $scope.getPatient = function (patId) {
         $http({
             method: 'GET',
-            url: "fhir/Patient/" + patId,
+            url: "fhir/Patient/" + patId+ "?_format=json",
             headers: {
                 //Authorization: 'Bearer ' + $scope.status.user.userToken,
                 Accept: 'application/json+fhir'

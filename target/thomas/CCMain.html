@@ -59,8 +59,15 @@
     <div ng-init="getData()"></div>     <!-- Get the list of profiles from the server-->
 
 
+    <!-- review history panel -->
+
+    <div ng-show="status.patientSelected && status.showHistory" class="row">
+
+    showHistory
+    </div>
+
     <!-- Panels that are appropriate when a patient has been selected-->
-    <div ng-show="status.patientSelected" class="row">
+    <div ng-show="status.patientSelected && status.showDataEntry" class="row">
 
         <!-- This is the sidebar -->
         <div class="col-md-3">

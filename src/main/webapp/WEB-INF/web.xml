@@ -63,6 +63,10 @@
         <servlet-name>ConvertResourceServlet</servlet-name>
         <servlet-class>cc.ConvertResourceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetPatientHistoryServlet</servlet-name>
+        <servlet-class>cc.GetPatientHistoryServlet</servlet-class>
+    </servlet>
 
 
     <!-- Filter to check access to fhir end points...
