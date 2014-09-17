@@ -4,10 +4,7 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.Bundle;
 import ca.uhn.fhir.model.api.BundleEntry;
 import ca.uhn.fhir.model.api.IResource;
-import ca.uhn.fhir.model.dstu.resource.AllergyIntolerance;
-import ca.uhn.fhir.model.dstu.resource.MedicationStatement;
-import ca.uhn.fhir.model.dstu.resource.Observation;
-import ca.uhn.fhir.model.dstu.resource.Patient;
+import ca.uhn.fhir.model.dstu.resource.*;
 import ca.uhn.fhir.model.dstu.valueset.AdministrativeGenderCodesEnum;
 import ca.uhn.fhir.model.primitive.DateTimeDt;
 import ca.uhn.fhir.rest.client.IGenericClient;
@@ -28,6 +25,7 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -54,7 +52,7 @@ public class GetPatientHistoryServlet extends HttpServlet {
 
         String patientId = request.getParameter("patientid");
         Bundle allResults = new Bundle();
-        Map<String,String> map = new HashMap<String, String>();
+        Map<String,BundleEntry> map = new HashMap<String, BundleEntry>();
 
         IGenericClient client = _fhirContext.newRestfulGenericClient(_serverBase);
 
@@ -75,6 +73,22 @@ public class GetPatientHistoryServlet extends HttpServlet {
 
         addResources(allResults,obsResults,map);
 
+        //--------- family history
+        Bundle obsFamhx = client.search()
+                .forResource(FamilyHistory.class)
+                .where(FamilyHistory.SUBJECT.hasId(patientId))
+                .execute();
+
+        addResources(allResults,obsFamhx,map);
+
+        //--------- orders
+        Bundle obsOrder = client.search()
+                .forResource(Order.class)
+                .where(Order.SUBJECT.hasId(patientId))
+                .execute();
+
+        addResources(allResults,obsOrder,map);
+
         //--------- medications
         Bundle medicationResults = client.search()
                 .forResource(MedicationStatement.class)
@@ -86,20 +100,27 @@ public class GetPatientHistoryServlet extends HttpServlet {
         JsonObjectBuilder json = Json.createObjectBuilder();// .build();
 
         JsonArrayBuilder array = Json.createArrayBuilder();//.build();
-        //for (String profile : lstProfile) {
-          //  array.add(Json.createObjectBuilder()
-            //        .add("name", profile));
-        //}
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd HH:mm");
 
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, BundleEntry> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue();
+            BundleEntry bundleEntry = entry.getValue();
+            IResource resource = bundleEntry.getResource();
+            Date date = bundleEntry.getUpdated().getValue();
+
+
+            //String date = sdf.format(new Date());
+
+
+            System.out.println(date);
+            //String value = entry.getValue();
+            String jsonB =  _fhirContext.newXmlParser().encodeResourceToString(resource);
 
             array.add(Json.createObjectBuilder()
                     .add("id", key)
-                    //.add("id", "test")
-                    .add("value",value));
+                    .add("date", sdf.format(date))
+                    .add("value", jsonB));
 
 
             //System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
@@ -118,44 +139,9 @@ public class GetPatientHistoryServlet extends HttpServlet {
         out.println(stWriter.toString());
 
 
-        /*
-        for (BundleEntry entry : results.getEntries()) {
-            BundleEntry newEntry = allResults.addEntry();
-            newEntry.setResource(entry.getResource());
-           // allResults.ad  addEntry(entry);
-        }
-        */
-        /*
-        Patient patient = new Patient();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -18);         //18 years old
-        patient.setBirthDate(new DateTimeDt(cal.getTime()));
-        patient.addName().addFamily("Power");
-        patient.getName().get(0).addGiven("Cold");
-        patient.setGender(AdministrativeGenderCodesEnum.M);
-        patient.getText().setDiv("Cold Power  M  Age 18y");
-
-        BundleEntry newEntry = allResults.addEntry();
-        newEntry.setResource(patient);
-
-        //results.addResource(patient,_fhirContext,_serverBase);
-
-        //String json =  _fhirContext.newJsonParser().
-
-        //for ()
-
-
-        String jsonB =  _fhirContext.newJsonParser().encodeBundleToString(allResults);
-
-        response.addHeader("Content-Type","application/json+fhir");
-        out.println(jsonB);
-        */
-
     }
 
-    private void addResources(Bundle allResults, Bundle newResults,Map<String,String> map) {
-
-
+    private void addResources(Bundle allResults, Bundle newResults,Map<String,BundleEntry> map) {
 
         for (BundleEntry entry : newResults.getEntries()) {
             BundleEntry newEntry = allResults.addEntry();
@@ -165,12 +151,10 @@ public class GetPatientHistoryServlet extends HttpServlet {
             newEntry.getSummary().setValueAsString("this is the summary");
             // allResults.ad  addEntry(entry);
 
-            String jsonB =  _fhirContext.newXmlParser().encodeResourceToString(newEntry.getResource());
-
             String id =entry.getId().toString();
             id = id.replace(_serverBase,"");
 
-            map.put(id,jsonB);
+            map.put(id,entry);
         }
     }
 }

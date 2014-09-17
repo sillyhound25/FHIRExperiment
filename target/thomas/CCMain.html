@@ -65,23 +65,37 @@
 
     <div ng-show="status.patientSelected && status.showHistory">
 
-    showHistory
+        <div class="row">
+            <div class="col-md-10">
+                <h4>Resources created for this patient</h4>
+            </div>
+            <div class="col-md-2">
+                <a link="#" class="btn btn-primary" ng-click="refreshResourceList">Refresh</a>
+            </div>
+        </div>
+
+
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
+
+                <div style="overflow: auto; width:250px; height:600px;">
+
                 <div class='list-group'>
                     <div ng-repeat="hx in data.play">
-                        <a href='#'
-                           ng-repeat="hx in data.play" class='list-group-item'
-                           ng-click="showDetailResource(hx,$index);$event.preventDefault()"
-                           data-ng-bind-html="hx.id">
 
-
-                            </a>
+                        <a href='#' class='list-group-item'
+                           ng-click="showDetailResource(hx,$index);$event.preventDefault()">
+                            {{hx.id}}
+                            <div><em>{{hx.date}}</em></div>
+                        </a>
                     </div>
                 </div>
+
+                </div>
+
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <textarea ng-model="data.scratch" class="form-control" rows="25"></textarea>
             </div>
         </div>
