@@ -11,6 +11,8 @@
     <script src="js/libs/jquery-1.9.0.min.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
 
+    <script src="js/libs/vkbeautify.0.99.00.beta.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <title>Angular Sample EMR using FHIR resources</title>
 
@@ -61,9 +63,52 @@
 
     <!-- review history panel -->
 
-    <div ng-show="status.patientSelected && status.showHistory" class="row">
+    <div ng-show="status.patientSelected && status.showHistory">
 
     showHistory
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class='list-group'>
+                    <div ng-repeat="hx in data.play">
+                        <a href='#'
+                           ng-repeat="hx in data.play" class='list-group-item'
+                           ng-click="showDetailResource(hx,$index);$event.preventDefault()"
+                           data-ng-bind-html="hx.id">
+
+
+                            </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <textarea ng-model="data.scratch" class="form-control" rows="25"></textarea>
+            </div>
+        </div>
+
+
+
+        <!--
+               <div ng-repeat="hx in data.play">
+
+
+
+                           <div>{{hx.id}}</div>
+
+
+
+               </div>
+
+
+               <div class='list-group'>
+                   <a href='#' ng-click="PatientSelected(entry)" ng-repeat="hx in data.hxFromServer"
+                      class='list-group-item' data-ng-bind-html="hx.value">
+                       {{hx.value}}
+                   </a>
+
+               </div>
+       -->
+
     </div>
 
     <!-- Panels that are appropriate when a patient has been selected-->

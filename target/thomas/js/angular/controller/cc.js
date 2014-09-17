@@ -34,6 +34,11 @@ angular.module('myApp').service('patientService', function($http) {
                 return null;
             });
             */
+        },
+        getAllResourcesForUser : function(userId) {
+            var uri = "cc/pathx?patientid=" + userId + "&_format=json";
+            //returns a promise...
+            return runUserRequest(uri);
         }
     };
 
@@ -71,7 +76,7 @@ myApp.controller('MyController', function($scope,$http ,patientService) {
         startUp : true,
         showHistory : true,
         showDataEntry : false   //hide the data entry parts of the app
-    }
+    };
 
     //represents data collected
     $scope.data = {hx : []};    //hx is the list of
@@ -81,6 +86,12 @@ myApp.controller('MyController', function($scope,$http ,patientService) {
 
     //holds the history of changes to the allergy list
     $scope.history = {allergy : []};
+
+
+    $scope.showDetailResource = function(hx,index) {
+        alert('bang!')
+        $scope.data.scratch=hx.value;
+    }
 
     //get the list of profiles from the server
     $scope.getData = function() {
@@ -327,6 +338,25 @@ myApp.controller('NavController', function($scope,$http,patientService) {
             alert('there was an error getting the User');
         });
 
+/*
+
+        //get all the data for the selected patient...  296
+        patientService.getAllResourcesForUser("1").success(function (data) {
+            console.log('patient data ' ,data)
+            $scope.data.hxFromServer = data.history;
+
+            $scope.data.play = [];
+            angular.forEach(data.history,function(obj,inx1){
+                $scope.data.play.push({value: vkbeautify.xml(obj.value)});
+            })
+
+
+        }).error(function (data, status, headers, config) {
+            alert('there was an error getting the Patient Resources');
+        });
+
+*/
+
 
         $scope.getPatient("dummy");     //gets a dummy patient
     };
@@ -355,6 +385,29 @@ myApp.controller('NavController', function($scope,$http,patientService) {
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the patient');
         });
+
+
+
+
+        //get all the data for the selected patient...  296
+        patientService.getAllResourcesForUser(patId).success(function (data) {
+            console.log('patient data ' ,data)
+            $scope.data.hxFromServer = data.history;
+
+            $scope.data.play = [];
+            angular.forEach(data.history,function(obj,inx1){
+                $scope.data.play.push({id:obj.id,value: vkbeautify.xml(obj.value)});
+            })
+
+
+        }).error(function (data, status, headers, config) {
+            alert('there was an error getting the Patient Resources');
+        });
+
+
+
+
+
     };
 
     $scope.getUser = function (userId) {

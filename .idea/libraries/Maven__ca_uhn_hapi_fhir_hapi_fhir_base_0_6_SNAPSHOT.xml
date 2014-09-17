@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="Maven: ca.uhn.hapi.fhir:hapi-fhir-base:0.6-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-20140829.142006-12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-20140829.142006-12-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="file://$USER_HOME$/hapi/hl7api-fhircode/hapi-fhir-base/src/main/java" />
@@ -17,7 +17,7 @@
       <root url="file://$USER_HOME$/hapi/hl7api-fhircode/hapi-fhir-jpaserver-base/src/test/java" />
       <root url="file://$USER_HOME$/hapi/hl7api-fhircode/hapi-fhir-jpaserver-test/src/test/java" />
       <root url="file://$USER_HOME$/hapi/hl7api-fhircode/hapi-fhir-jpaserver-uhnfhirtest/src/main/java" />
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-20140829.142006-12-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.6-SNAPSHOT/hapi-fhir-base-0.6-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
