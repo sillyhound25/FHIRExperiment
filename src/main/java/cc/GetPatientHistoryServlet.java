@@ -57,6 +57,8 @@ public class GetPatientHistoryServlet extends HttpServlet {
         IGenericClient client = _fhirContext.newRestfulGenericClient(_serverBase);
 
 
+        //Bundle b = client.search().forAllResources().where()
+
         //--------- allergies
         Bundle allergyResults = client.search()
                 .forResource(AllergyIntolerance.class)
@@ -64,6 +66,14 @@ public class GetPatientHistoryServlet extends HttpServlet {
                 .execute();
 
         addResources(allResults,allergyResults,map);
+
+        //--------- condition
+        Bundle conditionResults = client.search()
+                .forResource(Condition.class)
+                .where(Condition.SUBJECT.hasId(patientId))
+                .execute();
+
+        addResources(allResults,conditionResults,map);
 
         //--------- observations
         Bundle obsResults = client.search()
@@ -114,15 +124,31 @@ public class GetPatientHistoryServlet extends HttpServlet {
 
 
             System.out.println(date);
+            System.out.println(resource);
             //String value = entry.getValue();
-            String jsonB =  _fhirContext.newXmlParser().encodeResourceToString(resource);
+            try {
+                String jsonB = _fhirContext.newXmlParser().encodeResourceToString(resource);
+                String narrative = resource.getText().getDiv().getValueAsString();
+                array.add(Json.createObjectBuilder()
+                        .add("id", key)
+                        .add("date", sdf.format(date))
+                        .add("rawdate", date.getTime())
+                        .add("value", jsonB)
+                        .add("narrative", narrative));
 
-            array.add(Json.createObjectBuilder()
-                    .add("id", key)
-                    .add("date", sdf.format(date))
-                    .add("value", jsonB));
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                //ignore all errors for now...
 
+                System.out.println(ex.getMessage());
+                String msg = "This resource could not be serialized to XML so I can't display it. Sorry about that.";
+                array.add(Json.createObjectBuilder()
+                        .add("id", key)
+                        .add("date", sdf.format(date))
+                        .add("rawdate", date.getTime())
+                        .add("value", msg));
 
+            }
             //System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
         }
 

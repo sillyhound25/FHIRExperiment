@@ -31,11 +31,31 @@
       <file leaf-file-name="CCMain.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/CCMain.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.125" vertical-offset="885" max-vertical-offset="2805">
-              <caret line="72" column="81" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="81" />
+            <state vertical-scroll-proportion="-5.0" vertical-offset="135" max-vertical-offset="2985">
+              <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ccHeader.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccHeader.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.2916665" vertical-offset="158" max-vertical-offset="660">
+              <caret line="19" column="81" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ccTabContentNewProfile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccTabContentNewProfile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="705">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,18 +73,18 @@
       <file leaf-file-name="cc.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/angular/controller/cc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45789474" vertical-offset="246" max-vertical-offset="5535">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="35" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.5153374" vertical-offset="4707" max-vertical-offset="5940">
+              <caret line="414" column="0" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
               <folding>
-                <element signature="e#4369#4441#0" expanded="false" />
-                <element signature="e#4749#5258#0" expanded="false" />
-                <element signature="e#5351#5808#0" expanded="false" />
-                <element signature="e#6091#7320#0" expanded="false" />
-                <element signature="e#7875#8027#0" expanded="false" />
-                <element signature="e#8072#8226#0" expanded="false" />
-                <element signature="e#10746#10993#0" expanded="false" />
-                <element signature="e#11078#11653#0" expanded="false" />
-                <element signature="e#15296#16068#0" expanded="false" />
+                <element signature="e#5131#5203#0" expanded="false" />
+                <element signature="e#5511#6020#0" expanded="false" />
+                <element signature="e#6113#6570#0" expanded="false" />
+                <element signature="e#6853#8082#0" expanded="false" />
+                <element signature="e#8637#8789#0" expanded="false" />
+                <element signature="e#8834#8988#0" expanded="false" />
+                <element signature="e#11656#11903#0" expanded="false" />
+                <element signature="e#11988#12563#0" expanded="false" />
+                <element signature="e#16114#16886#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -80,11 +100,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PatientResourceProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="2250">
+              <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+              <folding>
+                <element signature="method#getResourceById#0;class#PatientResourceProvider#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GetPatientHistoryServlet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cc/GetPatientHistoryServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="2490">
-              <caret line="86" column="28" selection-start-line="86" selection-start-column="28" selection-end-line="86" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="2880">
+              <caret line="38" column="83" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="83" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1992#2013#0" expanded="true" />
@@ -93,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetProfilesListServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cc/GetProfilesListServlet.java">
+      <file leaf-file-name="ccCreatePatient.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccCreatePatient.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
-              <caret line="46" column="34" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="34" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -113,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/dataplatform/Glucose.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/BloodGlucose.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/BaseMeasurement.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/orchestral/data/healthkit/web/fhir/ObservationServiceDH.java" />
@@ -149,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/indexA.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/indexA.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/Introduction.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccSideBar.html" />
         <option value="$PROJECT_DIR$/src/main/java/fhir/server/PractitionerResourceProvider.java" />
@@ -157,13 +187,15 @@
         <option value="$PROJECT_DIR$/src/main/java/fhir/PractitionerResourceProvider.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccSearchPatient.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccSearchUser.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/include/ccHeader.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccTabContentPreview.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccTabContentAllergyHistory.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/include/ccTabContentNewProfile.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/CCMain.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/angular/controller/cc.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/include/ccHeader.html" />
         <option value="$PROJECT_DIR$/src/main/java/cc/GetPatientHistoryServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/CCMain.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/include/ccCreatePatient.html" />
+        <option value="$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/angular/controller/cc.js" />
       </list>
     </option>
   </component>
@@ -233,8 +265,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="71" />
-    <option name="y" value="31" />
+    <option name="x" value="32" />
+    <option name="y" value="38" />
     <option name="width" value="1308" />
     <option name="height" value="778" />
   </component>
@@ -442,6 +474,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thomas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thomas" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fhir" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -836,15 +894,15 @@
       <workItem from="1410490826855" duration="242000" />
       <workItem from="1410491751595" duration="19311000" />
       <workItem from="1410633309058" duration="35877000" />
-      <workItem from="1410906017630" duration="18352000" />
+      <workItem from="1410906017630" duration="28657000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="333974000" />
+    <option name="totallyTimeSpent" value="344279000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="71" y="31" width="1308" height="778" extended-state="0" />
+    <frame x="32" y="38" width="1308" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -860,8 +918,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328877" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18960245" sideWeight="0.7626728" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38787025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.7626728" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38787025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -924,13 +982,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java</url>
-          <line>175</line>
+          <line>177</line>
           <properties />
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java</url>
-          <line>174</line>
+          <line>176</line>
           <properties />
           <option name="timeStamp" value="22" />
         </line-breakpoint>
@@ -942,7 +1000,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java</url>
-          <line>164</line>
+          <line>166</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
@@ -1061,18 +1119,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java</url>
-          <line>162</line>
+          <line>164</line>
           <properties />
           <option name="timeStamp" value="179" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cc/GetPatientHistoryServlet.java</url>
-          <line>146</line>
+          <line>139</line>
           <properties />
-          <option name="timeStamp" value="182" />
+          <option name="timeStamp" value="183" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="183" />
+      <option name="time" value="185" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1080,13 +1138,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/orchestral/data/healthkit/web/data/Weight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7291667" vertical-offset="75" max-vertical-offset="945">
-          <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/orchestral/data/healthkit/web/data/StepCount.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7083333" vertical-offset="0" max-vertical-offset="855">
@@ -1365,22 +1416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccTabContentNewProfile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="705">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccHeader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79498863" vertical-offset="221" max-vertical-offset="660">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/fhir/ObservationResourceProvider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.5327696" vertical-offset="935" max-vertical-offset="4665">
@@ -1407,26 +1442,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="331" max-vertical-offset="2640">
-          <caret line="67" column="63" selection-start-line="60" selection-start-column="12" selection-end-line="67" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccSideBar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.291667" vertical-offset="497" max-vertical-offset="930">
           <caret line="48" column="24" selection-start-line="45" selection-start-column="20" selection-end-line="48" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccSearchPatient.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="315">
-          <caret line="12" column="64" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
           <folding />
         </state>
       </provider>
@@ -1439,28 +1458,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cc/GetProfilesListServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3300493" vertical-offset="0" max-vertical-offset="855">
+          <caret line="46" column="34" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccTabContentNewProfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="705">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/CCMain.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125" vertical-offset="885" max-vertical-offset="2805">
-          <caret line="72" column="81" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="81" />
+        <state vertical-scroll-proportion="-5.0" vertical-offset="135" max-vertical-offset="2985">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cc/GetProfilesListServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccCreatePatient.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="855">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="383">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cc/GetPatientHistoryServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="2490">
-          <caret line="86" column="28" selection-start-line="86" selection-start-column="28" selection-end-line="86" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="2880">
+          <caret line="38" column="83" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="83" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1992#2013#0" expanded="true" />
@@ -1468,20 +1503,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fhir/PatientResourceProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="2250">
+          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+          <folding>
+            <element signature="method#getResourceById#0;class#PatientResourceProvider#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccSearchPatient.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="315">
+          <caret line="12" column="64" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/include/ccHeader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.2916665" vertical-offset="158" max-vertical-offset="660">
+          <caret line="19" column="81" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/angular/controller/cc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45789474" vertical-offset="246" max-vertical-offset="5535">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="35" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.5153374" vertical-offset="4707" max-vertical-offset="5940">
+          <caret line="414" column="0" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
           <folding>
-            <element signature="e#4369#4441#0" expanded="false" />
-            <element signature="e#4749#5258#0" expanded="false" />
-            <element signature="e#5351#5808#0" expanded="false" />
-            <element signature="e#6091#7320#0" expanded="false" />
-            <element signature="e#7875#8027#0" expanded="false" />
-            <element signature="e#8072#8226#0" expanded="false" />
-            <element signature="e#10746#10993#0" expanded="false" />
-            <element signature="e#11078#11653#0" expanded="false" />
-            <element signature="e#15296#16068#0" expanded="false" />
+            <element signature="e#5131#5203#0" expanded="false" />
+            <element signature="e#5511#6020#0" expanded="false" />
+            <element signature="e#6113#6570#0" expanded="false" />
+            <element signature="e#6853#8082#0" expanded="false" />
+            <element signature="e#8637#8789#0" expanded="false" />
+            <element signature="e#8834#8988#0" expanded="false" />
+            <element signature="e#11656#11903#0" expanded="false" />
+            <element signature="e#11988#12563#0" expanded="false" />
+            <element signature="e#16114#16886#0" expanded="false" />
           </folding>
         </state>
       </provider>

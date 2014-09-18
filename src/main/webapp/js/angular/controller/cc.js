@@ -24,21 +24,38 @@ angular.module('myApp').service('patientService', function($http) {
         getUser: function (userId) {
             var uri = "fhir/Practitioner/" + userId + "?_format=json";
             //returns a promise...
-
             return runUserRequest(uri);
-            /*
-            runUserRequest(uri).success(function (data, status, headers, config) {
-                return data;
-            }).error(function (data, status, headers, config) {
-                alert('there was an error executing the function');
-                return null;
-            });
-            */
+
         },
         getAllResourcesForUser : function(userId) {
             var uri = "cc/pathx?patientid=" + userId + "&_format=json";
             //returns a promise...
             return runUserRequest(uri);
+        },
+        setupHistory : function(historyFromServer)  {
+            var play = [];
+            angular.forEach(historyFromServer,function(obj,inx1){
+                //console.log(obj)
+
+                var da = moment.unix(obj.rawdate/1000);
+
+                //console.log(da.format())
+                var age = da.fromNow();
+//console.log(age);
+                play.push({id:obj.id,value: vkbeautify.xml(obj.value),date:obj.date,rawdate:obj.rawdate,age:age,narrative:obj.narrative});
+            });
+            //now sort
+            play.sort(function(a,b){
+
+                if  (a.rawdate < b.rawdate){
+                    return 1;
+                } else {
+                    return -1;
+                }
+
+            });
+console.log(play);
+            return play;
         }
     };
 
@@ -92,16 +109,21 @@ myApp.controller('MyController', function($scope,$http ,patientService) {
     $scope.showDetailResource = function(hx,index) {
         //alert('bang!')
         $scope.data.scratch=hx.value;
+        $scope.data.scratchNarrative=hx.narrative;
     }
 
     //refreshing the list of resources for the selected patient
     $scope.refreshResourceList = function() {
         //get all the data for the selected patient...  296
         var patId =  $scope.status.patient.meta.id;
+        $scope.status.gettingPatientData = true;
         patientService.getAllResourcesForUser(patId).success(function (data) {
             console.log('patient data ' ,data)
             $scope.data.hxFromServer = data.history;
 
+            $scope.data.play = patientService.setupHistory(data.history);
+            $scope.status.gettingPatientData = false;
+            /*
             $scope.data.play = [];
             angular.forEach(data.history,function(obj,inx1){
                 //console.log(obj)
@@ -111,11 +133,12 @@ myApp.controller('MyController', function($scope,$http ,patientService) {
             $scope.data.play = $scope.data.play.sort(function(a,b){
                 return a.date < b.date;
             })
-
-            alert('List updated');
+*/
+            //alert('List updated');
 
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the Patient Resources');
+            $scope.status.gettingPatientData = false;
         });
     }
 
@@ -263,6 +286,9 @@ myApp.controller('NavController', function($scope,$http,patientService) {
         $scope.status.patientSelected=false;
         delete $scope.status.patient;
 
+        $scope.data.scratch="";     //clear the history detail
+        $scope.data.scratchNarrative="";
+
         $scope.search = {};
         $scope.status.searchPatient = true;     //to indicate that searching for a patient...
         $scope.search.params = {name:"eve"};
@@ -272,6 +298,9 @@ myApp.controller('NavController', function($scope,$http,patientService) {
     $scope.findPatient = function() {
         $scope.status.queryingServer = true;    //shows the 'please wait' message
         $scope.data.scratch="";     //clear the history detail
+        $scope.data.scratchNarrative="";
+
+
         $http({
             method: 'GET',
             url: "fhir/Patient?name="+$scope.search.params.name
@@ -387,8 +416,14 @@ myApp.controller('NavController', function($scope,$http,patientService) {
 */
 
 
+        //display the search patient screen directly after login...
+
+
+        $scope.searchPatient();
+
+
         //$scope.getPatient("dummy");     //gets a dummy patient
-        $scope.getPatient("1");
+       // $scope.getPatient("1");
     };
 
 
@@ -417,25 +452,17 @@ myApp.controller('NavController', function($scope,$http,patientService) {
         });
 
 
+        $scope.status.gettingPatientData = true;
         //get all the data for the selected patient...  296
         patientService.getAllResourcesForUser(patId).success(function (data) {
             console.log('patient data ' ,data)
             $scope.data.hxFromServer = data.history;
 
-            $scope.data.play = [];
-            angular.forEach(data.history,function(obj,inx1){
-                //console.log(obj)
-                $scope.data.play.push({id:obj.id,value: vkbeautify.xml(obj.value),date:obj.date});
-            })
-            //now sort
-            $scope.data.play = $scope.data.play.sort(function(a,b){
-                if (a.date < b.date) {return 1;}
-                return -1;
-            })
-
-
+            $scope.data.play = patientService.setupHistory(data.history);
+            $scope.status.gettingPatientData = false;
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the Patient Resources');
+            $scope.status.gettingPatientData = false;
         });
 
 

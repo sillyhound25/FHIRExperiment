@@ -12,9 +12,10 @@
     <script src="js/libs/bootstrap.min.js"></script>
 
     <script src="js/libs/vkbeautify.0.99.00.beta.js"></script>
+    <script src="js/libs/moment.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <title>Angular Sample EMR using FHIR resources</title>
+    <title>Patient based FHIR browser</title>
 
     <style>
         .removed {
@@ -70,7 +71,8 @@
                 <h4>Resources created for this patient</h4>
             </div>
             <div class="col-md-2">
-                <a link="#" class="btn btn-primary" ng-click="refreshResourceList">Refresh</a>
+                <div ng-show="status.gettingPatientData">Reading data, please wait...</div>
+                <a link="#" class="btn btn-primary" ng-hide="status.gettingPatientData" ng-click="refreshResourceList()">Refresh</a>
             </div>
         </div>
 
@@ -78,27 +80,37 @@
 
         <div class="row">
             <div class="col-md-4">
-
                 <div style="overflow: auto; width:250px; height:600px;">
-
                 <div class='list-group'>
                     <div ng-repeat="hx in data.play">
-
                         <a href='#' class='list-group-item'
                            ng-click="showDetailResource(hx,$index);$event.preventDefault()">
-                            {{hx.id}}
-                            <div><em>{{hx.date}}</em></div>
+                            <div>{{hx.id}}</div>
+                            <div>{{hx.date}}</div>
+                            <div><em>{{hx.age}}</em></div>
                         </a>
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#viewXml" role="tab" data-toggle="tab">XML</a></li>
+                <li><a href="#viewNarrative" role="tab" data-toggle="tab">Narrative</a></li>
+            </ul>
+            <br />
+            <div class="tab-content">
+                <!-- the tab that selects a profile and allows the user to ender data -->
+                <div class="tab-pane active" id="viewXml">
+                    <textarea ng-model="data.scratch" class="form-control" rows="25"></textarea>
+                </div>
+                <div class="tab-pane active" id="viewNarrative">
+                    <div data-ng-bind-html="data.scratchNarrative"></div>
                 </div>
 
             </div>
-            <div class="col-md-8">
-                <textarea ng-model="data.scratch" class="form-control" rows="25"></textarea>
-            </div>
         </div>
+    </div>
 
 
 

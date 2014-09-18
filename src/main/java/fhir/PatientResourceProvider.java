@@ -38,8 +38,8 @@ public class PatientResourceProvider implements IResourceProvider {
     private MyMongo _myMongo;
     private FhirContext _ctx;
 
-    private String _serverBase = "http://fhir.healthintersections.com.au/open";
-
+    //private String _serverBase = "http://fhir.healthintersections.com.au/open";
+    private String _serverBase = "http://fhir-dev.healthintersections.com.au/open";
     //constructor to pass instance of MongoClient across - actually, could this be in the Context???
     public PatientResourceProvider( MyMongo myMongo){
         _myMongo = myMongo; //not currently using this, but nice to have a local Db around...
@@ -94,6 +94,8 @@ public class PatientResourceProvider implements IResourceProvider {
         _ctx = (FhirContext) context.getAttribute("fhircontext");
 
         //System.out.println(_ctx);
+
+
 
         //String serverBase = "http://fhir.healthintersections.com.au/open";
         IGenericClient client = _ctx.newRestfulGenericClient(_serverBase);
