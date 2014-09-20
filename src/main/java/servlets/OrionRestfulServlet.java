@@ -76,6 +76,7 @@ public class OrionRestfulServlet extends RestfulServer {
         resourceProviders.add(new PractitionerResourceProvider(_myMongo));
         resourceProviders.add(new FamilyHistoryResourceProvider(_myMongo));
         resourceProviders.add(new ProfileResourceProvider(_myMongo));
+        resourceProviders.add(new ValueSetResourceProvider(_myMongo));
         setResourceProviders(resourceProviders);
 
         List<Object> plainProviders=new ArrayList<Object>();

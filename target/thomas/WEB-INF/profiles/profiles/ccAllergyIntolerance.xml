@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile 
+    xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">
+            Allergy Intolerance 
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/AllergyIntolerance"/>
+    <name value="Basic AllergyIntolerance"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Base Profile for AllergyIntolerance Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-09-04T10:47:30.503+10:00"/>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <mapping>
+        <identity value="v2"/>
+        <uri value="http://hl7.org/v2"/>
+        <name value="HL7 v2"/>
+    </mapping>
+    <structure>
+        <type value="AllergyIntolerance"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the AllergyIntolerance resource"/>
+        <snapshot>
+            <element>
+                <path value="AllergyIntolerance"/>
+                <definition>
+                    <short value="Drug, food, environmental and others"/>
+                    <formal value="Indicates the patient has a susceptibility to an adverse reaction upon exposure to a specified substance."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="Observation[moodCode=EVN, code&lt;AllergyIntolerance]"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+
+            <element>
+                <path value="AllergyIntolerance.subject"/>
+                <definition>
+                    <short value="Who the sensitivity is for"/>
+                    <formal value="The patient who has the allergy or intolerance."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="PID-3-Patient ID List"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".participation[typeCode=SBJ].role[classCode=PAT]"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+            <element>
+                <path value="AllergyIntolerance.sensitivityType"/>
+                <definition>
+                    <short value="allergy | intolerance | unknown"/>
+                    <formal value="Type of the sensitivity."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="SensitivityType"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="The type of an adverse sensitivity"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/sensitivitytype"/>
+                        </referenceResource>
+                    </binding>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="IAM-9-Sensitivity to Causative Agent Code"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=&quot;sensitivity&quot;].value"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+            <element>
+                <path value="AllergyIntolerance.substance"/>
+                <definition>
+                    <short value="The substance that causes the sensitivity"/>
+                    <formal value="The substance that causes the sensitivity."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Substance"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="AL1-3-Allergen Code/Mnemonic/Description / IAM-3-Allergen Code/Mnemonic/Description"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".participation[typeCode=SBJ].role[classCode=ADMM]"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="AllergyIntolerance.reaction"/>
+                <definition>
+                    <short value="Reactions associated with the sensitivity"/>
+                    <formal value="Reactions associated with the sensitivity."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/AdverseReaction"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="IAM-7-Allergy Unique Identifier (Overloaded concept)"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".outboundRelationship[typeCode=SPRT].target[classCode=OBS, moodCode=EVN, code&lt;AdverseReaction]"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+            <element>
+                <path value="AllergyIntolerance.criticality"/>
+                <definition>
+                    <short value="fatal | high | medium | low"/>
+                    <formal value="Criticality of the sensitivity."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="Criticality"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="The criticality of an adverse sensitivity"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/criticality"/>
+                        </referenceResource>
+                    </binding>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=&quot;criticality&quot;].value"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+
+            
+            <element>
+                <path value="AllergyIntolerance.recordedDate"/>
+                <definition>
+                    <short value="When recorded"/>
+                    <formal value="Date when the sensitivity was recorded."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="IAM-20-Statused at Date/Time"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".participation[typeCode=AUT].time"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+            <element>
+                <path value="AllergyIntolerance.status"/>
+                <definition>
+                    <short value="Status of the sensitivity."/>
+                    <formal value="Status of the sensitivity."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="SensitivityStatus"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="The status of the adverse sensitivity"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/sensitivitystatus"/>
+                        </referenceResource>
+                    </binding>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="IAM-17-Allergy Clinical Status Code"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".status (suspected/confirmed differentiated by uncertaintyCode)"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+
+            
+            <element>
+                <path value="AllergyIntolerance.recorder"/>
+                <definition>
+                    <short value="Who recorded the sensitivity"/>
+                    <formal value="Indicates who has responsibility for the record."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                   
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                   
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="IAM-14-Reported By (if patient) / IAM-18-Statused By Person (if practitioner)"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".participation[typeCode=AUT].role"/>
+                    </mapping>
+                </definition>
+            </element>
+        
+            <element>
+                <path value="AllergyIntolerance.sensitivityTest"/>
+                <definition>
+                    <short value="Observations that confirm or refute"/>
+                    <formal value="Observations that confirm or refute the sensitivity."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Observation"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="OBX-21-Observation Instance Identifier (Subject to Ch7 caveats)"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".outboundRelationship[typeCode=SPRT].target[classCode=OBS, moodCode=EVN, code&lt;SensitivityTest]"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+            <element>
+                <path value="AllergyIntolerance.identifier"/>
+                <definition>
+                    <short value="External Identifiers for this item"/>
+                    <formal value="This records identifiers associated with this allergy/intolerance concern that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value=".id"/>
+                    </mapping>
+                </definition>
+            </element>
+            
+        </snapshot>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </structure>
+</Profile>

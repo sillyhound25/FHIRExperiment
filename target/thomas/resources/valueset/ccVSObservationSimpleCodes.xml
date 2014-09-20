@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValueSet xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="empty"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">Base valueset
+        </div>
+    </text>
+    <identifier value="http://hl7.org/fhir/v2/vs/0074"/>
+    <name value="ccVSObsertionSimpleCodes"/>
+    <publisher value="David Hay"/>
+    <telecom>
+        <system value="email"/>
+        <value value="david.hay25@gmail.com"/>
+    </telecom>
+    <description value="Simplified ValueSet for Observation codes"/>
+    <status value="active"/>
+    <date value="2011-01-28"/>
+    <compose>
+        <include>
+            <system value="http://loinc.org"/>
+            <code  value="8480-6"/>  <!-- systolic -->
+            <code  value="8462-4"/> <!-- diastolic -->
+            <code  value="8867-4"/> <!-- heart rate -->
+            <code  value="3141-9"/> <!-- weight -->
+            <code  value="8310-5"/> <!-- temp -->
+            <code  value="9279-1"/> <!-- resp rate -->
+            <code  value="61150-9"/> <!-- subjective -->
+            <code  value="61149-1"/> <!-- objective -->
+            <code  value="28538-7"/> <!-- abdominal pain -->
+            <code  value="28397-8"/> <!-- vomiting -->
+            <code  value="28397-8"/> <!-- stool appearance -->
+            <code  value="57849-2"/> <!-- allergy history -->
+            <code  value="38208-5"/> <!-- pain severity reported -->
+            <code  value="70184-7"/> <!--  level of consciousness-->
+            <code  value="9304-7"/> <!--  respiration rhythm-->
+            <code  value="8702-3"/> <!--  physical findings of heart-->
+            <code  value="45645-9"/> <!-- peripheral vascular disease -->
+            <code  value="44968-6"/> <!--  temperature of skin-->
+            <code  value="10191-5"/> <!--  abdominal exam-->
+            <code  value="11340-7"/> <!--  history of occupation-->
+            <code  value="42848-2"/> <!--  nausea-->
+            <code  value="22032-7"/> <!--  lab test narrative-->            
+            <code  value="18782-3"/> <!--  radiology observation-->
+            <code  value="59409-3"/> <!--  Oxygen saturation-->            
+            <code  value="59409-3"/> <!--  Patient Information-->
+            <code  value="32467-3"/> <!-- rash -->    
+            <code  value="3138-5"/> <!-- height -->  
+            <code  value="34046-3"/> <!-- medical history - chief complaint -->  
+            <code  value="34046-3"/> <!--  waist circumference-->  
+            <code  value="29762-2"/> <!-- social history -->  
+            <code  value="68487-8"/> <!--  medical/surgical history-->  
+            <code  value="61357-0"/> <!--  medication advice-->  
+            <code  value="42344-2"/> <!--  diet narrative-->  
+            <code  value="42344-2"/> <!--  discharge diet-->  
+            <code  value="1557-8"/> <!--  fasting glucose-->  
+            <code  value="42344-2"/> <!--  glucose post load-->  
+            <code  value="56851-9"/> <!-- careplan -->        
+        </include>
+    </compose>
+</ValueSet>

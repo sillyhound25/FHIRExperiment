@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://hl7.org/fhir ../../fhir-all-xsd/fhir-atom.xsd"
+ xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="empty"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">Simplified Profile for Observation Resource            
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/Observation-Simple"/>
+    <name value="Basic Observation (Number)"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Base Profile for Observation Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-08-14T12:27:20.458+10:00"/>
+
+    <structure>
+        <type value="Observation"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the a simplified Observation resource containing only 
+            the elements required for a single observation like a height or weight."/>
+        <snapshot>
+            <element>
+                <path value="Observation"/>
+                <definition>
+                    <short value="Measurements and simple assertions"/>
+                    <formal value="Measurements and simple assertions made about a patient, device or other subject."/>
+                    <comments value="Used for simple observations such as device measurements, laboratory atomic 
+                        results, vital signs, height, weight, smoking status, comments, etc.  
+                        Other resources are used to provide context for observations such as Lab reports, etc.
+                    This profile has only a small subset of the possibilities in the full resource"/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <constraint>
+                        <key value="2"/>
+                        <name value="reference range for quantity"/>
+                        <severity value="error"/>
+                        <human value="Can only have normal range if value is a quantity"/>
+                        <xpath value="exists(f:valueQuantity) or not(exists(f:normalRange))"/>
+                    </constraint>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.subject"/>
+                <definition>
+                    <short value="Who is the patient"/>
+                    <formal value="The person thing the observation is being made about."/>
+                    <comments value="The only circumstance in which the subject can be missing is when the observation is made by a device that does not know the patient. In this case, the observation SHALL be matched to a patient through some context/channel matching technique, and at this point, the observation should be updated."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Group"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Device"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Location"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.name"/>
+                <definition>
+                    <short value="What sort of observation (eg weight)"/>
+                    <formal value="Describes what was observed. Sometimes this is called the observation &quot;code&quot;."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ObservationType"/>
+                        <isExtensible value="false"/>
+                        <description value="Reduced codeset of Codes identifying types of simple observations"/>
+                        <referenceResource>
+                            <reference value="ValueSet/ccVSObservationSimpleCodes"/>
+                        </referenceResource>
+                    </binding>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="OBX-3-observation identifier"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="code"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.value[x]"/>
+                <definition>
+                    <short value="Actual result"/>
+                    <formal value="The information determined as a result of making the observation, if the information has a simple value."/>
+                    <comments value="Normally, an observation will have either a value or a set of related observations. A few observations (e.g. apgar store) may have both a value and related observations (for apgar, the observations from which the measure is derived). If a value is present, the datatype for this element should be determined by Observation.name. A CodeableConcept with just a text would be used instead of a string if the field was usually coded, or if the type associated with the Observation.name defines a coded value. The element, Observation.value[x], has a variable name depending on the type as follows: valueQuantity, valueCodeableConcept, valueRatio, valueChoice, valuePeriod, valueSampleData, or valueString (The name format is &quot;'value' + the type name&quot; with a capital on the first letter of the type)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Quantity"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                   
+                    <type>
+                        <code value="Attachment"/>
+                    </type>
+                    <type>
+                        <code value="Ratio"/>
+                    </type>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <type>
+                        <code value="Period"/>
+                    </type>
+                    <type>
+                        <code value="SampledData"/>
+                    </type>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <type>
+                        <code value="time"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="v2"/>
+                        <map value="OBX.2, OBX.5, OBX.6"/>
+                    </mapping>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="value"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.interpretation"/>
+                <definition>
+                    <short value="Interpretation - eg High, low, normal, etc."/>
+                    <formal value="The assessment made based on the result of the observation."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ObservationInterpretation"/>
+                        <isExtensible value="false"/>
+                        <description value="Codes identifying interpretations of observations"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/observation-interpretation"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.comments"/>
+                <definition>
+                    <short value="Comments about result"/>
+                    <formal value="May include statements about significant, unexpected or unreliable values, or information about the source of the value where this may be relevant to the interpretation of the result."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.applies[x]"/>
+                <definition>
+                    <short value="Physiologically Relevant time/time-period for observation"/>
+                    <formal value="The time or time-period the observed value is asserted as being true. For biological subjects - e.g. human patients - this is usually called the &quot;physiologically relevant time&quot;. This is usually either the time of the procedure or of specimen collection, but very often the source of the date/time is not known, only the date/time itself."/>
+                    <comments value="At least a date should be present unless this observation is a historical report."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="Period"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+
+                </definition>
+            </element>
+            
+            <element>
+                <path value="Observation.status"/>
+                <definition>
+                    <extension url="http://hl7.org/fhir/Profile/tools-extensions#display-hint">
+                        <valueString value="default: final"/>
+                    </extension>
+                    <short value="registered | preliminary | final | amended +"/>
+                    <formal value="The status of the result value."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="ObservationStatus"/>
+                        <isExtensible value="false"/>
+                        <description value="Codes providing the status of an observation"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/observation-status"/>
+                        </referenceResource>
+                    </binding>
+
+                </definition>
+            </element>
+            <element>
+                <path value="Observation.reliability"/>
+                <definition>
+                    <extension url="http://hl7.org/fhir/Profile/tools-extensions#display-hint">
+                        <valueString value="default: ok"/>
+                    </extension>
+                    <short value="ok | ongoing | early | questionable | calibrating | error +"/>
+                    <formal value="An estimate of the degree to which quality issues have impacted on the value reported."/>
+                    <comments value="Note that in most contexts, unreliable results are not recorded, deleted, or otherwise excluded, but it's not always possible to exclude them from the record. Interpreters of a result, whether human or machine, SHALL always either be aware of the status, or prevented from using the observation without being unaware that the reliability is not &quot;ok&quot;."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="ObservationReliability"/>
+                        <isExtensible value="false"/>
+                        <description value="Codes that provide an estimate of the degree to which quality issues have impacted on the value of an observation"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/observation-reliability"/>
+                        </referenceResource>
+                    </binding>
+
+                </definition>
+            </element>
+                     
+                     <!--
+            <element>
+                <path value="Observation.identifier"/>
+                <definition>
+                    <short value="Unique Id for this particular observation"/>
+                    <formal value="A unique identifier for the simple observation."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            
+            -->
+            <!--      
+            <element>
+                <path value="Observation.performer"/>
+                <definition>
+                    <short value="Who did the observation"/>
+                    <formal value="Who was responsible for asserting the observed value as &quot;true&quot;."/>
+                    <comments value="This would only be &quot;Device&quot; if the device is responsible for the measurement, not to capture the device used by a human to make the measurement.  (The latter could be captured as an extension.)."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Device"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Organization"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                   
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+             -->
+            
+        </snapshot>
+        
+        
+    </structure>
+</Profile>

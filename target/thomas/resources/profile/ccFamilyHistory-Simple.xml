@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://hl7.org/fhir ../../fhir-all-xsd/profile.xsd" xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">
+                ccFamilyHistory-simple
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/ccFamilyHistory-Simple"/>
+    <name value="Basic FamilyHistory"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Simplified Profile for FamilyHistory Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-08-22T11:59:13.420+10:00"/>
+    <mapping>
+        <identity value="v2"/>
+        <uri value="http://hl7.org/v2"/>
+        <name value="HL7 v2"/>
+    </mapping>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <structure>
+        <type value="FamilyHistory"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the FamilyHistory resource"/>
+        <snapshot>
+            <element>
+                <path value="FamilyHistory"/>
+                <definition>
+                    <short value="Information about patient's relatives, relevant for patient"/>
+                    <formal value="Significant health events and conditions for people related to the subject relevant in the context of care for the subject."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+            <!--
+            <element>
+                <path value="FamilyHistory.identifier"/>
+                <definition>
+                    <short value="External Id(s) for this record"/>
+                    <formal value="This records identifiers associated with this family history record that are defined by business processes and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            -->
+            <element>
+                <path value="FamilyHistory.subject"/>
+                <definition>
+                    <short value="Patient history is about"/>
+                    <formal value="The person who this history concerns."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.date"/>
+                <definition>
+                    <short value="When history was captured/updated"/>
+                    <formal value="The date (and possibly time) when the family history was taken."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.note"/>
+                <definition>
+                    <short value="Additional details not covered elsewhere"/>
+                    <formal value="Conveys information about family history not specific to individual relations."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                
+                <path value="FamilyHistory.relation"/>
+                <definition>
+                    <short value="Relative described by history"/>
+                    <formal value="The related person. Each FamilyHistory resource contains the entire family history for a single person."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <constraint>
+                        <key value="1"/>
+                        <name value="Age or Birthdate"/>
+                        <severity value="error"/>
+                        <human value="Can have age[x] or birth[x], but not both"/>
+                        <xpath value="not (*[starts-with(local-name(.), 'age')] and *[starts-with(local-name(.), 'birth')])"/>
+                    </constraint>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            
+            
+            <element>
+                <path value="FamilyHistory.relation.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            
+            
+
+            
+            
+            <element>
+                <path value="FamilyHistory.relation.name"/>
+                <definition>
+                    <short value="The family member described"/>
+                    <formal value="This will either be a name or a description.  E.g. &quot;Aunt Susan&quot;, &quot;my cousin with the red hair&quot;."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+
+
+            <!-- Here's my extension... -->
+            <!--
+            <element>
+                <path value="FamilyHistory.relation.height"/>
+                <definition>
+                    <short value="height"/>
+                    <formal value="height"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        !obviously it has to be an extension 
+                        <code value="Extension"/>
+                        !and here is the link to the extension definition:
+              this extension has to conform to the rules laid down in it's definition 
+                        <profile value="#height"/>
+                    </type>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+-->
+
+            <element>
+                <path value="FamilyHistory.relation.relationship"/>
+                <definition>
+                    <short value="Relationship to the subject"/>
+                    <formal value="The type of relationship this person has to the patient (father, mother, brother etc.)."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="FamilialRelationship"/>
+                        <isExtensible value="true"/>
+                        <conformance value="preferred"/>
+                        <description value="The nature of the relationship between the patient and the related person being described in the family history"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/v3/vs/FamilyMember"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.born[x]"/>
+                <definition>
+                    <short value="(approximate) date of birth"/>
+                    <formal value="The actual or approximate date of birth of the relative."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <!--
+                    <type>
+                        <code value="Period"/>
+                    </type>
+                    <type>
+                        <code value="date"/>
+                    </type>
+                    -->
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="player[classCode=LIV, determinerCode=INSTANCE]. birthDate (could be URG)"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.age[x]"/>
+                <definition>
+                    <short value="(approximate) age"/>
+                    <formal value="The actual or approximate age of the relative at the time the family history is recorded."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <!--
+                    <type>
+                        <code value="Age"/>
+                    </type>
+                    <type>
+                        <code value="Range"/>
+                    </type>
+                    -->
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.deceased[x]"/>
+                <definition>
+                    <short value="Dead? How old/when?"/>
+                    <formal value="If this resource is indicating that the related person is deceased, then an indicator of whether the person is deceased (yes) or not (no) or the age or age range or description of age at death - can be indicated here. If the reason for death is known, then it can be indicated in the outcome code of the condition - in this case the deceased property should still be set."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <!--
+                    <type>
+                        <code value="boolean"/>
+                    </type>
+                    <type>
+                        <code value="Age"/>
+                    </type>
+                    <type>
+                        <code value="Range"/>
+                    </type>
+                    <type>
+                        <code value="date"/>
+                    </type>
+                    -->
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.note"/>
+                <definition>
+                    <short value="General note about related person"/>
+                    <formal value="This property allows a non condition-specific note to the made about the related person. Ideally, the note would be in the condition property, but this is not always possible."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition"/>
+                <definition>
+                    <short value="Condition that the related person had"/>
+                    <formal value="The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.type"/>
+                <definition>
+                    <short value="Condition suffered by relation"/>
+                    <formal value="The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less specific string like 'cancer' depending on how much is known about the condition and the capabilities of the creating system."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ConditionKind"/>
+                        <isExtensible value="false"/>
+                        <description value="Identification of the Condition or diagnosis."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/condition-code"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.outcome"/>
+                <definition>
+                    <short value="deceased | permanent disability | etc."/>
+                    <formal value="Indicates what happened as a result of this condition.  If the condition resulted in death, deceased date is captured on the relation."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ConditionOutcome"/>
+                        <isExtensible value="true"/>
+                        <conformance value="preferred"/>
+                        <description value="The result of the condition for the patient.  E.g. death, permanent disability, temporary disability, etc."/>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.onset[x]"/>
+                <definition>
+                    <short value="When condition first manifested"/>
+                    <formal value="Either the age of onset, range of approximate age or descriptive string can be recorded.  For conditions with multiple occurrences, this describes the first known occurrence."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <!--
+                    <type>
+                        <code value="Age"/>
+                    </type>
+                    <type>
+                        <code value="Range"/>
+                    </type>
+                    -->
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="FamilyHistory.relation.condition.note"/>
+                <definition>
+                    <short value="Extra information about condition"/>
+                    <formal value="An area where general notes can be placed about this specific condition."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+        </snapshot>
+    </structure>
+    
+    <!-- A test extension. Adding height to a person -->
+    <!--
+    <extensionDefn>
+        <code value="height"/>
+        <contextType value="resource"/>
+        <context value="FamilyHistory.relation"/>
+        <element>
+            <path value="height"/>
+            <definition>
+                <short value="The persons height"/>
+                <formal value="How tall the person was"/>
+                <min value="0"/>
+                <max value="1"/>
+                <type>
+                    <code value="string"/>
+                </type>
+                <mustSupport value="false"/>
+                <isModifier value="false"/>
+            </definition>
+        </element>
+    </extensionDefn>
+    -->
+</Profile>

@@ -59,53 +59,58 @@ public class GetPatientHistoryServlet extends HttpServlet {
 
         //Bundle b = client.search().forAllResources().where()
 
-        //--------- allergies
-        Bundle allergyResults = client.search()
-                .forResource(AllergyIntolerance.class)
-                .where(AllergyIntolerance.SUBJECT.hasId(patientId))
-                .execute();
 
-        addResources(allResults,allergyResults,map);
+        try {
+            //--------- allergies
+            Bundle allergyResults = client.search()
+                    .forResource(AllergyIntolerance.class)
+                    .where(AllergyIntolerance.SUBJECT.hasId(patientId))
+                    .execute();
 
-        //--------- condition
-        Bundle conditionResults = client.search()
-                .forResource(Condition.class)
-                .where(Condition.SUBJECT.hasId(patientId))
-                .execute();
+            addResources(allResults, allergyResults, map);
 
-        addResources(allResults,conditionResults,map);
+            //--------- condition
+            Bundle conditionResults = client.search()
+                    .forResource(Condition.class)
+                    .where(Condition.SUBJECT.hasId(patientId))
+                    .execute();
 
-        //--------- observations
-        Bundle obsResults = client.search()
-                .forResource(Observation.class)
-                .where(Observation.SUBJECT.hasId(patientId))
-                .execute();
+            addResources(allResults, conditionResults, map);
 
-        addResources(allResults,obsResults,map);
+            //--------- observations
+            Bundle obsResults = client.search()
+                    .forResource(Observation.class)
+                    .where(Observation.SUBJECT.hasId(patientId))
+                    .execute();
 
-        //--------- family history
-        Bundle obsFamhx = client.search()
-                .forResource(FamilyHistory.class)
-                .where(FamilyHistory.SUBJECT.hasId(patientId))
-                .execute();
+            addResources(allResults, obsResults, map);
 
-        addResources(allResults,obsFamhx,map);
+            //--------- family history
+            Bundle obsFamhx = client.search()
+                    .forResource(FamilyHistory.class)
+                    .where(FamilyHistory.SUBJECT.hasId(patientId))
+                    .execute();
 
-        //--------- orders
-        Bundle obsOrder = client.search()
-                .forResource(Order.class)
-                .where(Order.SUBJECT.hasId(patientId))
-                .execute();
+            addResources(allResults, obsFamhx, map);
 
-        addResources(allResults,obsOrder,map);
+            //--------- orders
+            Bundle obsOrder = client.search()
+                    .forResource(Order.class)
+                    .where(Order.SUBJECT.hasId(patientId))
+                    .execute();
 
-        //--------- medications
-        Bundle medicationResults = client.search()
-                .forResource(MedicationStatement.class)
-                .where(MedicationStatement.PATIENT.hasId(patientId))
-                .execute();
-        addResources(allResults,medicationResults,map);
+            addResources(allResults, obsOrder, map);
 
+            //--------- medications
+            Bundle medicationResults = client.search()
+                    .forResource(MedicationStatement.class)
+                    .where(MedicationStatement.PATIENT.hasId(patientId))
+                    .execute();
+            addResources(allResults, medicationResults, map);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 
         JsonObjectBuilder json = Json.createObjectBuilder();// .build();
 
@@ -118,10 +123,6 @@ public class GetPatientHistoryServlet extends HttpServlet {
             BundleEntry bundleEntry = entry.getValue();
             IResource resource = bundleEntry.getResource();
             Date date = bundleEntry.getUpdated().getValue();
-
-
-            //String date = sdf.format(new Date());
-
 
             System.out.println(date);
             System.out.println(resource);

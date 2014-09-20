@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile 
+    xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">
+            ccDiagnosticReport
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/ccDiagnosticReport"/>
+    <name value="ccDiagnosticReport"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Base Profile for ccDiagnosticReport Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-08-22T11:59:13.420+10:00"/>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <mapping>
+        <identity value="v2"/>
+        <uri value="http://hl7.org/v2"/>
+        <name value="HL7 v2"/>
+    </mapping>
+    <structure>
+        <type value="DiagnosticReport"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the DiagnosticReport resource"/>
+        <snapshot>
+            <element>
+                <path value="DiagnosticReport"/>
+                <definition>
+                    <short value="A Diagnostic report - a combination of request information, atomic results, images, interpretation, as well as formatted reports"/>
+                    <formal value="The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretation, and formatted representation of diagnostic reports."/>
+                    <comments value="This is intended to capture a single report,and is not suitable for use in displaying summary information that covers multiple reports.  For example, this resource has not been designed for laboratory cumulative reporting formats nor detailed structured reports for sequencing."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="Observation[classCode=OBS, moodCode=EVN]"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.name"/>
+                <definition>
+                    <short value="Name/Code for this diagnostic report"/>
+                    <formal value="A code or name that describes this diagnostic report."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="DiagnosticReportNames"/>
+                        <isExtensible value="true"/>
+                        <conformance value="preferred"/>
+                        <description value="Codes that describe Diagnostic Reports"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/report-names"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.status"/>
+                <definition>
+                    <short value="registered | partial | final | corrected +"/>
+                    <formal value="The status of the diagnostic report as a whole."/>
+                    <comments value="This is labeled as &quot;Is Modifier&quot; because applications need to take appropriate action if a report is withdrawn."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="DiagnosticReportStatus"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="The status of the diagnostic report as a whole"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/diagnostic-report-status"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.issued"/>
+                <definition>
+                    <short value="Date this version was released"/>
+                    <formal value="The date and/or time that this version of the report was released from the source diagnostic service."/>
+                    <comments value="May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.subject"/>
+                <definition>
+                    <short value="The subject of the report, usually, but not always, the patient"/>
+                    <formal value="The subject of the report. Usually, but not always, this is a patient. However diagnostic services also perform analyses on specimens collected from a variety of other sources."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Group"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Device"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Location"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.performer"/>
+                <definition>
+                    <short value="Responsible Diagnostic Service"/>
+                    <formal value="The diagnostic service that is responsible for issuing the report."/>
+                    <comments value="This is not necessarily the source of the atomic data items - it is the entity that takes responsibility for the clinical report."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Organization"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.identifier"/>
+                <definition>
+                    <short value="Id for external references to this report"/>
+                    <formal value="The local ID assigned to the report by the order filler, usually by the Information System of the diagnostic service provider."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.requestDetail"/>
+                <definition>
+                    <short value="What was requested"/>
+                    <formal value="Details concerning a test requested."/>
+                    <comments value="Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource. Note that there are also cases where one request leads to multiple reports."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/DiagnosticOrder"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.serviceCategory"/>
+                <definition>
+                    <short value="Biochemistry, Hematology etc."/>
+                    <formal value="The section of the diagnostic service that performs the examination e.g. biochemistry, hematology, MRI."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="DiagnosticServiceSection"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="Codes for diagnostic service sections"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/diagnostic-service-sections"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.diagnostic[x]"/>
+                <definition>
+                    <short value="Physiologically Relevant time/time-period for report"/>
+                    <formal value="The time or time-period the observed values are related to. This is usually either the time of the procedure or of specimen collection(s), but very often the source of the date/time is not known, only the date/time itself."/>
+                    <comments value="If the diagnostic procedure was performed on the patient, this is the time it was performed. If there are specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and the exact relationship between the specimens and the diagnostically relevant time is not always automatic."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="Period"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.specimen"/>
+                <definition>
+                    <short value="Specimens this report is based on"/>
+                    <formal value="Details about the specimens on which this Disagnostic report is based."/>
+                    <comments value="If the specimen is sufficiently specified with a code in the Test result name, then this additional data may be redundant. If there are multiple specimens, these may be represented per Observation or group."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Specimen"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.result"/>
+                <definition>
+                    <short value="Observations - simple, or complex nested groups"/>
+                    <formal value="Observations that are part of this diagnostic report. Observations can be simple name/value pairs (e.g. &quot;atomic&quot; results), or they can be grouping observations that include references to other members of the group (e.g. &quot;panels&quot;)."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Observation"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.imagingStudy"/>
+                <definition>
+                    <short value="Reference to full details of imaging associated with the diagnostic report"/>
+                    <formal value="One or more links to full details of any imaging performed during the diagnostic investigation. Typically, this is imaging performed by DICOM enabled modalities, but this is not required. A fully enabled PACS viewer can use this information to provide views of the source images."/>
+                    <comments value="ImagingStudy and image are somewhat overlapping - typically, an image in the image list will also be found in the imaging study resource. However the imaging study and image lists cater to different types of displays for different types of purposes. Neither, either, or both may be provided."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/ImagingStudy"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.image"/>
+                <definition>
+                    <short value="Key images associated with this report"/>
+                    <formal value="A list of key images associated with this report. The images are generally created during the diagnostic process, and may be directly of the patient, or of treated specimens (i.e. slides of interest)."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.image.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.image.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.image.comment"/>
+                <definition>
+                    <short value="Comment about the image (e.g. explanation)"/>
+                    <formal value="A comment about the image. Typically, this is used to provide an explanation for why the image is included, or to draw the viewer's attention to important features."/>
+                    <comments value="The comment should be displayed with the image. It would be common for the report to include additional discussion of the image contents in other sections such as the conclusion."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.image.link"/>
+                <definition>
+                    <short value="Reference to the image source"/>
+                    <formal value="Reference to the image source."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Media"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.conclusion"/>
+                <definition>
+                    <short value="Clinical Interpretation of test results"/>
+                    <formal value="Concise and clinically contextualized narrative interpretation of the diagnostic report."/>
+                    <comments value="Typically, a report is either [all data, no narrative (e.g. Core lab)] or [a mix of data with some concluding narrative (e.g. Structured Pathology Report, Bone Density)], or [all narrative (e.g. typical imaging report, histopathology)]. In all of these cases, the narrative goes in &quot;text&quot;."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="string"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.codedDiagnosis"/>
+                <definition>
+                    <short value="Codes for the conclusion"/>
+                    <formal value="Codes for the conclusion."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="AdjunctDiagnosis"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="Diagnoses codes provided as adjuncts to the report"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/clinical-findings"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="DiagnosticReport.presentedForm"/>
+                <definition>
+                    <short value="Entire Report as issued"/>
+                    <formal value="Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent."/>
+                    <comments value="Application/pdf is recommended as the most reliable and interoperable in this context."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Attachment"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+        </snapshot>  
+    </structure>
+</Profile>

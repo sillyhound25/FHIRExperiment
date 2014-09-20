@@ -289,7 +289,10 @@ myApp.controller('NavController', function($scope,$http,patientService) {
         $scope.data.scratch="";     //clear the history detail
         $scope.data.scratchNarrative="";
 
+
         $scope.search = {};
+        $scope.search.results = [];
+        $scope.data.play = [];
         $scope.status.searchPatient = true;     //to indicate that searching for a patient...
         $scope.search.params = {name:"eve"};
     };
@@ -444,9 +447,11 @@ myApp.controller('NavController', function($scope,$http,patientService) {
             }
         }).success(function (data, status, headers, config) {
             data.meta = {id:patId};
-            //console.log(data)
+            console.log(data)
             $scope.status.patientSelected=true;
             $scope.status.patient = data;
+            $scope.status.patientName = data.name[0].family;
+            console.log($scope.status.patientName);
         }).error(function (data, status, headers, config) {
             alert('there was an error getting the patient');
         });

@@ -10,7 +10,26 @@
 
     <div class='list-group'>
         <a href='#' ng-click="PatientSelected(entry)" ng-repeat="entry in search.results.entry"
-           class='list-group-item' data-ng-bind-html="entry.content.text.div">
+           class='list-group-item'>
+            <div class="row">
+                <div class='col-md-4'>
+                    <div data-ng-bind-html="entry.id"></div>
+                </div>
+                <div class="col-md-8">
+                    <div  data-ng-bind-html="entry.content.text.div"></div>
+                </div>
+
+
+            </div>
+
+
         </a>
     </div>
+
+    <hr />
+    <div class='list-group'>
+
+        </div>
+
+
 </div>

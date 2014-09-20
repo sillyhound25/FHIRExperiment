@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile 
+    xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">
+            ccMedicationDispense
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/ccMedicationDispense"/>
+    <name value="ccMedicationDispense"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Base Profile for MedicationDispense Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-08-22T11:59:13.420+10:00"/>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <mapping>
+        <identity value="v2"/>
+        <uri value="http://hl7.org/v2"/>
+        <name value="HL7 v2"/>
+    </mapping>
+    <structure>
+        <type value="MedicationDispense"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the MedicationDispense resource"/>
+        <snapshot>
+            <element>
+                <path value="MedicationDispense"/>
+                <definition>
+                    <short value="Dispensing a medication to a named patient"/>
+                    <formal value="Dispensing a medication to a named patient.  This includes a description of the supply provided and the instructions for administering the medication."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <mapping>
+                        <identity value="rim"/>
+                        <map value="Supply[moodCode=EVN]"/>
+                    </mapping>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.identifier"/>
+                <definition>
+                    <short value="External identifier"/>
+                    <formal value="Identifier assigned by the dispensing facility - this is an identifier assigned outside FHIR."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.status"/>
+                <definition>
+                    <short value="in progress | on hold | completed | entered in error | stopped"/>
+                    <formal value="A code specifying the state of the set of dispense events."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="MedicationDispenseStatus"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="A code specifying the state of the dispense event."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/medication-dispense-status"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.patient"/>
+                <definition>
+                    <short value="Who the dispense is for"/>
+                    <formal value="A link to a resource representing the person to whom the medication will be given."/>
+                    <comments value="SubstanceAdministration-&gt;subject-&gt;Patient."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispenser"/>
+                <definition>
+                    <short value="Practitioner responsible for dispensing medication"/>
+                    <formal value="The individual responsible for dispensing the medication."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.authorizingPrescription"/>
+                <definition>
+                    <short value="Medication order that authorizes the dispense"/>
+                    <formal value="Indicates the medication order that is being dispensed against."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/MedicationPrescription"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense"/>
+                <definition>
+                    <short value="Details for individual dispensed medicationdetails"/>
+                    <formal value="Indicates the details of the dispense event such as the days supply and quantity of medication dispensed."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <constraint>
+                        <key value="1"/>
+                        <name value="Timing"/>
+                        <severity value="error"/>
+                        <human value="whenHandedOver cannot be before whenPrepared"/>
+                        <xpath value="not(exists(f:whenHandedOver/@value)) or not(exists(f:whenPrepared/@value)) or ( f:whenHandedOver/@value &gt;= f:whenPrepared/@value)"/>
+                    </constraint>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.identifier"/>
+                <definition>
+                    <short value="External identifier for individual item"/>
+                    <formal value="Identifier assigned by the dispensing facility.   This is an identifier assigned outside FHIR."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.status"/>
+                <definition>
+                    <short value="in progress | on hold | completed | entered in error | stopped"/>
+                    <formal value="A code specifying the state of the dispense event."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="MedicationDispenseStatus"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="A code specifying the state of the dispense event."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/medication-dispense-status"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.type"/>
+                <definition>
+                    <short value="Trial fill, partial fill, emergency fill, etc."/>
+                    <formal value="Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationDispenseType"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/v3/vs/ActPharmacySupplyType"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.quantity"/>
+                <definition>
+                    <short value="Amount dispensed"/>
+                    <formal value="The amount of medication that has been dispensed. Includes unit of measure."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Quantity"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.medication"/>
+                <definition>
+                    <short value="What medication was supplied"/>
+                    <formal value="Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications."/>
+                    <comments value="Note: do not use Medication.name to describe the dispensed medication. When the only available information is a text description of the medication, Medication.code.text should be used."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Medication"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.whenPrepared"/>
+                <definition>
+                    <short value="Dispense processing time"/>
+                    <formal value="The time when the dispensed product was packaged and reviewed."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.whenHandedOver"/>
+                <definition>
+                    <short value="Handover time"/>
+                    <formal value="The time the dispensed product was provided to the patient or their representative."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.destination"/>
+                <definition>
+                    <short value="Where the medication was sent"/>
+                    <formal value="Identification of the facility/location where the medication was shipped to, as part of the dispense event."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Location"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.receiver"/>
+                <definition>
+                    <short value="Who collected the medication"/>
+                    <formal value="Identifies the person who picked up the medication.  This will usually be a patient or their carer, but some cases exist where it can be a healthcare professional."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage"/>
+                <definition>
+                    <short value="Medicine administration instructions to the patient/carer"/>
+                    <formal value="Indicates how the medication is to be used by the patient."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.additionalInstructions"/>
+                <definition>
+                    <short value="E.g. &quot;Take with food&quot;"/>
+                    <formal value="Additional instructions such as &quot;Swallow with plenty of water&quot; which may or may not be coded."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.timing[x]"/>
+                <definition>
+                    <short value="When medication should be administered"/>
+                    <formal value="The timing schedule for giving the medication to the patient.  The Schedule data type allows many different expressions, for example.  &quot;Every  8 hours&quot;; &quot;Three times a day&quot;; &quot;1/2 an hour before breakfast for 10 days from 23-Dec 2011:&quot;;  &quot;15 Oct 2013, 17 Oct 2013 and 1 Nov 2013&quot;."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <!--
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <type>
+                        <code value="Period"/>
+                    </type>
+                    -->
+                    <type>
+                        <code value="Schedule"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.asNeeded[x]"/>
+                <definition>
+                    <short value="Take &quot;as needed&quot; f(or x)"/>
+                    <formal value="If set to true or if specified as a CodeableConcept, indicates that the medication is only taken when needed within the specified schedule rather than at every scheduled dose.  If a CodeableConcept is present, it indicates the pre-condition for taking the Medication."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="boolean"/>
+                    </type>
+                    
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationAsNeededReason"/>
+                        <isExtensible value="true"/>
+                        <conformance value="preferred"/>
+                        <description value="A coded concept identifying the pre-condition that should hold prior to consuming a medication dose.  For example &quot;pain&quot;, &quot;30 minutes prior to sexual intercourse&quot;, &quot;on flare-up&quot;, etc."/>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.site"/>
+                <definition>
+                    <short value="Body site to administer to"/>
+                    <formal value="A coded specification of the anatomic site where the medication first enters the body."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationAdministrationSite"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="A coded concept describing the site location the medicine enters into or onto the body"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/approach-site-codes"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.route"/>
+                <definition>
+                    <short value="How drug should enter body"/>
+                    <formal value="A code specifying the route or physiological path of administration of a therapeutic agent into or onto a subject."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="RouteOfAdministration"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/route-codes"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.method"/>
+                <definition>
+                    <short value="Technique for administering medication"/>
+                    <formal value="A coded value indicating the method by which the medication is introduced into or onto the body. Most commonly used for injections.  Examples:  Slow Push; Deep IV.  Terminologies used often pre-coordinate this term with the route and or form of administration."/>
+                    <comments value="SubstanceAdministration.methodCode."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationAdministrationMethod"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="A coded concept describing the technique by which the medicine is administered"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/administration-method-codes"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.quantity"/>
+                <definition>
+                    <short value="Amount of medication per dose"/>
+                    <formal value="The amount of therapeutic or other substance given at one administration event."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Quantity"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.rate"/>
+                <definition>
+                    <short value="Amount of medication per unit of time"/>
+                    <formal value="Identifies the speed with which the substance is introduced into the subject. Typically the rate for an infusion. 200ml in 2 hours."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Ratio"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.dispense.dosage.maxDosePerPeriod"/>
+                <definition>
+                    <short value="Upper limit on medication per unit of time"/>
+                    <formal value="The maximum total quantity of a therapeutic substance that may be administered to a subject over the period of time,  e.g. 1000mg in 24 hours."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Ratio"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution"/>
+                <definition>
+                    <short value="Deals with substitution of one medicine for another"/>
+                    <formal value="Indicates whether or not substitution was made as part of the dispense.  In some cases substitution will be expected but doesn't happen, in other cases substitution is not expected but does happen.  This block explains what substitition did or did not happen and why."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution.type"/>
+                <definition>
+                    <short value="Type of substitiution"/>
+                    <formal value="A code signifying whether a different drug was dispensed from what was prescribed."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationIntendedSubstitutionType"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="A coded concept describing whether a different medicinal product may be dispensed other than the product as specified exactly in the prescription"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/v3/vs/ActSubstanceAdminSubstitutionCode"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution.reason"/>
+                <definition>
+                    <short value="Why was substitution made"/>
+                    <formal value="Indicates the reason for the substitution of (or lack of substitution) from what was prescribed."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="MedicationIntendedSubstitutionReason"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="A coded concept describing the reason that a different medication should (or should not) be substituted from what was prescribed."/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/v3/vs/SubstanceAdminSubstitutionReason"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="MedicationDispense.substitution.responsibleParty"/>
+                <definition>
+                    <short value="Who is responsible for the substitution"/>
+                    <formal value="The person or organization that has primary responsibility for the substitution."/>
+                    <comments value="rename."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+        </snapshot>
+    </structure>
+</Profile>

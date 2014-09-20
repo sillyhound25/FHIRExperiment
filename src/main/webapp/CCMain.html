@@ -67,16 +67,14 @@
     <div ng-show="status.patientSelected && status.showHistory">
 
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h4>Resources created for this patient</h4>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div ng-show="status.gettingPatientData">Reading data, please wait...</div>
                 <a link="#" class="btn btn-primary" ng-hide="status.gettingPatientData" ng-click="refreshResourceList()">Refresh</a>
             </div>
         </div>
-
-
 
         <div class="row">
             <div class="col-md-4">

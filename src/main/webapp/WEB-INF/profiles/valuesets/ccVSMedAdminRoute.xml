@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValueSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://hl7.org/fhir ../../fhir-all-xsd/valueset.xsd"
+ xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="empty"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">Site codes
+        </div>
+    </text>
+    <identifier value="http://hl7.org/fhir/v2/vs/0074"/>
+    <name value="ccVSMedAdminRoute"/>
+    <publisher value="ccConnectathon"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org"/>
+    </telecom>
+    <description value="Med Admin Routes"/>
+    <status value="active"/>
+    <date value="2011-01-28"/>
+    <compose>
+        <include>
+            <system value="http://snomed.info/sct"/>
+            <code  value="260548002"/>
+            <code  value="78421000"/>
+            <code  value="34206005"/>
+            
+            
+            
+        </include>
+    </compose>
+</ValueSet>

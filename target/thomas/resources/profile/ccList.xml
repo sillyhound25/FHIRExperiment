@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile 
+    xmlns="http://hl7.org/fhir">
+    <text>
+        <status value="generated"/>
+        <div 
+            xmlns="http://www.w3.org/1999/xhtml">
+            ccList
+        </div>
+    </text>
+    <url value="http://hl7.org/fhir/Profile/ccList"/>
+    <name value="ccList"/>
+    <publisher value="HL7 FHIR Standard"/>
+    <telecom>
+        <system value="url"/>
+        <value value="http://hl7.org/fhir"/>
+    </telecom>
+    <description value="Base Profile for List Resource"/>
+    <code>
+        <system value="http://example.org"/>
+        <code value="cc"/>
+    </code>
+    <status value="draft"/>
+    <date value="2014-08-22T11:59:13.420+10:00"/>
+    <mapping>
+        <identity value="rim"/>
+        <uri value="http://hl7.org/v3"/>
+        <name value="RIM"/>
+    </mapping>
+    <structure>
+        <type value="List"/>
+        <publish value="true"/>
+        <purpose value="This is the definition for the List resource"/>
+        <snapshot>
+            <element>
+                <path value="List"/>
+                <definition>
+                    <short value="Information summarized from a list of other resources"/>
+                    <formal value="A set of information summarized from a list of other resources."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                    <constraint>
+                        <key value="2"/>
+                        <name value="Deleted Rule"/>
+                        <severity value="error"/>
+                        <human value="The deleted flag can only be used if the mode of the list is &quot;changes&quot;"/>
+                        <xpath value="(f:mode/@value = 'changes') or not(exists(f:entry/f:item/f:deleted))"/>
+                    </constraint>
+                    <constraint>
+                        <key value="1"/>
+                        <name value="No emptyReason if list is not empty"/>
+                        <severity value="error"/>
+                        <human value="A list can only have an emptyReason if it is empty"/>
+                        <xpath value="not(exists(f:emptyReason) and exists(f:entry))"/>
+                    </constraint>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.language"/>
+                <definition>
+                    <short value="Language of the resource content"/>
+                    <formal value="The base language in which the resource is written."/>
+                    <comments value="Language is provided to support indexing and accessibility (typically, services such as text to speech use the language tag). The html language tag in the narrative applies  to the narrative. The language tag on the resource may be used to specify the language of other presentations generated from the data in the resource  Not all the content has to be in the base language. The Resource.language should not be assumed to apply to the narrative automatically. If a language is specified, it should it also be specified on the div element in the html (see rules in HTML5 for information about the relationship between xml:lang and the html lang attribute)."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.text"/>
+                <definition>
+                    <short value="Text summary of the resource, for human interpretation"/>
+                    <formal value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+                    <comments value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+                    <synonym value="narrative"/>
+                    <synonym value="html"/>
+                    <synonym value="xhtml"/>
+                    <synonym value="display"/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="Narrative"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.contained"/>
+                <definition>
+                    <short value="Contained, inline Resources"/>
+                    <formal value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+                    <comments value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+                    <synonym value="inline resources"/>
+                    <synonym value="anonymous resources"/>
+                    <synonym value="contained resources"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Resource"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.identifier"/>
+                <definition>
+                    <short value="Business identifier"/>
+                    <formal value="Identifier for the List assigned for business purposes outside the context of FHIR."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Identifier"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.code"/>
+                <definition>
+                    <short value="What the purpose of this list is"/>
+                    <formal value="This code defines the purpose of the list - why it was created."/>
+                    <comments value="If there is no code, the purpose of the list is implied where it is used, such as in a document section using Document.section.code."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ListPurpose"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="What the purpose of a list is"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/list-example-codes"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="List.subject"/>
+                <definition>
+                    <short value="If all resources have the same subject"/>
+                    <formal value="The common subject (or patient) of the resources that are in the list, if there is one."/>
+                    <comments value="Some purely aribitrary lists do not have a common subject, so this is optional."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Group"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Device"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Location"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.source"/>
+                <definition>
+                    <short value="Who and/or what defined the list contents"/>
+                    <formal value="The entity responsible for deciding what the contents of the list were."/>
+                    <comments value="The primary source is the entity that made the decisions what items are in the list. This may be software or user."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+                    </type>
+                    <!--
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Patient"/>
+                    </type>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Device"/>
+                    </type>
+                    -->
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.date"/>
+                <definition>
+                    <short value="When the list was prepared"/>
+                    <formal value="The date that the list was prepared."/>
+                    <comments value="The actual important date is the date of currency of the resources that were summarized, but it is usually assumed that these are current when the preparation occurs."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.ordered"/>
+                <definition>
+                    <short value="Whether items in the list have a meaningful order"/>
+                    <formal value="Whether items in the list have a meaningful order."/>
+                    <comments value="Applications SHOULD render ordered lists in the order provided, but MAY allow users to re-order based on their own preferences as well. This is marked as &quot;is modifier&quot; because whether the list is ordered or not may change how the results are processed or displayed."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="boolean"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.mode"/>
+                <definition>
+                    <short value="working | snapshot | changes"/>
+                    <formal value="How this list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="code"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                    <binding>
+                        <name value="ListMode"/>
+                        <isExtensible value="false"/>
+                        <conformance value="required"/>
+                        <description value="The processing mode that applies to this list"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/list-mode"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry"/>
+                <definition>
+                    <short value="Entries in the list"/>
+                    <formal value="Entries in this list."/>
+                    <comments value="If there are no entries in the list, an emptyReason SHOULD be provided."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.extension"/>
+                <definition>
+                    <short value="Additional Content defined by implementations"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.modifierExtension"/>
+                <definition>
+                    <short value="Extensions that cannot be ignored"/>
+                    <formal value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+                    <comments value="There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone."/>
+                    <synonym value="extensions"/>
+                    <synonym value="user content"/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="Extension"/>
+                    </type>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.flag"/>
+                <definition>
+                    <short value="Workflow information about this item"/>
+                    <formal value="The flag allows the system constructing the list to make one or more statements about the role and significance of the item in the list."/>
+                    <comments value="The flag can only be understood in the context of the List.code. If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Deleted can only be used if the List.mode is &quot;changes&quot;."/>
+                    <min value="0"/>
+                    <max value="*"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ListItemFlag"/>
+                        <isExtensible value="true"/>
+                        <conformance value="example"/>
+                        <description value="Codes that provide further information about the reason and meaning of the item in the list"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/list-item-flag"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.deleted"/>
+                <definition>
+                    <short value="If this item is actually marked as deleted"/>
+                    <formal value="True if this item is marked as deleted in the list."/>
+                    <comments value="If the flag means that the entry has actually been deleted from the list, the deleted element SHALL be true. Both flag and deleted can only be used if the List.mode is &quot;changes&quot;. A deleted entry should be displayed in narrative as deleted."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="boolean"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="true"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.date"/>
+                <definition>
+                    <short value="When item added to list"/>
+                    <formal value="When this item was added to the list."/>
+                    <comments value="This is only useful and meaningful when the mode is &quot;working&quot;."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="dateTime"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.entry.item"/>
+                <definition>
+                    <short value="Actual entry"/>
+                    <formal value="A reference to the actual resource from which data was derived."/>
+                    <min value="1"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="ResourceReference"/>
+                        <profile value="http://hl7.org/fhir/Profile/Any"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                </definition>
+            </element>
+            <element>
+                <path value="List.emptyReason"/>
+                <definition>
+                    <short value="Why list is empty"/>
+                    <formal value="If the list is empty, why the list is empty."/>
+                    <comments value="The various reasons for an empty list make a significant interpretation to its interpretation."/>
+                    <min value="0"/>
+                    <max value="1"/>
+                    <type>
+                        <code value="CodeableConcept"/>
+                    </type>
+                    <mustSupport value="false"/>
+                    <isModifier value="false"/>
+                    <binding>
+                        <name value="ListEmptyReason"/>
+                        <isExtensible value="true"/>
+                        <conformance value="preferred"/>
+                        <description value="If a list is empty, why it is empty"/>
+                        <referenceResource>
+                            <reference value="http://hl7.org/fhir/vs/list-empty-reason"/>
+                        </referenceResource>
+                    </binding>
+                </definition>
+            </element>
+        </snapshot>
+    </structure>
+</Profile>
