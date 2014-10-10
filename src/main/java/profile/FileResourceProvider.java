@@ -2,8 +2,10 @@ package profile;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IResource;
-import ca.uhn.fhir.model.dstu.resource.Profile;
+import ca.uhn.fhir.model.dstu.resource.OperationOutcome;
+import ca.uhn.fhir.model.dstu.valueset.IssueSeverityEnum;
 import ca.uhn.fhir.model.primitive.IdDt;
+import ca.uhn.fhir.rest.api.MethodOutcome;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +18,10 @@ import java.nio.file.Files;
  */
 public class FileResourceProvider implements IResourceProvider {
     @Override
-    public IResource getResource(HttpServletRequest theRequest, IdDt idDt) {
+    public IResource getResource(HttpServletRequest theRequest, IdDt theId) {
 
-        String resourceType = idDt.getResourceType().toLowerCase();
-        String id = idDt.getIdPart();
+        String resourceType = theId.getResourceType().toLowerCase();
+        String id = theId.getIdPart();
 
         ServletContext context = theRequest.getServletContext();
         FhirContext fhirContext = (FhirContext) context.getAttribute("fhircontext");
@@ -35,5 +37,20 @@ public class FileResourceProvider implements IResourceProvider {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public MethodOutcome putResource(HttpServletRequest theRequest, IResource resource, IdDt theId) {
+
+        MethodOutcome retVal = new MethodOutcome();
+        retVal.setId(theId);
+
+        final OperationOutcome operationOutcome = new OperationOutcome();
+        final OperationOutcome.Issue issue = operationOutcome.addIssue();
+        issue.setSeverity(IssueSeverityEnum.INFORMATION);
+        issue.setDetails("message");
+        retVal.setOperationOutcome(operationOutcome);
+        return retVal;
+
     }
 }

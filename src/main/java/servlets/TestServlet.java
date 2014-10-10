@@ -53,7 +53,16 @@ public class TestServlet extends HttpServlet {
 
         System.out.println(jb.toString());
 
-        Bundle bundle = _fhirContext.newXmlParser().parseBundle(jb.toString());
+
+        Bundle bundle = null;
+
+        if (request.getHeader("content-type").equals("application/json+fhir")) {
+            bundle = _fhirContext.newJsonParser().parseBundle(jb.toString());
+        } else {
+            bundle = _fhirContext.newXmlParser().parseBundle(jb.toString());
+        }
+
+
 
         //------- this code segment is what observationService would do...
         try {

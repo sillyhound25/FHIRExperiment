@@ -29,7 +29,7 @@ public class ValueSetResourceProvider implements ca.uhn.fhir.rest.server.IResour
 
         //assume resources are saved on the file system...
         IResourceProvider resourceProvider = new FileResourceProvider();
-        System.out.println(theId.getValue());
+        //System.out.println(theId.getValue());
         return (ValueSet) resourceProvider.getResource(theRequest, theId);
 
     }

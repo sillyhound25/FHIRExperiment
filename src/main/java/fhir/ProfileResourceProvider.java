@@ -7,6 +7,7 @@ package fhir;
 import ca.uhn.fhir.model.dstu.resource.*;
 
 
+import ca.uhn.fhir.model.dstu.valueset.IssueSeverityEnum;
 import ca.uhn.fhir.model.primitive.IdDt;
 
 import ca.uhn.fhir.rest.annotation.*;
@@ -20,14 +21,15 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * The provider for Observation Resources...
+ * The provider for Profile Resources...
  */
 public class ProfileResourceProvider implements ca.uhn.fhir.rest.server.IResourceProvider {
     //return a single Patient by ID
     @Read()
     public Profile getResourceById(@IdParam IdDt theId,HttpServletRequest theRequest) {
 
-        //assume resources are saved on the file system...
+        //assume profile resources are saved on the file system...
+        //later could provide an implementation of the interface that points to an external server...
         IResourceProvider resourceProvider = new FileResourceProvider();
         System.out.println(theId.getValue());
         return (Profile) resourceProvider.getResource(theRequest, theId);
@@ -41,21 +43,18 @@ public class ProfileResourceProvider implements ca.uhn.fhir.rest.server.IResourc
         _myMongo = myMongo;
     }
 
+
+
     @Update
-    public MethodOutcome updateProfile(@IdParam IdDt theId, @ResourceParam Profile theProfile) {
+    public MethodOutcome updateProfile(@IdParam IdDt theId, @ResourceParam Profile theProfile,HttpServletRequest theRequest) {
 
-        theProfile.setId(theId);
 
-        _myMongo.saveResource(theProfile);
+        IResourceProvider resourceProvider = new FileResourceProvider();
+        System.out.println(theId.getValue());
+        return resourceProvider.putResource(theRequest,theProfile,theId);
 
-        MethodOutcome retVal = new MethodOutcome();
-        retVal.setId(theId);
-        //OperationOutcome outcome = new OperationOutcome();
-        ////outcome.a
-       // outcome.addIssue().setDetails("No problems");
-        //retVal.setOperationOutcome(outcome);
 
-        return retVal;
+
     }
 
     @Override

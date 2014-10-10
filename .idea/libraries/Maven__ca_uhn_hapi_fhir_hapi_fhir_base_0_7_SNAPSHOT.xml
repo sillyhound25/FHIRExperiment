@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: ca.uhn.hapi.fhir:hapi-fhir-base:0.7-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140919.122841-7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140925.122858-8.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140919.122841-7-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140925.122858-8-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140919.122841-7-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ca/uhn/hapi/fhir/hapi-fhir-base/0.7-SNAPSHOT/hapi-fhir-base-0.7-20140925.122858-8-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
